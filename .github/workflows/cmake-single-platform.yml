@@ -1,0 +1,46 @@
+name: CI
+
+on: [ push, pull_request ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  cpplint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install cpplint
+        run: pip3 install cpplint
+      - name: Lint C++ files
+        run: |
+          cd src
+          echo "filter=-legal/copyright, -readability/todo, -build/namespaces_literals, -build/include_subdir, -build/namespaces, -runtime/references
+                linelength=120" > CPPLINT.cfg
+          cpplint --recursive .
+
+  test:
+    needs: cpplint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          mkdir build
+          cd build
+          pip3 install conan==1.*
+          conan install .. --build=missing -s build_type=${{env.BUILD_TYPE}} -s compiler.libcxx=libstdc++11
+
+      - name: Configure CMake
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+      - name: Build
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+      - name: Test
+        working-directory: ${{github.workspace}}/build
+        run: ctest -C ${{env.BUILD_TYPE}} --extra-verbose
