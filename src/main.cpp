@@ -8,14 +8,10 @@ int main() {
   std::string input;
   std::vector<double> results;
 
-  // for (int i = 0; i < 5; ++i) {
+  for (int i = 0; i < 5; ++i) {
     std::getline(std::cin, input);
-    results.push_back(calc.Calculate(input));
+    std::cout << calc.Calculate(input) << std::endl;
     calc.Reset();
-  // }
-
-  for (auto& result : results) {
-    std::cout << result << std::endl;
   }
 
   return EXIT_SUCCESS;

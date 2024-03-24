@@ -17,12 +17,11 @@ class RPN {
   double Calculate(std::string_view expression);
   void Reset();
 
- private:
-  static double CalculateOperation(double lhs, double rhs, char op);
+  static double CalculateOperation(double lhs, double rhs, constants::Operations operation);
 
-  static std::optional<double> ParseOperand(std::string_view);
-  static bool IsDelimeter(char) noexcept;
-  static bool IsOperator(char) noexcept;
+  static bool IsOperator(std::string_view) noexcept;
+  static std::optional<double> ParseOperand(std::string_view) noexcept;
+  static std::optional<constants::Operations> ParseOperation(std::string_view) noexcept;
 
  private:
   std::stack<double> operands_;

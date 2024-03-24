@@ -3,38 +3,31 @@
 namespace calc {
 
 double RPN::Calculate(std::string_view expression) {
-  std::stringstream buffer;
-  bool operand_in_buff = false;
+  std::istringstream istream{expression.data()};
+  std::string input;
 
-  for (auto& symbol : expression) {
-    if (IsOperator(symbol)) {
-      operand_in_buff = false;
-
+  while (istream >> input) {
+    if (IsOperator(input)) {
       if (operands_.size() < 2) {
         throw std::invalid_argument("No operands entered");
       }
 
-      auto rhs = operands_.top();
-      operands_.pop();
-      auto lhs = operands_.top();
-      operands_.pop();
+      if (auto operation = ParseOperation(input)) {
+        auto rhs = operands_.top();
+        operands_.pop();
+        auto lhs = operands_.top();
+        operands_.pop();
 
-      operands_.push(CalculateOperation(lhs, rhs, symbol));
-    } else if (IsDelimeter(symbol)) {
-      if (operand_in_buff) {
-        auto operand = ParseOperand(buffer.view());
-
-        if (operand) {
-          operands_.push(*operand);
-        } else {
-          throw std::invalid_argument("Wrong operand or operator format");
-        }
+        operands_.push(CalculateOperation(lhs, rhs, *operation));
+      } else {
+        throw std::invalid_argument("Wrong operator format");
       }
-
-      buffer.str(std::string());
     } else {
-      operand_in_buff = true;
-      buffer << symbol;
+      if (auto operand = ParseOperand(input)) {
+        operands_.push(*operand);
+      } else {
+        throw std::invalid_argument("Wrong operand format");
+      }
     }
   }
 
@@ -46,12 +39,7 @@ void RPN::Reset() {
   std::swap(operands_, empty);
 }
 
-double RPN::CalculateOperation(double lhs, double rhs, char op) {
-  if (!constants::char_to_operations.contains(op)) {
-    throw std::invalid_argument("Unknown operation");
-  }
-
-  auto operation = constants::char_to_operations.at(op);
+double RPN::CalculateOperation(double lhs, double rhs, constants::Operations operation) {
   double ans = 0;
 
   if (operation == constants::Operations::ADDITION) {
@@ -71,24 +59,24 @@ double RPN::CalculateOperation(double lhs, double rhs, char op) {
   return ans;
 }
 
-bool RPN::IsDelimeter(char symbol) noexcept {
-  return symbol == constants::kDelimeter;
-}
-
-bool RPN::IsOperator(char input) noexcept {
+bool RPN::IsOperator(std::string_view input) noexcept {
   return constants::char_to_operations.contains(input);
 }
 
-std::optional<double> RPN::ParseOperand(std::string_view input) {
-  double operand = 0.0;
-
-  try {
-    operand = std::stod(input.begin(), nullptr);
-  } catch (...) {
+std::optional<constants::Operations> RPN::ParseOperation(std::string_view input) noexcept {
+  if (!constants::char_to_operations.contains(input)) {
     return std::nullopt;
   }
 
-  return operand;
+  return constants::char_to_operations.at(input);
+}
+
+std::optional<double> RPN::ParseOperand(std::string_view input) noexcept {
+  try {
+    return std::stod(input.begin(), nullptr);
+  } catch (...) {
+    return std::nullopt;
+  }
 }
 
 }  // namespace calc
