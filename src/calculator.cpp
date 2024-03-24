@@ -3,7 +3,7 @@
 namespace calc {
 
 double Calculator::Calculate(std::string_view expression) {
-  if(expression.empty()) {
+  if (expression.empty()) {
     throw std::invalid_argument(constants::ExceptionMessage::kEmptyExpression.data());
   }
 
