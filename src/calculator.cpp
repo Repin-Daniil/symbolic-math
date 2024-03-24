@@ -2,14 +2,18 @@
 
 namespace calc {
 
-double RPN::Calculate(std::string_view expression) {
+double Calculator::Calculate(std::string_view expression) {
+  if(expression.empty()) {
+    throw std::invalid_argument(constants::ExceptionMessage::kEmptyExpression.data());
+  }
+
   std::istringstream istream{expression.data()};
   std::string input;
 
   while (istream >> input) {
     if (IsOperator(input)) {
       if (operands_.size() < 2) {
-        throw std::invalid_argument("No operands entered");
+        throw std::invalid_argument(constants::ExceptionMessage::kNoOperands.data());
       }
 
       if (auto operation = ParseOperation(input)) {
@@ -20,13 +24,13 @@ double RPN::Calculate(std::string_view expression) {
 
         operands_.push(CalculateOperation(lhs, rhs, *operation));
       } else {
-        throw std::invalid_argument("Wrong operator format");
+        throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data());
       }
     } else {
       if (auto operand = ParseOperand(input)) {
         operands_.push(*operand);
       } else {
-        throw std::invalid_argument("Wrong operand format");
+        throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data());
       }
     }
   }
@@ -34,12 +38,12 @@ double RPN::Calculate(std::string_view expression) {
   return operands_.top();
 }
 
-void RPN::Reset() {
+void Calculator::Reset() {
   std::stack<double> empty;
   std::swap(operands_, empty);
 }
 
-double RPN::CalculateOperation(double lhs, double rhs, constants::Operations operation) {
+double Calculator::CalculateOperation(double lhs, double rhs, constants::Operations operation) {
   double ans = 0;
 
   if (operation == constants::Operations::ADDITION) {
@@ -50,7 +54,7 @@ double RPN::CalculateOperation(double lhs, double rhs, constants::Operations ope
     ans = lhs * rhs;
   } else if (operation == constants::Operations::DIVISION) {
     if (std::abs(rhs) < std::numeric_limits<double>::epsilon()) {
-      throw std::runtime_error("Zero division");
+      throw std::runtime_error(constants::ExceptionMessage::kZeroDivision.data());
     }
 
     ans = lhs / rhs;
@@ -59,11 +63,11 @@ double RPN::CalculateOperation(double lhs, double rhs, constants::Operations ope
   return ans;
 }
 
-bool RPN::IsOperator(std::string_view input) noexcept {
+bool Calculator::IsOperator(std::string_view input) noexcept {
   return constants::char_to_operations.contains(input);
 }
 
-std::optional<constants::Operations> RPN::ParseOperation(std::string_view input) noexcept {
+std::optional<constants::Operations> Calculator::ParseOperation(std::string_view input) noexcept {
   if (!constants::char_to_operations.contains(input)) {
     return std::nullopt;
   }
@@ -71,7 +75,7 @@ std::optional<constants::Operations> RPN::ParseOperation(std::string_view input)
   return constants::char_to_operations.at(input);
 }
 
-std::optional<double> RPN::ParseOperand(std::string_view input) noexcept {
+std::optional<double> Calculator::ParseOperand(std::string_view input) noexcept {
   try {
     return std::stod(input.begin(), nullptr);
   } catch (...) {

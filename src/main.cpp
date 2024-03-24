@@ -3,7 +3,7 @@
 #include "calculator.h"
 
 int main() {
-  calc::RPN calc;
+  calc::Calculator calc;
 
   std::string input;
   std::vector<double> results;

@@ -12,11 +12,12 @@
 
 namespace calc {
 
-class RPN {
+class Calculator {
  public:
   double Calculate(std::string_view expression);
   void Reset();
 
+private:
   static double CalculateOperation(double lhs, double rhs, constants::Operations operation);
 
   static bool IsOperator(std::string_view) noexcept;
