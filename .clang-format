@@ -1,0 +1,5 @@
+BasedOnStyle: google
+DerivePointerAlignment: false
+IncludeBlocks: Preserve
+ColumnLimit: 120
+AllowShortFunctionsOnASingleLine: None
