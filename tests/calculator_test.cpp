@@ -7,6 +7,42 @@
 #include "calc/calculator.h"
 #include "calc/calculator.h"  // check include guards
 
+TEST_CASE("3", "RPN") {
+  calc::Calculator calc;
+  std::string expression = "3";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE(ans == 3);
+}
+
+TEST_CASE("3 4", "RPN") {
+  calc::Calculator calc;
+  std::string expression = "3 4";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE(ans == 4);
+}
+
+TEST_CASE("pi", "RPN") {
+  calc::Calculator calc;
+  std::string expression = "pi";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE(ans == std::numbers::pi);
+}
+
+TEST_CASE("e", "RPN") {
+  calc::Calculator calc;
+  std::string expression = "e";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE(ans == std::numbers::e);
+}
+
 TEST_CASE("3 4 +", "[RPN]") {
   calc::Calculator calc;
   std::string expression = "3 4 +";
@@ -160,18 +196,18 @@ TEST_CASE("0 sin", "[RPN]") {
   REQUIRE(ans == 0);
 }
 
-TEST_CASE("3.14 sin", "[RPN]") {
+TEST_CASE("pi sin", "[RPN]") {
   calc::Calculator calc;
-  std::string expression = "3.14 sin";
+  std::string expression = "pi sin";
 
   auto ans = calc.Calculate(expression);
 
-  REQUIRE_THAT(ans, Catch::Matchers::WithinAbs(0., 0.1));
+  REQUIRE_THAT(ans, Catch::Matchers::WithinAbs(0., 1e-5));
 }
 
-TEST_CASE("3.14 cos", "[RPN]") {
+TEST_CASE("pi cos", "[RPN]") {
   calc::Calculator calc;
-  std::string expression = "3.14 cos";
+  std::string expression = "pi cos";
 
   auto ans = calc.Calculate(expression);
 
@@ -243,7 +279,7 @@ TEST_CASE("ResetTest", "[RPN]") {
 
 TEST_CASE("EmptyString", "[RPN]") {
   calc::Calculator calc;
-  std::string expression = "";
+  std::string expression;
 
   CHECK_THROWS_WITH(calc.Calculate(expression), constants::ExceptionMessage::kEmptyExpression.data());
 }

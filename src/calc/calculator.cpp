@@ -116,10 +116,16 @@ bool Calculator::IsEqual(double lhs, double rhs) {
 }
 
 std::optional<double> Calculator::ParseOperand(std::string_view input) noexcept {
-  try {
-    return std::stod(input.begin(), nullptr);
-  } catch (...) {
-    return std::nullopt;
+  if (input == constants::ConstantsLabels::kPi) {
+    return std::numbers::pi;
+  } else if (input == constants::ConstantsLabels::kE) {
+    return std::numbers::e;
+  } else {
+    try {
+      return std::stod(input.begin(), nullptr);
+    } catch (...) {
+      return std::nullopt;
+    }
   }
 }
 
