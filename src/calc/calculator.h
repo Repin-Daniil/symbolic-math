@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include <limits>
 #include <optional>
 #include <sstream>
@@ -19,12 +20,16 @@ class Calculator {
   double Calculate(std::string_view expression);
   void Reset();
 
+  static bool IsEqual(double lhs, double rhs);
+
  private:
-  static double CalculateOperation(double lhs, double rhs, constants::Operations operation);
+  void ExecuteOperation(constants::Operations operation);
+  double GetOperand();
 
   static bool IsOperator(std::string_view) noexcept;
   static std::optional<double> ParseOperand(std::string_view) noexcept;
   static std::optional<constants::Operations> ParseOperation(std::string_view) noexcept;
+  static bool IsUnaryOperation(constants::Operations operation) noexcept;
 
  private:
   std::stack<double> operands_;

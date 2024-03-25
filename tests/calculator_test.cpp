@@ -1,8 +1,11 @@
-#include "calculator.h"
-#include "calculator.h"  // check include guards
+#include <limits>
 
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
+
+#include "calc/calculator.h"
+#include "calc/calculator.h"  // check include guards
 
 TEST_CASE("3 4 +", "[RPN]") {
   calc::Calculator calc;
@@ -11,6 +14,15 @@ TEST_CASE("3 4 +", "[RPN]") {
   auto ans = calc.Calculate(expression);
 
   REQUIRE(ans == 7);
+}
+
+TEST_CASE("3.5 4.25 +", "[RPN]") {
+  calc::Calculator calc;
+  std::string expression = "3.5 4.25 +";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE_THAT(ans, Catch::Matchers::WithinRel(7.75, 1e-5));
 }
 
 TEST_CASE("1 2 + 4 × 3 +", "[RPN]") {
@@ -74,6 +86,123 @@ TEST_CASE("1 2 -", "[RPN]") {
   auto ans = calc.Calculate(expression);
 
   REQUIRE(ans == -1);
+}
+
+TEST_CASE("1.5 2 /", "[RPN]") {
+  calc::Calculator calc;
+  std::string expression = "1.5 2 /";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE_THAT(ans, Catch::Matchers::WithinRel(0.75, 1e-5));
+}
+
+TEST_CASE("1.5 1.5 *", "[RPN]") {
+  calc::Calculator calc;
+  std::string expression = "1.5 1.5 *";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE_THAT(ans, Catch::Matchers::WithinRel(2.25, 1e-5));
+}
+
+TEST_CASE("1.5 0.75 -", "[RPN]") {
+  calc::Calculator calc;
+  std::string expression = "1.5 0.75 /";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE_THAT(ans, Catch::Matchers::WithinRel(2., 1e-5));
+}
+
+TEST_CASE("2 3 ^", "[RPN]") {
+  calc::Calculator calc;
+  std::string expression = "2 3 ^";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE(ans == 8);
+}
+
+TEST_CASE("1.5 2 ^", "[RPN]") {
+  calc::Calculator calc;
+  std::string expression = "1.5 2 ^";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE_THAT(ans, Catch::Matchers::WithinRel(2.25, 1e-5));
+}
+
+TEST_CASE("2 0 ^", "[RPN]") {
+  calc::Calculator calc;
+  std::string expression = "2 0 ^";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE(ans == 1);
+}
+
+TEST_CASE("2 0 1 - ^", "[RPN]") {
+  calc::Calculator calc;
+  std::string expression = "2 0 1 - ^";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE(ans == 0.5);
+}
+
+TEST_CASE("0 sin", "[RPN]") {
+  calc::Calculator calc;
+  std::string expression = "0 sin";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE(ans == 0);
+}
+
+TEST_CASE("3.14 sin", "[RPN]") {
+  calc::Calculator calc;
+  std::string expression = "3.14 sin";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE_THAT(ans, Catch::Matchers::WithinAbs(0., 0.1));
+}
+
+TEST_CASE("3.14 cos", "[RPN]") {
+  calc::Calculator calc;
+  std::string expression = "3.14 cos";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE_THAT(ans, Catch::Matchers::WithinRel(-1.0, 1e-5));
+}
+
+TEST_CASE("0 cos", "[RPN]") {
+  calc::Calculator calc;
+  std::string expression = "0 cos";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE(ans == 1);
+}
+
+TEST_CASE("1 ln", "[RPN]") {
+  calc::Calculator calc;
+  std::string expression = "1 ln";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE(ans == 0);
+}
+
+TEST_CASE("2.71 ln", "[RPN]") {
+  calc::Calculator calc;
+  std::string expression = "2.71 ln";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE_THAT(ans, Catch::Matchers::WithinAbs(1., 0.1));
 }
 
 TEST_CASE("CheckCalcMemory", "[RPN]") {
@@ -145,4 +274,11 @@ TEST_CASE("ZeroDivision", "[RPN]") {
   std::string expression = "1 0 /";
 
   CHECK_THROWS_WITH(calc.Calculate(expression), constants::ExceptionMessage::kZeroDivision.data());
+}
+
+TEST_CASE("ZeroInLogarithm", "[RPN]") {
+  calc::Calculator calc;
+  std::string expression = "0 ln";
+
+  CHECK_THROWS_WITH(calc.Calculate(expression), constants::ExceptionMessage::kZeroLogarithm.data());
 }

@@ -9,11 +9,16 @@ conan_basic_setup(TARGETS)
 include_directories(src)
 
 add_library(RPN_LIB
-        src/calculator.h
-        src/calculator.cpp
+        src/calc/calculator.h
+        src/calc/calculator.cpp
         src/constants_storage.h)
 
-add_executable(calc src/main.cpp)
+add_executable(calc src/main.cpp
+        src/app/application.cpp
+        src/app/application.h
+        src/infrastructure/converter/converter.cpp
+        src/infrastructure/converter/converter.h)
+
 target_link_libraries(calc PRIVATE RPN_LIB)
 
 # Tests
