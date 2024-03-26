@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "constants_storage.h"
+#include "parser/parser.h"
 
 namespace calc {
 
@@ -25,10 +26,6 @@ class Calculator {
  private:
   void ExecuteOperation(constants::Operations operation);
   double GetOperand();
-
-  static bool IsOperator(std::string_view) noexcept;
-  static std::optional<double> ParseOperand(std::string_view) noexcept;
-  static std::optional<constants::Operations> ParseOperation(std::string_view) noexcept;
   static bool IsUnaryOperation(constants::Operations operation) noexcept;
 
  private:

@@ -7,10 +7,15 @@ int main() {
   try {
     app::Application app;
 
+    std::cout << "App start" << std::endl;
+
     while (true) {
       std::string input;
       std::getline(std::cin, input);
-      std::cout << app.Calculate(input) << std::endl;
+
+      auto result = app.Calculate(input);
+
+      std::cout << (result.answer ? std::to_string(*result.answer) : result.error) << std::endl;
     }
 
     return EXIT_SUCCESS;

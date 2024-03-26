@@ -11,18 +11,18 @@ double Calculator::Calculate(std::string_view expression) {
   std::string input;
 
   while (istream >> input) {
-    if (IsOperator(input)) {
+    if (Parser::IsOperator(input)) {
       if (operands_.empty()) {
         throw std::invalid_argument(constants::ExceptionMessage::kNoOperands.data());
       }
 
-      if (auto operation = ParseOperation(input)) {
+      if (auto operation = Parser::ParseOperation(input)) {
         ExecuteOperation(*operation);
       } else {
         throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data());
       }
     } else {
-      if (auto operand = ParseOperand(input)) {
+      if (auto operand = Parser::ParseOperand(input)) {
         operands_.push(*operand);
       } else {
         throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data());
@@ -44,10 +44,24 @@ void Calculator::ExecuteOperation(constants::Operations operation) {
   if (IsUnaryOperation(operation)) {
     auto arg = GetOperand();
 
-    if (operation == constants::Operations::SINE) {
+    if (operation == constants::Operations::UNARY_MINUS) {
+      ans = -1 * arg;
+    } else if (operation == constants::Operations::SQRT) {
+      if (arg < 0) {
+        throw std::runtime_error(constants::ExceptionMessage::kNegativeRoot.data());
+      }
+
+      ans = std::sqrt(arg);
+    } else if (operation == constants::Operations::SINE) {
       ans = std::sin(arg);
     } else if (operation == constants::Operations::COSINE) {
       ans = std::cos(arg);
+    } else if (operation == constants::Operations::TANGENS) {
+      if (IsEqual(std::fmod(arg, std::numbers::pi), std::numbers::pi / 2.0)) {
+        throw std::runtime_error(constants::ExceptionMessage::kWrongTangens.data());
+      }
+
+      ans = std::tan(arg);
     } else if (operation == constants::Operations::NATURAL_LOGARITHM) {
       if (IsEqual(arg, 0)) {
         throw std::runtime_error(constants::ExceptionMessage::kZeroLogarithm.data());
@@ -94,39 +108,14 @@ double Calculator::GetOperand() {
   return operand;
 }
 
-bool Calculator::IsOperator(std::string_view input) noexcept {
-  return constants::char_to_operations.contains(input);
-}
-
-std::optional<constants::Operations> Calculator::ParseOperation(std::string_view input) noexcept {
-  if (!constants::char_to_operations.contains(input)) {
-    return std::nullopt;
-  }
-
-  return constants::char_to_operations.at(input);
-}
-
 bool Calculator::IsUnaryOperation(constants::Operations operation) noexcept {
   return operation == constants::Operations::SINE || operation == constants::Operations::COSINE ||
-         operation == constants::Operations::NATURAL_LOGARITHM;
+         operation == constants::Operations::TANGENS || operation == constants::Operations::NATURAL_LOGARITHM ||
+         operation == constants::Operations::UNARY_MINUS || operation == constants::Operations::SQRT;
 }
 
 bool Calculator::IsEqual(double lhs, double rhs) {
   return std::abs(rhs - lhs) < std::numeric_limits<double>::epsilon();
-}
-
-std::optional<double> Calculator::ParseOperand(std::string_view input) noexcept {
-  if (input == constants::ConstantsLabels::kPi) {
-    return std::numbers::pi;
-  } else if (input == constants::ConstantsLabels::kE) {
-    return std::numbers::e;
-  } else {
-    try {
-      return std::stod(input.begin(), nullptr);
-    } catch (...) {
-      return std::nullopt;
-    }
-  }
 }
 
 }  // namespace calc

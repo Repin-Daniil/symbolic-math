@@ -1,14 +1,20 @@
 #pragma once
 
+#include <iostream>
 #include <string>
 
 #include "calc/calculator.h"
 
 namespace app {
 
+struct CalculationResult {
+  std::optional<double> answer;
+  std::string error;
+};
+
 class Application {
  public:
-  double Calculate(std::string infix_expression);  // TODO Возвращай структурку со статусом и ответом
+  CalculationResult Calculate(std::string infix_expression);
 
  private:
   calc::Calculator calculator_;
