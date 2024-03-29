@@ -26,7 +26,6 @@ class Calculator {
  private:
   void ExecuteOperation(constants::Operations operation);
   double GetOperand();
-  static bool IsUnaryOperation(constants::Operations operation) noexcept;
 
  private:
   std::stack<double> operands_;

@@ -27,19 +27,21 @@ struct ConstantsLabels {
 };
 
 const std::unordered_map<std::string_view, Operations> char_to_operations{
-    {"+"sv, Operations::ADDITION},           {"-"sv, Operations::SUBTRACTION}, {"*"sv, Operations::MULTIPLICATION},
-    {"×"sv, Operations::MULTIPLICATION},     {"/"sv, Operations::DIVISION},    {"^"sv, Operations::EXPONENTIATION},
-    {"ln"sv, Operations::NATURAL_LOGARITHM}, {"sin"sv, Operations::SINE},      {"cos"sv, Operations::COSINE},
-    {"tg"sv, Operations::TANGENS},           {"tan"sv, Operations::TANGENS},   {"~"sv, Operations::UNARY_MINUS},
-    {"±"sv, Operations::UNARY_MINUS},        {"√"sv, Operations::SQRT},        {"sqrt"sv, Operations::SQRT}};
+    {"+"sv, Operations::ADDITION},       {"-"sv, Operations::SUBTRACTION},        {"*"sv, Operations::MULTIPLICATION},
+    {"×"sv, Operations::MULTIPLICATION}, {"/"sv, Operations::DIVISION},           {"÷"sv, Operations::DIVISION},
+    {"^"sv, Operations::EXPONENTIATION}, {"ln"sv, Operations::NATURAL_LOGARITHM}, {"sin"sv, Operations::SINE},
+    {"cos"sv, Operations::COSINE},       {"tg"sv, Operations::TANGENS},           {"tan"sv, Operations::TANGENS},
+    {"~"sv, Operations::UNARY_MINUS},    {"±"sv, Operations::UNARY_MINUS},        {"√"sv, Operations::SQRT},
+    {"sqrt"sv, Operations::SQRT}};
 
 const std::unordered_map<Operations, int> operations_to_priority{
-    {Operations::ADDITION, 1},       {Operations::SUBTRACTION, 1},
-    {Operations::MULTIPLICATION, 2}, {Operations::DIVISION, 2},
-    {Operations::SINE, 3},           {Operations::COSINE, 3},
-    {Operations::TANGENS, 3},        {Operations::NATURAL_LOGARITHM, 3},
-    {Operations::EXPONENTIATION, 4}, {Operations::SQRT, 4},
-    {Operations::UNARY_MINUS, 5}};
+      {Operations::EXPONENTIATION, 10},
+      {Operations::UNARY_MINUS, 9},
+      {Operations::MULTIPLICATION, 8},
+      {Operations::DIVISION, 8},
+      {Operations::ADDITION, 7},
+      {Operations::SUBTRACTION, 7}
+};
 
 struct ExceptionMessage {
   ExceptionMessage() = delete;

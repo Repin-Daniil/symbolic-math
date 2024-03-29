@@ -41,7 +41,7 @@ void Calculator::Reset() {
 void Calculator::ExecuteOperation(constants::Operations operation) {
   double ans = 0;
 
-  if (IsUnaryOperation(operation)) {
+  if (Parser::IsUnaryOperation(operation)) {
     auto arg = GetOperand();
 
     if (operation == constants::Operations::UNARY_MINUS) {
@@ -108,11 +108,7 @@ double Calculator::GetOperand() {
   return operand;
 }
 
-bool Calculator::IsUnaryOperation(constants::Operations operation) noexcept {
-  return operation == constants::Operations::SINE || operation == constants::Operations::COSINE ||
-         operation == constants::Operations::TANGENS || operation == constants::Operations::NATURAL_LOGARITHM ||
-         operation == constants::Operations::UNARY_MINUS || operation == constants::Operations::SQRT;
-}
+
 
 bool Calculator::IsEqual(double lhs, double rhs) {
   return std::abs(rhs - lhs) < std::numeric_limits<double>::epsilon();
