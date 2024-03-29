@@ -6,48 +6,6 @@ namespace infrastructure {
 
 using namespace std::literals;
 
-/* for (size_t i = 0; i < infix_expression.size(); ++i) {
-    char ch = infix_expression[i];
-    std::string_view ch_sv(&ch);
-
-    if (isdigit(ch) || isalpha(ch)) {
-      postfix << ch;
-
-      // Check for the end of a number or variable name to insert a space
-      if (i + 1 < infix_expression.size() && !isdigit(infix_expression[i + 1]) && !isalpha(infix_expression[i + 1])) {
-        postfix << ' ';
-      }
-    } else if (ch == '(') {
-      operators.push(ch);
-    } else if (ch == ')') {
-      while (!operators.empty() && operators.top() != '(') {
-        postfix << operators.top();
-        operators.pop();
-      }
-
-      operators.pop();
-    } else if (calc::Parser::IsOperator(ch_sv)) {
-      std::cout << "Find operator" << std::endl;
-      while (!operators.empty() && GetPriority(operators.top()) >= GetPriority(ch)) {
-        postfix << operators.top();
-        operators.pop();
-      }
-      operators.push(ch);
-    } else if (calc::Parser::IsUnaryOperation(*calc::Parser::ParseOperation(ch_sv))) { //FIXME нормальную обработку nlpt
-      while (!operators.empty() && GetPriority(operators.top()) >= 1) {
-        postfix << operators.top();
-        operators.pop();
-      }
-      operators.push(ch);
-    }
-  }
-
-  while (!operators.empty()) {
-    postfix << operators.top();
-    operators.pop();
-  }
- */
-
 std::string Converter::ConvertInfixToRPN(std::string_view infix_expression) {
   std::stack<std::string_view> operators;
   std::stringstream postfix;
@@ -57,14 +15,16 @@ std::string Converter::ConvertInfixToRPN(std::string_view infix_expression) {
   for (size_t i = 0; i < infix_expression.size(); ++i) {
     const char& symbol = infix_expression[i];
 
-    if (isdigit(symbol)) {  // TODO потом или x
-      postfix << symbol;
+    if (IsPrefixFunction(i, infix_expression)) {
+      auto operation = *ParseFunction(i, infix_expression);
+      operators.push(operation);
+      i += operation.size() - 1;
+    } else if (isdigit(symbol) || symbol == '.' || symbol == ',' || isalpha(symbol)) {
+      postfix << (symbol == ',' ? '.' : symbol);
 
-      if (IsEndOfOperand(i, infix_expression)) {
+      if (IsEndOfOperand(i, infix_expression) || IsEndOfConstant(i, infix_expression)) {
         postfix << ' ';
       }
-    } else if (IsPrefixFunction(i, infix_expression)) {
-      operators.push(*ParseFunction(i, infix_expression));
     } else if (symbol == '(') {
       operators.push(infix_expression.substr(i, 1));
     } else if (symbol == ')') {
@@ -75,8 +35,9 @@ std::string Converter::ConvertInfixToRPN(std::string_view infix_expression) {
 
       operators.pop();
     } else if (IsOperator(i, infix_expression)) {
-      while (!operators.empty() && operators.top() != "("sv && (GetPriority(operators.top()) >= GetPriority(infix_expression.substr(i, 1)) ||
-             IsPrefixFunction(i, infix_expression))) {
+      while (!operators.empty() && operators.top() != "("sv &&
+             (GetPriority(operators.top()) >= GetPriority(infix_expression.substr(i, 1)) ||
+              IsPrefixFunction(i, infix_expression))) {
         postfix << operators.top() << " ";
         operators.pop();
       }
@@ -87,10 +48,10 @@ std::string Converter::ConvertInfixToRPN(std::string_view infix_expression) {
 
   while (!operators.empty()) {
     if (operators.top() == "("sv || operators.top() == ")"sv) {
-      // TODO throw несогласованная скобочная последовательность
+      throw std::runtime_error(constants::ExceptionMessage::kUnbalancedBracket.data());
     }
 
-    postfix << operators.top();
+    postfix << operators.top() << " ";
     operators.pop();
   }
 
@@ -132,8 +93,7 @@ std::optional<std::string_view> Converter::ParseFunction(size_t i, std::string_v
     if (i + 2 < infix_expression.size() && infix_expression.substr(i, 3) == "tan"sv) {
       return infix_expression.substr(i, 3);
     }
-  }
-  else if (infix_expression.substr(i, 1) == "√"sv) {
+  } else if (infix_expression.substr(i, 1) == "√"sv) {
     return infix_expression.substr(i, 1);
   }
 
@@ -145,7 +105,14 @@ bool Converter::IsOperator(size_t i, std::string_view infix_expression) {
 }
 
 bool Converter::IsEndOfOperand(size_t i, std::string_view infix_expression) {
-  return (i + 1 == infix_expression.size()) || (i + 1 < infix_expression.size() && !isdigit(infix_expression[i + 1]));
+  return (isdigit(infix_expression[i]) || infix_expression[i] == ',' || infix_expression[i] == '.') &&
+         ((i + 1 == infix_expression.size()) || (i + 1 < infix_expression.size() && !isdigit(infix_expression[i + 1]) &&
+                                                 infix_expression[i + 1] != '.' && infix_expression[i + 1] != ','));
+}
+
+bool Converter::IsEndOfConstant(size_t i, std::string_view infix_expression) {
+  return isalpha(infix_expression[i]) &&
+         ((i + 1 == infix_expression.size()) || (i + 1 < infix_expression.size() && !isalpha(infix_expression[i + 1])));
 }
 
 // TODO Вынести многое из конвертера в парсер

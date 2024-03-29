@@ -34,14 +34,17 @@ const std::unordered_map<std::string_view, Operations> char_to_operations{
     {"~"sv, Operations::UNARY_MINUS},    {"±"sv, Operations::UNARY_MINUS},        {"√"sv, Operations::SQRT},
     {"sqrt"sv, Operations::SQRT}};
 
-const std::unordered_map<Operations, int> operations_to_priority{
-      {Operations::EXPONENTIATION, 10},
-      {Operations::UNARY_MINUS, 9},
-      {Operations::MULTIPLICATION, 8},
-      {Operations::DIVISION, 8},
-      {Operations::ADDITION, 7},
-      {Operations::SUBTRACTION, 7}
-};
+const std::unordered_map<Operations, int> operations_to_priority{{Operations::TANGENS, 11},
+                                                                 {Operations::COSINE, 11},
+                                                                 {Operations::SINE, 11},
+                                                                 {Operations::SQRT, 11},
+                                                                 {Operations::NATURAL_LOGARITHM, 11},
+                                                                 {Operations::EXPONENTIATION, 10},
+                                                                 {Operations::UNARY_MINUS, 9},
+                                                                 {Operations::MULTIPLICATION, 8},
+                                                                 {Operations::DIVISION, 8},
+                                                                 {Operations::ADDITION, 7},
+                                                                 {Operations::SUBTRACTION, 7}};
 
 struct ExceptionMessage {
   ExceptionMessage() = delete;
@@ -53,6 +56,7 @@ struct ExceptionMessage {
   constexpr static std::string_view kZeroLogarithm = "ln(0) = -inf"sv;
   constexpr static std::string_view kNoOperands = "No operands entered!"sv;
   constexpr static std::string_view kWrongFormat = "Wrong operator or operand format"sv;
+  constexpr static std::string_view kUnbalancedBracket = "Wrong expression: Unbalanced bracket sequence"sv;
 };
 
 }  // namespace constants

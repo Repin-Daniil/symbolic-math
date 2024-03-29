@@ -16,6 +16,33 @@ TEST_CASE("3", "RPN") {
   REQUIRE(ans == 3);
 }
 
+TEST_CASE("3.15", "RPN") {
+  calc::Calculator calc;
+  std::string expression = "3.15";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE_THAT(ans, Catch::Matchers::WithinRel(3.15, 1e-5));
+}
+
+TEST_CASE("3.", "RPN") {
+  calc::Calculator calc;
+  std::string expression = "3.";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE_THAT(ans, Catch::Matchers::WithinRel(3., 1e-5));
+}
+
+TEST_CASE("3,", "RPN") {
+  calc::Calculator calc;
+  std::string expression = "3,";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE_THAT(ans, Catch::Matchers::WithinRel(3., 1e-5));
+}
+
 TEST_CASE("3 4", "RPN") {
   calc::Calculator calc;
   std::string expression = "3 4";

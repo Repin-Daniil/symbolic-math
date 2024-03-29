@@ -16,6 +16,7 @@ CalculationResult Application::Calculate(std::string infix_expression) {
     result.answer = calculator_.Calculate(rpn_expression);
   } catch (std::exception& ex) {
     result.error = ex.what();
+    calculator_.Reset();
   }
 
   return result;
