@@ -27,12 +27,10 @@ struct ConstantsLabels {
 };
 
 const std::unordered_map<std::string_view, Operations> char_to_operations{
-    {"+"sv, Operations::ADDITION},       {"-"sv, Operations::SUBTRACTION},        {"*"sv, Operations::MULTIPLICATION},
-    {"×"sv, Operations::MULTIPLICATION}, {"/"sv, Operations::DIVISION},           {"÷"sv, Operations::DIVISION},
-    {"^"sv, Operations::EXPONENTIATION}, {"ln"sv, Operations::NATURAL_LOGARITHM}, {"sin"sv, Operations::SINE},
-    {"cos"sv, Operations::COSINE},       {"tg"sv, Operations::TANGENS},           {"tan"sv, Operations::TANGENS},
-    {"~"sv, Operations::UNARY_MINUS},    {"±"sv, Operations::UNARY_MINUS},        {"√"sv, Operations::SQRT},
-    {"sqrt"sv, Operations::SQRT}};
+    {"+"sv, Operations::ADDITION}, {"-"sv, Operations::SUBTRACTION}, {"*"sv, Operations::MULTIPLICATION},
+    {"/"sv, Operations::DIVISION}, {"^"sv, Operations::EXPONENTIATION}, {"ln"sv, Operations::NATURAL_LOGARITHM},
+    {"sin"sv, Operations::SINE}, {"cos"sv, Operations::COSINE}, {"tg"sv, Operations::TANGENS},
+    {"tan"sv, Operations::TANGENS}, {"~"sv, Operations::UNARY_MINUS}, {"sqrt"sv, Operations::SQRT}};
 
 const std::unordered_map<Operations, int> operations_to_priority{{Operations::TANGENS, 11},
                                                                  {Operations::COSINE, 11},
@@ -52,7 +50,7 @@ struct ExceptionMessage {
   constexpr static std::string_view kEmptyExpression = "Empty expression!"sv;
   constexpr static std::string_view kZeroDivision = "Zero division!"sv;
   constexpr static std::string_view kNegativeRoot = "Negative square root"sv;
-  constexpr static std::string_view kWrongTangens = "Tangens of pi/2"sv;
+  constexpr static std::string_view kWrongTangent = "Tangent of pi/2"sv;
   constexpr static std::string_view kZeroLogarithm = "ln(0) = -inf"sv;
   constexpr static std::string_view kNoOperands = "No operands entered!"sv;
   constexpr static std::string_view kWrongFormat = "Wrong operator or operand format"sv;

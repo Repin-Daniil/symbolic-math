@@ -19,6 +19,7 @@ class Converter {
   static bool IsOperator(size_t i, std::string_view infix_expression);
   static bool IsEndOfOperand(size_t i, std::string_view infix_expression);
   static bool IsEndOfConstant(size_t i, std::string_view infix_expression);
+  static bool IsUnary(size_t i, std::string_view infix_expression);
 
   static std::optional<std::string_view> ParseFunction(size_t i, std::string_view infix_expression);
 };

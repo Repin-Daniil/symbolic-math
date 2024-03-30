@@ -61,24 +61,6 @@ TEST_CASE("3 ~", "RPN") {
   REQUIRE(ans == -3);
 }
 
-TEST_CASE("3 ±", "RPN") {
-  calc::Calculator calc;
-  std::string expression = "3 ±";
-
-  auto ans = calc.Calculate(expression);
-
-  REQUIRE(ans == -3);
-}
-
-TEST_CASE("0 ±", "RPN") {
-  calc::Calculator calc;
-  std::string expression = "0 ±";
-
-  auto ans = calc.Calculate(expression);
-
-  REQUIRE(ans == 0);
-}
-
 TEST_CASE("3 ~ ~", "RPN") {
   calc::Calculator calc;
   std::string expression = "3 ~ ~";
@@ -142,9 +124,9 @@ TEST_CASE("7 2 3 * −", "[RPN]") {
   REQUIRE(ans == 1);
 }
 
-TEST_CASE("8 9 + 1 7 - ×", "[RPN]") {
+TEST_CASE("8 9 + 1 7 - *", "[RPN]") {
   calc::Calculator calc;
-  std::string expression = "8 9 + 1 7 - ×";
+  std::string expression = "8 9 + 1 7 - *";
 
   auto ans = calc.Calculate(expression);
 
@@ -160,9 +142,9 @@ TEST_CASE("1 2 /", "[RPN]") {
   REQUIRE(ans == 0.5);
 }
 
-TEST_CASE("1 2 ×", "[RPN]") {
+TEST_CASE("1 2 *", "[RPN]") {
   calc::Calculator calc;
-  std::string expression = "1 2 ×";
+  std::string expression = "1 2 *";
 
   auto ans = calc.Calculate(expression);
 
@@ -259,14 +241,6 @@ TEST_CASE("2 0 1 - ^", "[RPN]") {
   REQUIRE(ans == 0.5);
 }
 
-TEST_CASE("4 √", "[RPN]") {
-  calc::Calculator calc;
-  std::string expression = "4 √";
-
-  auto ans = calc.Calculate(expression);
-
-  REQUIRE(ans == 2);
-}
 
 TEST_CASE("4 sqrt", "[RPN]") {
   calc::Calculator calc;
@@ -467,7 +441,7 @@ TEST_CASE("TangensPi/2", "[RPN]") {
   calc::Calculator calc;
   std::string expression = "pi 2 / tg";
 
-  CHECK_THROWS_WITH(calc.Calculate(expression), constants::ExceptionMessage::kWrongTangens.data());
+  CHECK_THROWS_WITH(calc.Calculate(expression), constants::ExceptionMessage::kWrongTangent.data());
 }
 
 TEST_CASE("NegativeSQRT", "[RPN]") {

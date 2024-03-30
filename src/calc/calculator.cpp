@@ -58,7 +58,7 @@ void Calculator::ExecuteOperation(constants::Operations operation) {
       ans = std::cos(arg);
     } else if (operation == constants::Operations::TANGENS) {
       if (IsEqual(std::fmod(arg, std::numbers::pi), std::numbers::pi / 2.0)) {
-        throw std::runtime_error(constants::ExceptionMessage::kWrongTangens.data());
+        throw std::runtime_error(constants::ExceptionMessage::kWrongTangent.data());
       }
 
       ans = std::tan(arg);
