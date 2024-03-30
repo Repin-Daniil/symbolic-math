@@ -12,9 +12,9 @@
 #include <vector>
 
 #include "constants_storage.h"
-#include "parser/parser.h"
+#include "utils/helper/helper.h"
 
-namespace calc {
+namespace utils {
 
 class Calculator {
  public:
@@ -31,4 +31,4 @@ class Calculator {
   std::stack<double> operands_;
 };
 
-}  // namespace calc
+}  // namespace utils

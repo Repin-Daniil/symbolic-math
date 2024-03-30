@@ -14,10 +14,10 @@ struct CalculationResult {
 
 class Application {
  public:
-  CalculationResult Calculate(std::string infix_expression);
+  CalculationResult Handle(std::string infix_expression);
 
  private:
-  calc::Calculator calculator_;
+  utils::Calculator calculator_;
   // TODO класс для работы с алгеброй
 };
 

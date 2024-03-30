@@ -7,13 +7,13 @@ int main() {
   try {
     app::Application app;
 
-    std::cout << "App start" << std::endl;
+    std::cout << "Application start" << std::endl;
 
     while (true) {
       std::string input;
       std::getline(std::cin, input);
 
-      auto result = app.Calculate(input);
+      auto result = app.Handle(input);
 
       std::cout << (result.answer ? std::to_string(*result.answer) : result.error) << std::endl;
     }

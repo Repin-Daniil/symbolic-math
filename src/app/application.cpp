@@ -1,11 +1,17 @@
 #include "app/application.h"
 
-#include "infrastructure/converter/converter.h"
+#include "utils/converter/converter.h"
 
 namespace app {
 
-CalculationResult Application::Calculate(std::string infix_expression) {
-  std::string rpn_expression = infrastructure::Converter::ConvertInfixToRPN(infix_expression);
+CalculationResult Application::Handle(std::string infix_expression) {
+  if (infix_expression == "Reset") {
+    calculator_.Reset();
+
+    return {};
+  }
+
+  std::string rpn_expression = utils::Converter::ConvertInfixToRPN(infix_expression);
 
   std::cout << "INFIX: " << infix_expression << std::endl;
   std::cout << "RPN: " << rpn_expression << std::endl;
