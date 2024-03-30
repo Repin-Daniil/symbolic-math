@@ -33,7 +33,6 @@ std::string Converter::ConvertInfixToRPN(std::string_view infix_expression) {
 
       if (operators.empty()) {
         throw std::runtime_error(constants::ExceptionMessage::kUnbalancedBracket.data());
-
       }
 
       operators.pop();
