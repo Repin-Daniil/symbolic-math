@@ -79,9 +79,27 @@ TEST_CASE("3 +", "RPN") {
   REQUIRE(ans == 3);
 }
 
+TEST_CASE("3 + +", "RPN") {
+  utils::Calculator calc;
+  std::string expression = "3 + +";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE(ans == 3);
+}
+
 TEST_CASE("3 ~ ~", "RPN") {
   utils::Calculator calc;
   std::string expression = "3 ~ ~";
+
+  auto ans = calc.Calculate(expression);
+
+  REQUIRE(ans == 3);
+}
+
+TEST_CASE("3 - -", "RPN") {
+  utils::Calculator calc;
+  std::string expression = "3 - -";
 
   auto ans = calc.Calculate(expression);
 

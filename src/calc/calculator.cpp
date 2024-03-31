@@ -69,7 +69,7 @@ void Calculator::ExecuteOperation(constants::Operations operation) {
 
       ans = std::log(arg);
     }
-  } else {
+  } else if (Helper::IsBinaryOperation(operation)) {
     if (operands_.size() < 2) {
       // Check unary minus/plus
       if (operation == constants::Operations::SUBTRACTION) {

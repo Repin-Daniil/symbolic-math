@@ -48,10 +48,4 @@ bool Helper::IsBinaryOperation(constants::Operations operation) noexcept {
          operation == constants::Operations::EXPONENTIATION;
 }
 
-bool Helper::IsFunction(constants::Operations operation) noexcept {
-  return operation == constants::Operations::SIN || operation == constants::Operations::COS ||
-         operation == constants::Operations::TANGENT || operation == constants::Operations::NATURAL_LOGARITHM ||
-         operation == constants::Operations::SQRT;
-}
-
 }  // namespace utils

@@ -13,7 +13,6 @@ class Helper {
   static std::optional<int> GetPriority(std::string_view operation);
 
   static bool IsOperator(std::string_view) noexcept;
-  static bool IsFunction(constants::Operations operation) noexcept;
   static bool IsUnaryOperation(constants::Operations operation) noexcept;
   static bool IsBinaryOperation(constants::Operations operation) noexcept;
 
