@@ -86,16 +86,16 @@ TEST_CASE("Unary minus at beginning", "RPN") {
   REQUIRE(ans_2.answer == 2);
 }
 
-TEST_CASE("Unary minuses at beginning", "RPN") {
+TEST_CASE("ln(e ^ 4) + sin(pi / 2) + cos(pi / 3)", "RPN") {
   app::Application application;
-  std::string input_1 = "2 + 3";
-  std::string input_2 = "--3";
+  std::string input_1 = "ln(e ^ 4) + sin(pi / 2)";
+  std::string input_2 = " + cos(pi / 3)";
 
   auto ans_1 = application.Handle(input_1);
   auto ans_2 = application.Handle(input_2);
 
   REQUIRE(ans_1.answer == 5);
-  REQUIRE(ans_2.answer == 8);
+  REQUIRE_THAT(*ans_2.answer, Catch::Matchers::WithinAbs(5.5, 1e-5));
 }
 
 TEST_CASE("Reset test", "RPN") {
