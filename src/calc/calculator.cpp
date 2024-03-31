@@ -71,26 +71,33 @@ void Calculator::ExecuteOperation(constants::Operations operation) {
     }
   } else {
     if (operands_.size() < 2) {
-      throw std::invalid_argument(constants::ExceptionMessage::kNoOperands.data());
-    }
-
-    auto rhs = GetOperand();
-    auto lhs = GetOperand();
-
-    if (operation == constants::Operations::ADDITION) {
-      ans = lhs + rhs;
-    } else if (operation == constants::Operations::SUBTRACTION) {
-      ans = lhs - rhs;
-    } else if (operation == constants::Operations::MULTIPLICATION) {
-      ans = lhs * rhs;
-    } else if (operation == constants::Operations::DIVISION) {
-      if (IsEqual(rhs, 0)) {
-        throw std::runtime_error(constants::ExceptionMessage::kZeroDivision.data());
+      // Check unary minus/plus
+      if (operation == constants::Operations::SUBTRACTION) {
+        ans = -1 * GetOperand();
+      } else if (operation == constants::Operations::ADDITION) {
+        ans = GetOperand();
+      } else {
+        throw std::invalid_argument(constants::ExceptionMessage::kNoOperands.data());
       }
+    } else {
+      auto rhs = GetOperand();
+      auto lhs = GetOperand();
 
-      ans = lhs / rhs;
-    } else if (operation == constants::Operations::EXPONENTIATION) {
-      ans = std::pow(lhs, rhs);
+      if (operation == constants::Operations::ADDITION) {
+        ans = lhs + rhs;
+      } else if (operation == constants::Operations::SUBTRACTION) {
+        ans = lhs - rhs;
+      } else if (operation == constants::Operations::MULTIPLICATION) {
+        ans = lhs * rhs;
+      } else if (operation == constants::Operations::DIVISION) {
+        if (IsEqual(rhs, 0)) {
+          throw std::runtime_error(constants::ExceptionMessage::kZeroDivision.data());
+        }
+
+        ans = lhs / rhs;
+      } else if (operation == constants::Operations::EXPONENTIATION) {
+        ans = std::pow(lhs, rhs);
+      }
     }
   }
 

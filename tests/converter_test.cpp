@@ -14,12 +14,12 @@ TEST_CASE("3", "Converter") {
   REQUIRE(rpn == "3 ");
 }
 
-TEST_CASE("(-1)", "Converter") {
-  std::string expression = "(-1)";
+TEST_CASE("-1", "Converter") {
+  std::string expression = "-1";
 
   auto rpn = Converter::ConvertInfixToRPN(expression);
 
-  REQUIRE(rpn == "1 ~ ");
+  REQUIRE(rpn == "1 - "); // Calculator should interpret minus as unary
 }
 
 TEST_CASE("~1", "Converter") {
@@ -30,28 +30,28 @@ TEST_CASE("~1", "Converter") {
   REQUIRE(rpn == "1 ~ ");
 }
 
-TEST_CASE("(+1)", "Converter") {
-  std::string expression = "(+1)";
+TEST_CASE("+1", "Converter") {
+  std::string expression = "+1";
 
   auto rpn = Converter::ConvertInfixToRPN(expression);
 
-  REQUIRE(rpn == "1 ");
+  REQUIRE(rpn == "1 + ");
 }
 
-TEST_CASE("(- 1)", "Converter") {
-  std::string expression = "(- 1)";
+TEST_CASE("- 1", "Converter") {
+  std::string expression = "- 1";
 
   auto rpn = Converter::ConvertInfixToRPN(expression);
 
-  REQUIRE(rpn == "1 ~ ");
+  REQUIRE(rpn == "1 - "); // Calculator should interpret minus as unary
 }
 
-TEST_CASE("(+ 1)", "Converter") {
-  std::string expression = "(+ 1)";
+TEST_CASE("+ 1", "Converter") {
+  std::string expression = "+ 1";
 
   auto rpn = Converter::ConvertInfixToRPN(expression);
 
-  REQUIRE(rpn == "1 ");
+  REQUIRE(rpn == "1 + "); // Calculator should interpret plus as unary
 }
 
 TEST_CASE("(- - 1)", "Converter") {
@@ -62,6 +62,14 @@ TEST_CASE("(- - 1)", "Converter") {
   REQUIRE(rpn == "1 ~ ~ ");
 }
 
+TEST_CASE("- - 1", "Converter") {
+  std::string expression = "- - 1";
+
+  auto rpn = Converter::ConvertInfixToRPN(expression);
+
+  REQUIRE(rpn == "1 ~ - "); // Calculator should interpret both minuses as unary
+}
+
 TEST_CASE("~-1", "Converter") {
   std::string expression = "~-1";
 
@@ -70,20 +78,28 @@ TEST_CASE("~-1", "Converter") {
   REQUIRE(rpn == "1 ~ ~ ");
 }
 
-TEST_CASE("(+ + 1)", "Converter") {
-  std::string expression = "(+ + 1)";
+TEST_CASE("+ + 1", "Converter") {
+  std::string expression = "+ + 1";
 
   auto rpn = Converter::ConvertInfixToRPN(expression);
 
-  REQUIRE(rpn == "1 ");
+  REQUIRE(rpn == "1 + ");
 }
 
-TEST_CASE("(- + 1)", "Converter") {
-  std::string expression = "(- + 1)";
+TEST_CASE("- + 1", "Converter") {
+  std::string expression = "- + 1";
 
   auto rpn = Converter::ConvertInfixToRPN(expression);
 
-  REQUIRE(rpn == "1 ~ ");
+  REQUIRE(rpn == "1 - ");
+}
+
+TEST_CASE("+ - 1", "Converter") {
+  std::string expression = "+ - 1";
+
+  auto rpn = Converter::ConvertInfixToRPN(expression);
+
+  REQUIRE(rpn == "1 ~ + ");
 }
 
 TEST_CASE("(- + 1.25)", "Converter") {
@@ -92,6 +108,14 @@ TEST_CASE("(- + 1.25)", "Converter") {
   auto rpn = Converter::ConvertInfixToRPN(expression);
 
   REQUIRE(rpn == "1.25 ~ ");
+}
+
+TEST_CASE("- + 1.25", "Converter") {
+  std::string expression = "- + 1.25";
+
+  auto rpn = Converter::ConvertInfixToRPN(expression);
+
+  REQUIRE(rpn == "1.25 - ");
 }
 
 TEST_CASE("137", "Converter") {

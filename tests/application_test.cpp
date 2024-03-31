@@ -14,6 +14,18 @@ TEST_CASE("Simple Test", "RPN") {
   REQUIRE(ans.answer == 3);
 }
 
+TEST_CASE("Minus with single operand is unary", "RPN") {
+  app::Application application;
+  std::string input_1 = "3";
+  std::string input_2 = "-";
+
+  auto ans_1 = application.Handle(input_1);
+  auto ans_2 = application.Handle(input_2);
+
+  REQUIRE(ans_1.answer == 3);
+  REQUIRE(ans_2.answer == -3);
+}
+
 TEST_CASE("Correct expression with int", "RPN") {
   app::Application application;
   std::string input = "2 + 3";
@@ -50,7 +62,7 @@ TEST_CASE("Three expressions", "RPN") {
 TEST_CASE("Three different expressions", "RPN") {
   app::Application application;
   std::string input_1 = "2 + 3";
-  std::string input_2 = "~3"; // Not Unary
+  std::string input_2 = "~3";
   std::string input_3 = "1 + 1";
 
   auto ans_1 = application.Handle(input_1);
@@ -60,6 +72,30 @@ TEST_CASE("Three different expressions", "RPN") {
   REQUIRE(ans_1.answer == 5);
   REQUIRE(ans_2.answer == -3);
   REQUIRE(ans_3.answer == 2);
+}
+
+TEST_CASE("Unary minus at beginning", "RPN") {
+  app::Application application;
+  std::string input_1 = "2 + 3";
+  std::string input_2 = "-3";
+
+  auto ans_1 = application.Handle(input_1);
+  auto ans_2 = application.Handle(input_2);
+
+  REQUIRE(ans_1.answer == 5);
+  REQUIRE(ans_2.answer == 2);
+}
+
+TEST_CASE("Unary minuses at beginning", "RPN") {
+  app::Application application;
+  std::string input_1 = "2 + 3";
+  std::string input_2 = "--3";
+
+  auto ans_1 = application.Handle(input_1);
+  auto ans_2 = application.Handle(input_2);
+
+  REQUIRE(ans_1.answer == 5);
+  REQUIRE(ans_2.answer == 8);
 }
 
 TEST_CASE("Reset test", "RPN") {
