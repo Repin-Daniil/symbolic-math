@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "app/application.h"
-#include "calc/calculator.h"
 
 int main() {
   try {

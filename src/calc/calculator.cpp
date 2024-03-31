@@ -1,6 +1,6 @@
 #include "calculator.h"
 
-namespace utils {
+namespace math {
 
 double Calculator::Calculate(std::string_view expression) {
   if (expression.empty()) {
@@ -11,18 +11,18 @@ double Calculator::Calculate(std::string_view expression) {
   std::string input;
 
   while (istream >> input) {
-    if (Helper::IsOperator(input)) {
+    if (utils::Helper::IsOperator(input)) {
       if (operands_.empty()) {
         throw std::invalid_argument(constants::ExceptionMessage::kNoOperands.data());
       }
 
-      if (auto operation = Helper::ParseOperation(input)) {
+      if (auto operation = utils::Helper::ParseOperation(input)) {
         ExecuteOperation(*operation);
       } else {
         throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data());
       }
     } else {
-      if (auto operand = Helper::ParseOperand(input)) {
+      if (auto operand = utils::Helper::ParseOperand(input)) {
         operands_.push(*operand);
       } else {
         throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data());
@@ -41,7 +41,7 @@ void Calculator::Reset() {
 void Calculator::ExecuteOperation(constants::Operations operation) {
   double ans = 0;
 
-  if (Helper::IsUnaryOperation(operation)) {
+  if (utils::Helper::IsUnaryOperation(operation)) {
     auto arg = GetOperand();
 
     if (operation == constants::Operations::UNARY_MINUS) {
@@ -69,7 +69,7 @@ void Calculator::ExecuteOperation(constants::Operations operation) {
 
       ans = std::log(arg);
     }
-  } else if (Helper::IsBinaryOperation(operation)) {
+  } else if (utils::Helper::IsBinaryOperation(operation)) {
     if (operands_.size() < 2) {
       // Check unary minus/plus
       if (operation == constants::Operations::SUBTRACTION) {
@@ -119,4 +119,4 @@ bool Calculator::IsEqual(double lhs, double rhs) {
   return std::abs(rhs - lhs) < std::numeric_limits<double>::epsilon();
 }
 
-}  // namespace utils
+}  // namespace math

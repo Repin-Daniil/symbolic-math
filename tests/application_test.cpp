@@ -124,3 +124,116 @@ TEST_CASE("Expression with constants", "RPN") {
   REQUIRE_THAT(*ans_1.answer, Catch::Matchers::WithinAbs(0, 1e-5));
   REQUIRE_THAT(*ans_2.answer, Catch::Matchers::WithinAbs(0, 1e-5));
 }
+
+TEST_CASE("EmptyExpression", "RPN") {
+  app::Application application;
+  std::string input = "";
+
+  auto ans = application.Handle(input);
+
+  REQUIRE(!ans.answer.has_value());
+  REQUIRE(ans.error == constants::ExceptionMessage::kEmptyExpression);
+}
+
+TEST_CASE("ZeroDivision", "RPN") {
+  app::Application application;
+  std::string input = "1/0";
+
+  auto ans = application.Handle(input);
+
+  REQUIRE(!ans.answer.has_value());
+  REQUIRE(ans.error == constants::ExceptionMessage::kZeroDivision);
+}
+
+TEST_CASE("NegativeRoot", "RPN") {
+  app::Application application;
+  std::string input = "sqrt(-1)";
+
+  auto ans = application.Handle(input);
+
+  REQUIRE(!ans.answer.has_value());
+  REQUIRE(ans.error == constants::ExceptionMessage::kNegativeRoot);
+}
+
+TEST_CASE("Wrong Tangent", "RPN") {
+  app::Application application;
+  std::string input = "tan(pi/2)";
+
+  auto ans = application.Handle(input);
+
+  REQUIRE(!ans.answer.has_value());
+  REQUIRE(ans.error == constants::ExceptionMessage::kWrongTangent);
+}
+
+TEST_CASE("Zero Logarithm", "RPN") {
+  app::Application application;
+  std::string input = "ln(0)";
+
+  auto ans = application.Handle(input);
+
+  REQUIRE(!ans.answer.has_value());
+  REQUIRE(ans.error == constants::ExceptionMessage::kZeroLogarithm);
+}
+
+TEST_CASE("No Operands", "RPN") {
+  app::Application application;
+  std::string input = "+";
+
+  auto ans = application.Handle(input);
+
+  REQUIRE(!ans.answer.has_value());
+  REQUIRE(ans.error == constants::ExceptionMessage::kNoOperands);
+}
+
+TEST_CASE("No Operands without brackets", "RPN") {
+  app::Application application;
+  std::string input = "sqrt";
+
+  auto ans = application.Handle(input);
+
+  REQUIRE(!ans.answer.has_value());
+  REQUIRE(ans.error == constants::ExceptionMessage::kNoOperands);
+}
+
+TEST_CASE("No Operands in brackets", "RPN") {
+  app::Application application;
+  std::string input = "sin()";
+
+  auto ans = application.Handle(input);
+
+  REQUIRE(!ans.answer.has_value());
+  REQUIRE(ans.error == constants::ExceptionMessage::kNoOperands);
+}
+
+TEST_CASE("Wrong Format", "RPN") {
+  app::Application application;
+  std::string input = "sin(p)";
+
+  auto ans = application.Handle(input);
+
+  REQUIRE(!ans.answer.has_value());
+  REQUIRE(ans.error == constants::ExceptionMessage::kWrongFormat);
+}
+
+TEST_CASE("Unbalanced Bracket", "RPN") {
+  app::Application application;
+  std::string input = "sin(pi";
+
+  auto ans = application.Handle(input);
+
+  REQUIRE(!ans.answer.has_value());
+  REQUIRE(ans.error == constants::ExceptionMessage::kUnbalancedBracket);
+}
+
+TEST_CASE("App alive after exception", "RPN") {
+  app::Application application;
+  std::string wrong_input = "tan(pi/2)";
+  std::string correct_input = "sin(pi)";
+
+  auto ans_1 = application.Handle(wrong_input);
+  auto ans_2 = application.Handle(correct_input);
+
+  REQUIRE(!ans_1.answer.has_value());
+  REQUIRE(ans_1.error == constants::ExceptionMessage::kWrongTangent);
+  REQUIRE_THAT(*ans_2.answer, Catch::Matchers::WithinAbs(0, 1e-5));
+}

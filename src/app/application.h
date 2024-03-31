@@ -4,6 +4,7 @@
 #include <string>
 
 #include "calc/calculator.h"
+#include "utils/converter/converter.h"
 
 namespace app {
 
@@ -17,7 +18,7 @@ class Application {
   CalculationResult Handle(std::string infix_expression);
 
  private:
-  utils::Calculator calculator_;
+  math::Calculator calculator_;
   // TODO класс для работы с алгеброй
 };
 

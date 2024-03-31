@@ -14,7 +14,7 @@
 #include "constants_storage.h"
 #include "utils/helper/helper.h"
 
-namespace utils {
+namespace math {
 
 class Calculator {
  public:
@@ -31,4 +31,4 @@ class Calculator {
   std::stack<double> operands_;
 };
 
-}  // namespace utils
+}  // namespace math
