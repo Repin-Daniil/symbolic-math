@@ -11,8 +11,9 @@ namespace utils {
 class Helper {
  public:
   static std::optional<int> GetPriority(std::string_view operation);
+  static bool ComparePriorities(std::string_view lhs, std::string_view rhs);
 
-  static bool IsOperator(std::string_view) noexcept;
+  static bool IsOperator(std::string_view input) noexcept;
   static bool IsUnaryOperation(constants::Operations operation) noexcept;
   static bool IsBinaryOperation(constants::Operations operation) noexcept;
 

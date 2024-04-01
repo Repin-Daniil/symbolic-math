@@ -42,7 +42,7 @@ std::string Converter::ConvertInfixToRPN(std::string_view infix_expression) {
         }
       } else {
         while (!operators.empty() && operators.top() != constants::Labels::kOpenParen &&
-               (ComparePriorities(operators.top(), infix_expression.substr(i, 1)) ||
+               (Helper::ComparePriorities(operators.top(), infix_expression.substr(i, 1)) ||
                 IsPrefixFunction(i, infix_expression))) {
           postfix << operators.top() << " ";
           operators.pop();
@@ -122,13 +122,6 @@ bool Converter::IsUnary(size_t i, std::string_view infix_expression) {
 bool Converter::IsEndOfConstant(size_t i, std::string_view infix_expression) {
   return isalpha(infix_expression[i]) &&
          ((i + 1 == infix_expression.size()) || (i + 1 < infix_expression.size() && !isalpha(infix_expression[i + 1])));
-}
-bool Converter::ComparePriorities(std::string_view lhs, std::string_view rhs) {
-  if (lhs == constants::Labels::kExponentiation) {
-    return Helper::GetPriority(lhs) > Helper::GetPriority(rhs);
-  } else {
-    return Helper::GetPriority(lhs) >= Helper::GetPriority(rhs);
-  }
 }
 
 }  // namespace utils

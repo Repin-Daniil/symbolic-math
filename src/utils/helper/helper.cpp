@@ -28,6 +28,14 @@ std::optional<int> Helper::GetPriority(std::string_view operation) {
   return std::nullopt;
 }
 
+bool Helper::ComparePriorities(std::string_view lhs, std::string_view rhs) {
+  if (lhs == constants::Labels::kExponentiation) {
+    return Helper::GetPriority(lhs) > Helper::GetPriority(rhs);
+  }
+
+  return Helper::GetPriority(lhs) >= Helper::GetPriority(rhs);
+}
+
 std::optional<constants::Operations> Helper::ParseOperation(std::string_view input) noexcept {
   if (!constants::char_to_operations.contains(input)) {
     return std::nullopt;
