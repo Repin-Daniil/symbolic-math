@@ -20,6 +20,8 @@ class Converter {
   static bool IsEndOfConstant(size_t i, std::string_view infix_expression);
   static bool IsUnary(size_t i, std::string_view infix_expression);
 
+  static bool ComparePriorities(std::string_view, std::string_view);
+
   static std::optional<std::string_view> ParseFunction(size_t i, std::string_view infix_expression);
 };
 

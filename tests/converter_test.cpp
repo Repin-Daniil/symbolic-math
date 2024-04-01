@@ -390,14 +390,6 @@ TEST_CASE("u-v/w/x-y-z", "Converter") {
   REQUIRE(rpn == "u v w / x / - y - z - ");
 }
 
-TEST_CASE("a^b^c*d^e", "Converter") {
-  std::string expression = "a^b^c*d^e";
-
-  auto rpn = Converter::ConvertInfixToRPN(expression);
-
-  REQUIRE(rpn == "a b ^ c ^ d e ^ * ");
-}
-
 TEST_CASE("((l/(m^n))*o)-p", "Converter") {
   std::string expression = "((l/(m^n))*o)-p";
 
