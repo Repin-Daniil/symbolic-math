@@ -17,12 +17,10 @@ class Converter {
  private:
   static bool IsPrefixFunction(size_t i, std::string_view infix_expression);
   static bool IsEndOfOperand(size_t i, std::string_view infix_expression);
-  static bool IsEndOfConstant(size_t i, std::string_view infix_expression);
   static bool IsUnary(size_t i, std::string_view infix_expression);
 
-  static bool ComparePriorities(std::string_view, std::string_view);
-
   static std::optional<std::string_view> ParseFunction(size_t i, std::string_view infix_expression);
+  static bool IsEqual(size_t i, std::string_view infix_expression, std::string_view candidate);
 };
 
 }  // namespace utils

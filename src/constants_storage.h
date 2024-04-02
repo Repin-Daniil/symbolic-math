@@ -61,17 +61,17 @@ const std::unordered_map<std::string_view, Operations> char_to_operations{
     {Labels::kUnaryMinus, Operations::UNARY_MINUS},
     {Labels::kSquareRoot, Operations::SQRT}};
 
-const std::unordered_map<Operations, int> operations_to_priority{{Operations::TANGENT, 11},
-                                                                 {Operations::COS, 11},
-                                                                 {Operations::SIN, 11},
-                                                                 {Operations::SQRT, 11},
-                                                                 {Operations::NATURAL_LOGARITHM, 11},
-                                                                 {Operations::EXPONENTIATION, 10},
-                                                                 {Operations::UNARY_MINUS, 9},
-                                                                 {Operations::MULTIPLICATION, 8},
-                                                                 {Operations::DIVISION, 8},
-                                                                 {Operations::ADDITION, 7},
-                                                                 {Operations::SUBTRACTION, 7}};
+const std::unordered_map<Operations, int> operations_to_priority{{Operations::TANGENT, 4},
+                                                                 {Operations::COS, 4},
+                                                                 {Operations::SIN, 4},
+                                                                 {Operations::SQRT, 4},
+                                                                 {Operations::NATURAL_LOGARITHM, 4},
+                                                                 {Operations::EXPONENTIATION, 3},
+                                                                 {Operations::UNARY_MINUS, 2},
+                                                                 {Operations::MULTIPLICATION, 1},
+                                                                 {Operations::DIVISION, 1},
+                                                                 {Operations::ADDITION, 0},
+                                                                 {Operations::SUBTRACTION, 0}};
 
 struct ExceptionMessage {
   ExceptionMessage() = delete;

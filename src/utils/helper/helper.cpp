@@ -16,6 +16,14 @@ std::optional<double> Helper::ParseOperand(std::string_view input) noexcept {
   }
 }
 
+bool Helper::IsOperandPart(const char& symbol) noexcept {
+  return isdigit(symbol) || isalpha(symbol) || IsDecimalDelimiter(symbol);
+}
+
+bool Helper::IsDecimalDelimiter(const char& symbol) noexcept {
+  return symbol == constants::Labels::kDecimalPoint || symbol == constants::Labels::kDecimalComma;
+}
+
 bool Helper::IsOperator(std::string_view input) noexcept {
   return constants::char_to_operations.contains(input);
 }
@@ -42,6 +50,11 @@ std::optional<constants::Operations> Helper::ParseOperation(std::string_view inp
   }
 
   return constants::char_to_operations.at(input);
+}
+
+bool Helper::IsSign(std::string_view operation) noexcept {
+  return operation == constants::Labels::kMinus || operation == constants::Labels::kPlus ||
+         operation == constants::Labels::kUnaryMinus;
 }
 
 bool Helper::IsUnaryOperation(constants::Operations operation) noexcept {

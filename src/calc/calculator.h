@@ -21,11 +21,10 @@ class Calculator {
   double Calculate(std::string_view expression);
   void Reset();
 
-  static bool IsEqual(double lhs, double rhs);
-
  private:
   void ExecuteOperation(constants::Operations operation);
   double GetOperand();
+  static bool IsEqual(double lhs, double rhs);
 
  private:
   std::stack<double> operands_;

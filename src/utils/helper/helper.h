@@ -14,6 +14,9 @@ class Helper {
   static bool ComparePriorities(std::string_view lhs, std::string_view rhs);
 
   static bool IsOperator(std::string_view input) noexcept;
+  static bool IsOperandPart(const char& symbol) noexcept;
+  static bool IsDecimalDelimiter(const char& symbol) noexcept;
+  static bool IsSign(std::string_view operation) noexcept;
   static bool IsUnaryOperation(constants::Operations operation) noexcept;
   static bool IsBinaryOperation(constants::Operations operation) noexcept;
 

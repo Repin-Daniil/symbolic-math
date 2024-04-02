@@ -238,6 +238,14 @@ TEST_CASE("2 + 3", "Converter") {
   REQUIRE(rpn == "2 3 + ");
 }
 
+TEST_CASE("12 + (   - ( -   11) )", "Converter") {
+  std::string expression = "12 + (   - ( -   11) )";
+
+  auto rpn = Converter::ConvertInfixToRPN(expression);
+
+  REQUIRE(rpn == "12 11 ~ ~ + ");
+}
+
 TEST_CASE("(1 + 2)*4 + 3", "Converter") {
   std::string expression = "(1 + 2)*4 + 3";
 

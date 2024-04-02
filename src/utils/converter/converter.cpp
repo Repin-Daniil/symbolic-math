@@ -2,8 +2,6 @@
 
 namespace utils {
 
-using namespace std::literals;
-
 std::string Converter::ConvertInfixToRPN(std::string_view infix_expression) {
   std::stack<std::string_view> operators;
   std::stringstream postfix;
@@ -15,11 +13,10 @@ std::string Converter::ConvertInfixToRPN(std::string_view infix_expression) {
       auto operation = *ParseFunction(i, infix_expression);
       operators.push(operation);
       i += operation.size() - 1;
-    } else if (isdigit(symbol) || symbol == constants::Labels::kDecimalPoint ||
-               symbol == constants::Labels::kDecimalComma || isalpha(symbol)) {
+    } else if (Helper::IsOperandPart(symbol)) {
       postfix << (symbol == constants::Labels::kDecimalComma ? constants::Labels::kDecimalPoint : symbol);
 
-      if (IsEndOfOperand(i, infix_expression) || IsEndOfConstant(i, infix_expression)) {
+      if (IsEndOfOperand(i, infix_expression)) {
         postfix << ' ';
       }
     } else if (symbol == constants::Labels::kOpenParenChar) {
@@ -71,26 +68,26 @@ bool Converter::IsPrefixFunction(size_t i, std::string_view infix_expression) {
 
 std::optional<std::string_view> Converter::ParseFunction(size_t i, std::string_view infix_expression) {
   if (infix_expression[i] == 's') {
-    if (i + 2 < infix_expression.size() && infix_expression.substr(i, 3) == constants::Labels::kSin) {
-      return infix_expression.substr(i, 3);
+    if (IsEqual(i, infix_expression, constants::Labels::kSin)) {
+      return infix_expression.substr(i, constants::Labels::kSin.size());
     }
-    if (i + 3 < infix_expression.size() && infix_expression.substr(i, 4) == constants::Labels::kSquareRoot) {
-      return infix_expression.substr(i, 4);
+    if (IsEqual(i, infix_expression, constants::Labels::kSquareRoot)) {
+      return infix_expression.substr(i, constants::Labels::kSquareRoot.size());
     }
   } else if (infix_expression[i] == 'c') {
-    if (i + 2 < infix_expression.size() && infix_expression.substr(i, 3) == constants::Labels::kCos) {
-      return infix_expression.substr(i, 3);
+    if (IsEqual(i, infix_expression, constants::Labels::kCos)) {
+      return infix_expression.substr(i, constants::Labels::kCos.size());
     }
   } else if (infix_expression[i] == 'l') {
-    if (i + 1 < infix_expression.size() && infix_expression.substr(i, 2) == constants::Labels::kLogarithm) {
-      return infix_expression.substr(i, 2);
+    if (IsEqual(i, infix_expression, constants::Labels::kLogarithm)) {
+      return infix_expression.substr(i, constants::Labels::kLogarithm.size());
     }
   } else if (infix_expression[i] == 't') {
-    if (i + 1 < infix_expression.size() && infix_expression.substr(i, 2) == constants::Labels::kTg) {
-      return infix_expression.substr(i, 2);
+    if (IsEqual(i, infix_expression, constants::Labels::kTg)) {
+      return infix_expression.substr(i, constants::Labels::kTg.size());
     }
-    if (i + 2 < infix_expression.size() && infix_expression.substr(i, 3) == constants::Labels::kTan) {
-      return infix_expression.substr(i, 3);
+    if (IsEqual(i, infix_expression, constants::Labels::kTan)) {
+      return infix_expression.substr(i, constants::Labels::kTan.size());
     }
   }
 
@@ -98,11 +95,9 @@ std::optional<std::string_view> Converter::ParseFunction(size_t i, std::string_v
 }
 
 bool Converter::IsEndOfOperand(size_t i, std::string_view infix_expression) {
-  return (isdigit(infix_expression[i]) || infix_expression[i] == constants::Labels::kDecimalComma ||
-          infix_expression[i] == constants::Labels::kDecimalPoint) &&
-         ((i + 1 == infix_expression.size()) || (i + 1 < infix_expression.size() && !isdigit(infix_expression[i + 1]) &&
-                                                 infix_expression[i + 1] != constants::Labels::kDecimalPoint &&
-                                                 infix_expression[i + 1] != constants::Labels::kDecimalComma));
+  return Helper::IsOperandPart(infix_expression[i]) &&
+         ((i + 1 == infix_expression.size()) ||
+          (i + 1 < infix_expression.size() && !Helper::IsOperandPart(infix_expression[i + 1])));
 }
 
 bool Converter::IsUnary(size_t i, std::string_view infix_expression) {
@@ -112,16 +107,14 @@ bool Converter::IsUnary(size_t i, std::string_view infix_expression) {
     --j;
   }
 
-  return (infix_expression.substr(i, 1) == constants::Labels::kMinus ||
-          infix_expression.substr(i, 1) == constants::Labels::kPlus ||
-          infix_expression.substr(i, 1) == constants::Labels::kUnaryMinus) &&
-         (infix_expression[i - 1] == constants::Labels::kOpenParenChar ||
-          (j >= 0 && Helper::IsOperator(infix_expression.substr(j, 1))));
+  return Helper::IsSign(infix_expression.substr(i, 1)) &&
+         (j >= 0 && (infix_expression[j] == constants::Labels::kOpenParenChar ||
+                     Helper::IsOperator(infix_expression.substr(j, 1))));
 }
 
-bool Converter::IsEndOfConstant(size_t i, std::string_view infix_expression) {
-  return isalpha(infix_expression[i]) &&
-         ((i + 1 == infix_expression.size()) || (i + 1 < infix_expression.size() && !isalpha(infix_expression[i + 1])));
+bool Converter::IsEqual(size_t i, std::string_view infix_expression, std::string_view candidate) {
+  return (i + candidate.size() - 1) < infix_expression.size() &&
+         infix_expression.substr(i, candidate.size()) == candidate;
 }
 
 }  // namespace utils
