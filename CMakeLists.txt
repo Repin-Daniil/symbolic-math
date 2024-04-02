@@ -3,7 +3,6 @@ project(RPN CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 
-
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
 
@@ -29,6 +28,7 @@ target_link_libraries(calc PRIVATE RPN_LIB)
 
 # Tests
 enable_testing()
+
 add_executable(rpn_test tests/calculator_test.cpp)
 add_executable(converter_test tests/converter_test.cpp)
 add_executable(app_test tests/application_test.cpp src/app/application.h src/app/application.cpp)

@@ -67,28 +67,28 @@ bool Converter::IsPrefixFunction(size_t i, std::string_view infix_expression) {
 }
 
 std::optional<std::string_view> Converter::ParseFunction(size_t i, std::string_view infix_expression) {
-  if (infix_expression[i] == 's') {
-    if (IsEqual(i, infix_expression, constants::Labels::kSin)) {
-      return infix_expression.substr(i, constants::Labels::kSin.size());
-    }
-    if (IsEqual(i, infix_expression, constants::Labels::kSquareRoot)) {
-      return infix_expression.substr(i, constants::Labels::kSquareRoot.size());
-    }
-  } else if (infix_expression[i] == 'c') {
-    if (IsEqual(i, infix_expression, constants::Labels::kCos)) {
-      return infix_expression.substr(i, constants::Labels::kCos.size());
-    }
-  } else if (infix_expression[i] == 'l') {
-    if (IsEqual(i, infix_expression, constants::Labels::kLogarithm)) {
-      return infix_expression.substr(i, constants::Labels::kLogarithm.size());
-    }
-  } else if (infix_expression[i] == 't') {
-    if (IsEqual(i, infix_expression, constants::Labels::kTg)) {
-      return infix_expression.substr(i, constants::Labels::kTg.size());
-    }
-    if (IsEqual(i, infix_expression, constants::Labels::kTan)) {
-      return infix_expression.substr(i, constants::Labels::kTan.size());
-    }
+  if (IsEqual(i, infix_expression, constants::Labels::kSin)) {
+    return infix_expression.substr(i, constants::Labels::kSin.size());
+  }
+
+  if (IsEqual(i, infix_expression, constants::Labels::kSquareRoot)) {
+    return infix_expression.substr(i, constants::Labels::kSquareRoot.size());
+  }
+
+  if (IsEqual(i, infix_expression, constants::Labels::kCos)) {
+    return infix_expression.substr(i, constants::Labels::kCos.size());
+  }
+
+  if (IsEqual(i, infix_expression, constants::Labels::kLogarithm)) {
+    return infix_expression.substr(i, constants::Labels::kLogarithm.size());
+  }
+
+  if (IsEqual(i, infix_expression, constants::Labels::kTg)) {
+    return infix_expression.substr(i, constants::Labels::kTg.size());
+  }
+
+  if (IsEqual(i, infix_expression, constants::Labels::kTan)) {
+    return infix_expression.substr(i, constants::Labels::kTan.size());
   }
 
   return std::nullopt;
