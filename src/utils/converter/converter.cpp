@@ -6,7 +6,7 @@ std::string Converter::ConvertInfixToRPN(std::string_view infix_expression) {
   std::stack<std::string_view> operators;
   std::stringstream postfix;
 
-  for (size_t i = 0; i < infix_expression.size(); ++i) {
+  for (std::size_t i = 0; i < infix_expression.size(); ++i) {
     const char& symbol = infix_expression[i];
 
     if (IsPrefixFunction(i, infix_expression)) {
@@ -62,11 +62,11 @@ std::string Converter::ConvertInfixToRPN(std::string_view infix_expression) {
   return postfix.str();
 }
 
-bool Converter::IsPrefixFunction(size_t i, std::string_view infix_expression) {
+bool Converter::IsPrefixFunction(std::size_t i, std::string_view infix_expression) {
   return ParseFunction(i, infix_expression).has_value();
 }
 
-std::optional<std::string_view> Converter::ParseFunction(size_t i, std::string_view infix_expression) {
+std::optional<std::string_view> Converter::ParseFunction(std::size_t i, std::string_view infix_expression) {
   if (IsEqual(i, infix_expression, constants::Labels::kSin)) {
     return infix_expression.substr(i, constants::Labels::kSin.size());
   }
@@ -94,13 +94,13 @@ std::optional<std::string_view> Converter::ParseFunction(size_t i, std::string_v
   return std::nullopt;
 }
 
-bool Converter::IsEndOfOperand(size_t i, std::string_view infix_expression) {
+bool Converter::IsEndOfOperand(std::size_t i, std::string_view infix_expression) {
   return Helper::IsOperandPart(infix_expression[i]) &&
-         ((i + 1 == infix_expression.size()) ||
+         (i + 1 == infix_expression.size() ||
           (i + 1 < infix_expression.size() && !Helper::IsOperandPart(infix_expression[i + 1])));
 }
 
-bool Converter::IsUnary(size_t i, std::string_view infix_expression) {
+bool Converter::IsUnary(std::size_t i, std::string_view infix_expression) {
   int j = i - 1;
 
   while (j >= 0 && infix_expression[j] == ' ') {
@@ -112,7 +112,7 @@ bool Converter::IsUnary(size_t i, std::string_view infix_expression) {
                      Helper::IsOperator(infix_expression.substr(j, 1))));
 }
 
-bool Converter::IsEqual(size_t i, std::string_view infix_expression, std::string_view candidate) {
+bool Converter::IsEqual(std::size_t i, std::string_view infix_expression, std::string_view candidate) {
   return (i + candidate.size() - 1) < infix_expression.size() &&
          infix_expression.substr(i, candidate.size()) == candidate;
 }

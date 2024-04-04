@@ -22,6 +22,8 @@ enum class Operations {
 };
 
 struct Labels {
+  Labels() = delete;
+
   constexpr static std::string_view kPlus = "+"sv;
   constexpr static std::string_view kMinus = "-"sv;
   constexpr static std::string_view kMultiplication = "*"sv;
