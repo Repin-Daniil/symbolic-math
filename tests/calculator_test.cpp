@@ -4,8 +4,8 @@
 #include <catch2/matchers/catch_matchers.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 
-#include "calc/calculator.h"
-#include "calc/calculator.h"  // check include guards
+#include "math/calc/calculator.h"
+#include "math/calc/calculator.h"  // check include guards
 
 TEST_CASE("3", "RPN") {
   math::Calculator calc;
@@ -286,7 +286,6 @@ TEST_CASE("2 0 1 - ^", "[RPN]") {
   REQUIRE(ans == 0.5);
 }
 
-
 TEST_CASE("4 sqrt", "[RPN]") {
   math::Calculator calc;
   std::string expression = "4 sqrt";
@@ -402,6 +401,36 @@ TEST_CASE("2.71 ln", "[RPN]") {
   auto ans = calc.Calculate(expression);
 
   REQUIRE_THAT(ans, Catch::Matchers::WithinAbs(1., 0.1));
+}
+
+TEST_CASE("x ln, x = e", "[RPN]") {
+  math::Calculator calc;
+  std::string expression = "x ln";
+  std::unordered_map<char, double> variables{{'x', std::numbers::e}};
+
+  auto ans = calc.Calculate(expression, variables);
+
+  REQUIRE_THAT(ans, Catch::Matchers::WithinAbs(1., 0.1));
+}
+
+TEST_CASE("a b ^, a = 2, b = 3", "[RPN]") {
+  math::Calculator calc;
+  std::string expression = "a b ^";
+  std::unordered_map<char, double> variables{{'a', 2.}, {'b', 3.}};
+
+  auto ans = calc.Calculate(expression, variables);
+
+  REQUIRE(ans == 8);
+}
+
+TEST_CASE("2 3 ^, a = 4, b = 3", "[RPN]") {
+  math::Calculator calc;
+  std::string expression = "2 3 ^";
+  std::unordered_map<char, double> variables{{'a', 4.}, {'b', 3.}};
+
+  auto ans = calc.Calculate(expression, variables);
+
+  REQUIRE(ans == 8);
 }
 
 TEST_CASE("CheckCalcMemory", "[RPN]") {

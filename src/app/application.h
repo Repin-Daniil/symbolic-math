@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include "calc/calculator.h"
+#include "math/calc/calculator.h"
 #include "utils/converter/converter.h"
 
 namespace app {

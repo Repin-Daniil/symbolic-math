@@ -47,7 +47,7 @@ TEST_CASE("Correct expression with double", "RPN") {
 TEST_CASE("Three expressions", "RPN") {
   app::Application application;
   std::string input_1 = "2 + 3";
-  std::string input_2 = "-3"; // Not Unary
+  std::string input_2 = "-3";  // Not Unary
   std::string input_3 = "1 + 1";
 
   auto ans_1 = application.Handle(input_1);

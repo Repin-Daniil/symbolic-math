@@ -19,7 +19,7 @@ TEST_CASE("-1", "Converter") {
 
   auto rpn = Converter::ConvertInfixToRPN(expression);
 
-  REQUIRE(rpn == "1 - "); // Calculator should interpret minus as unary
+  REQUIRE(rpn == "1 - ");  // Calculator should interpret minus as unary
 }
 
 TEST_CASE("~1", "Converter") {
@@ -43,7 +43,7 @@ TEST_CASE("- 1", "Converter") {
 
   auto rpn = Converter::ConvertInfixToRPN(expression);
 
-  REQUIRE(rpn == "1 - "); // Calculator should interpret minus as unary
+  REQUIRE(rpn == "1 - ");  // Calculator should interpret minus as unary
 }
 
 TEST_CASE("+ 1", "Converter") {
@@ -51,7 +51,7 @@ TEST_CASE("+ 1", "Converter") {
 
   auto rpn = Converter::ConvertInfixToRPN(expression);
 
-  REQUIRE(rpn == "1 + "); // Calculator should interpret plus as unary
+  REQUIRE(rpn == "1 + ");  // Calculator should interpret plus as unary
 }
 
 TEST_CASE("(- - 1)", "Converter") {
@@ -67,7 +67,7 @@ TEST_CASE("- - 1", "Converter") {
 
   auto rpn = Converter::ConvertInfixToRPN(expression);
 
-  REQUIRE(rpn == "1 ~ - "); // Calculator should interpret both minuses as unary
+  REQUIRE(rpn == "1 ~ - ");  // Calculator should interpret both minuses as unary
 }
 
 TEST_CASE("~-1", "Converter") {

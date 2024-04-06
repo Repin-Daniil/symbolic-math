@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -18,7 +19,7 @@ namespace math {
 
 class Calculator {
  public:
-  double Calculate(std::string_view expression);
+  double Calculate(std::string_view expression, std::unordered_map<char, double> variables = {});
   void Reset();
 
  private:

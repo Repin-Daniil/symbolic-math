@@ -2,7 +2,7 @@
 
 namespace math {
 
-double Calculator::Calculate(std::string_view expression) {
+double Calculator::Calculate(std::string_view expression, std::unordered_map<char, double> variables) {
   if (expression.empty()) {
     throw std::invalid_argument(constants::ExceptionMessage::kEmptyExpression.data());
   }
@@ -22,7 +22,9 @@ double Calculator::Calculate(std::string_view expression) {
         throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data());
       }
     } else {
-      if (auto operand = utils::Helper::ParseOperand(input)) {
+      if (input.size() == 1 && variables.contains(input[0])) {
+        operands_.push(variables.at(input[0]));
+      } else if (auto operand = utils::Helper::ParseOperand(input)) {
         operands_.push(*operand);
       } else {
         throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data());
