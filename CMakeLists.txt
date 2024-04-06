@@ -20,7 +20,20 @@ add_library(LIBRARY
         src/utils/helper/helper.h
         src/utils/helper/helper.cpp
         src/math/algebra/algebra.cpp
-        src/math/algebra/algebra.h)
+        src/math/algebra/algebra.h
+        src/math/algebra/expression.h
+        src/math/algebra/expressions/operands/number.cpp
+        src/math/algebra/expressions/operands/number.h
+        src/math/algebra/expressions/operands/variable.cpp
+        src/math/algebra/expressions/operands/variable.h
+        src/math/algebra/expressions/operations/binary/addition.cpp
+        src/math/algebra/expressions/operations/binary/addition.h
+        src/utils/abstract-syntax-tree/ast.cpp
+        src/utils/abstract-syntax-tree/ast.h
+        src/math/algebra/expressions/operations/unary-operation.h
+        src/math/algebra/expressions/operations/binary-operation.h
+        src/math/algebra/expressions/operations/unary-operation.cpp
+        src/math/algebra/expressions/operations/binary-operation.cpp)
 
 add_executable(calc src/main.cpp
         src/app/application.cpp
