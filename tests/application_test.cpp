@@ -233,7 +233,7 @@ TEST_CASE("Wrong Format", "RPN") {
   auto ans = application.Handle(input);
 
   REQUIRE(!ans.answer.has_value());
-  REQUIRE(ans.error == constants::ExceptionMessage::kWrongFormat);
+  REQUIRE(ans.error == (std::string(constants::ExceptionMessage::kWrongFormat) + "p"));
 }
 
 TEST_CASE("Unbalanced Bracket", "RPN") {

@@ -406,9 +406,9 @@ TEST_CASE("2.71 ln", "[RPN]") {
 TEST_CASE("x ln, x = e", "[RPN]") {
   math::Calculator calc;
   std::string expression = "x ln";
-  std::unordered_map<char, double> variables{{'x', std::numbers::e}};
+  calc.AddVariable('x', std::numbers::e);
 
-  auto ans = calc.Calculate(expression, variables);
+  auto ans = calc.Calculate(expression);
 
   REQUIRE_THAT(ans, Catch::Matchers::WithinAbs(1., 0.1));
 }
@@ -416,9 +416,10 @@ TEST_CASE("x ln, x = e", "[RPN]") {
 TEST_CASE("a b ^, a = 2, b = 3", "[RPN]") {
   math::Calculator calc;
   std::string expression = "a b ^";
-  std::unordered_map<char, double> variables{{'a', 2.}, {'b', 3.}};
+  calc.AddVariable('a', 2.);
+  calc.AddVariable('b', 3.);
 
-  auto ans = calc.Calculate(expression, variables);
+  auto ans = calc.Calculate(expression);
 
   REQUIRE(ans == 8);
 }
@@ -426,9 +427,10 @@ TEST_CASE("a b ^, a = 2, b = 3", "[RPN]") {
 TEST_CASE("2 3 ^, a = 4, b = 3", "[RPN]") {
   math::Calculator calc;
   std::string expression = "2 3 ^";
-  std::unordered_map<char, double> variables{{'a', 4.}, {'b', 3.}};
+  calc.AddVariable('a', 4.);
+  calc.AddVariable('b', 3.);
 
-  auto ans = calc.Calculate(expression, variables);
+  auto ans = calc.Calculate(expression);
 
   REQUIRE(ans == 8);
 }
@@ -494,7 +496,7 @@ TEST_CASE("WrongOperandFormat", "[RPN]") {
   math::Calculator calc;
   std::string expression = "bca abc +";
 
-  CHECK_THROWS_WITH(calc.Calculate(expression), constants::ExceptionMessage::kWrongFormat.data());
+  CHECK_THROWS_WITH(calc.Calculate(expression), std::string(constants::ExceptionMessage::kWrongFormat.data()) + "bca");
 }
 
 TEST_CASE("ZeroDivision", "[RPN]") {

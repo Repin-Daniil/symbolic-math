@@ -19,7 +19,8 @@ namespace math {
 
 class Calculator {
  public:
-  double Calculate(std::string_view expression, std::unordered_map<char, double> variables = {});
+  double Calculate(std::string_view expression);
+  void AddVariable(char symbol, double value);
   void Reset();
 
  private:
@@ -29,6 +30,7 @@ class Calculator {
 
  private:
   std::stack<double> operands_;
+  std::unordered_map<char, double> variables_;
 };
 
 }  // namespace math

@@ -2,7 +2,7 @@
 
 namespace math {
 
-double Calculator::Calculate(std::string_view expression, std::unordered_map<char, double> variables) {
+double Calculator::Calculate(std::string_view expression) {
   if (expression.empty()) {
     throw std::invalid_argument(constants::ExceptionMessage::kEmptyExpression.data());
   }
@@ -19,15 +19,15 @@ double Calculator::Calculate(std::string_view expression, std::unordered_map<cha
       if (auto operation = utils::Helper::ParseOperation(input)) {
         ExecuteOperation(*operation);
       } else {
-        throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data());
+        throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data() + input);
       }
     } else {
-      if (input.size() == 1 && variables.contains(input[0])) {
-        operands_.push(variables.at(input[0]));
+      if (input.size() == 1 && variables_.contains(input[0])) {
+        operands_.push(variables_.at(input[0]));
       } else if (auto operand = utils::Helper::ParseOperand(input)) {
         operands_.push(*operand);
       } else {
-        throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data());
+        throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data() + input);
       }
     }
   }
@@ -36,6 +36,7 @@ double Calculator::Calculate(std::string_view expression, std::unordered_map<cha
 }
 
 void Calculator::Reset() {
+  variables_.clear();
   std::stack<double> empty;
   std::swap(operands_, empty);
 }
@@ -119,6 +120,10 @@ double Calculator::GetOperand() {
 
 bool Calculator::IsEqual(double lhs, double rhs) {
   return std::abs(rhs - lhs) < std::numeric_limits<double>::epsilon();
+}
+
+void Calculator::AddVariable(char symbol, double value) {
+  variables_[symbol] = value;
 }
 
 }  // namespace math
