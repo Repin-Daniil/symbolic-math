@@ -33,7 +33,17 @@ add_library(LIBRARY
         src/math/algebra/expressions/operations/unary-operation.h
         src/math/algebra/expressions/operations/binary-operation.h
         src/math/algebra/expressions/operations/unary-operation.cpp
-        src/math/algebra/expressions/operations/binary-operation.cpp)
+        src/math/algebra/expressions/operations/binary-operation.cpp
+        src/math/algebra/expressions/operations/binary/multiplication.cpp
+        src/math/algebra/expressions/operations/binary/multiplication.h
+        src/math/algebra/expressions/operations/binary/substraction.cpp
+        src/math/algebra/expressions/operations/binary/substraction.h
+        src/math/algebra/expressions/operations/binary/division.cpp
+        src/math/algebra/expressions/operations/binary/division.h
+        src/math/algebra/expressions/operations/binary/exponentiation.cpp
+        src/math/algebra/expressions/operations/binary/exponentiation.h
+        src/math/algebra/expressions/operations/unary/logarithm.cpp
+        src/math/algebra/expressions/operations/unary/logarithm.h)
 
 add_executable(calc src/main.cpp
         src/app/application.cpp

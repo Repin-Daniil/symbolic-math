@@ -14,7 +14,7 @@ class Variable : public Expression {
   }
 
   std::string GetString() override;
-  std::unique_ptr<Expression> GetDerivative() override;
+  std::shared_ptr<Expression> GetDerivative() override;
 
  private:
   std::string symbol_;

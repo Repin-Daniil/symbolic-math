@@ -8,9 +8,9 @@
 
 namespace math {
 
-class Addition final : public BinaryOperation {
+class Substraction final : public BinaryOperation {
  public:
-  Addition(std::shared_ptr<Expression> left, std::shared_ptr<Expression> right)
+  Substraction(std::shared_ptr<Expression> left, std::shared_ptr<Expression> right)
       : BinaryOperation(std::move(left), std::move(right)) {
   }
 

@@ -2,8 +2,8 @@
 
 namespace math {
 
-std::unique_ptr<Expression> Variable::GetDerivative() {
-  return std::unique_ptr<Expression>(new Number(1));
+std::shared_ptr<Expression> Variable::GetDerivative() {
+  return std::shared_ptr<Expression>(new Number(1));
 }
 
 std::string Variable::GetString() {

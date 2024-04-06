@@ -3,14 +3,14 @@
 #include <memory>
 #include <string>
 #include <utility>
-
+#include "addition.h"
 #include "math/algebra/expressions/operations/binary-operation.h"
 
 namespace math {
 
-class Addition final : public BinaryOperation {
+class Multiplication final : public BinaryOperation {
  public:
-  Addition(std::shared_ptr<Expression> left, std::shared_ptr<Expression> right)
+  Multiplication(std::shared_ptr<Expression> left, std::shared_ptr<Expression> right)
       : BinaryOperation(std::move(left), std::move(right)) {
   }
 
