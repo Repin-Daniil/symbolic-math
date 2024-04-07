@@ -21,7 +21,7 @@ add_library(LIBRARY
         src/utils/helper/helper.cpp
         src/math/algebra/algebra.cpp
         src/math/algebra/algebra.h
-        src/math/algebra/expression.h
+        src/math/algebra/expressions/expression.h
         src/math/algebra/expressions/operands/number.cpp
         src/math/algebra/expressions/operands/number.h
         src/math/algebra/expressions/operands/variable.cpp
@@ -30,10 +30,10 @@ add_library(LIBRARY
         src/math/algebra/expressions/operations/binary/addition.h
         src/utils/abstract-syntax-tree/ast.cpp
         src/utils/abstract-syntax-tree/ast.h
-        src/math/algebra/expressions/operations/unary-operation.h
-        src/math/algebra/expressions/operations/binary-operation.h
-        src/math/algebra/expressions/operations/unary-operation.cpp
-        src/math/algebra/expressions/operations/binary-operation.cpp
+        src/math/algebra/expressions/operations/unary_operation.h
+        src/math/algebra/expressions/operations/binary_operation.h
+        src/math/algebra/expressions/operations/unary_operation.cpp
+        src/math/algebra/expressions/operations/binary_operation.cpp
         src/math/algebra/expressions/operations/binary/multiplication.cpp
         src/math/algebra/expressions/operations/binary/multiplication.h
         src/math/algebra/expressions/operations/binary/substraction.cpp
@@ -43,7 +43,17 @@ add_library(LIBRARY
         src/math/algebra/expressions/operations/binary/exponentiation.cpp
         src/math/algebra/expressions/operations/binary/exponentiation.h
         src/math/algebra/expressions/operations/unary/logarithm.cpp
-        src/math/algebra/expressions/operations/unary/logarithm.h)
+        src/math/algebra/expressions/operations/unary/logarithm.h
+        src/math/algebra/expressions/operations/unary/cos.cpp
+        src/math/algebra/expressions/operations/unary/cos.h
+        src/math/algebra/expressions/operations/unary/sin.cpp
+        src/math/algebra/expressions/operations/unary/sin.h
+        src/math/algebra/expressions/operations/unary/sqrt.cpp
+        src/math/algebra/expressions/operations/unary/sqrt.h
+        src/math/algebra/expressions/operations/unary/tan.cpp
+        src/math/algebra/expressions/operations/unary/tan.h
+        src/math/algebra/expressions/operations/unary/unary_minus.cpp
+        src/math/algebra/expressions/operations/unary/unary_minus.h)
 
 add_executable(calc src/main.cpp
         src/app/application.cpp

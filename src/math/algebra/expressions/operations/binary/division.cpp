@@ -1,13 +1,13 @@
 #include "division.h"
-#include "exponentiation.h"
-#include "math/algebra/expressions/operands/number.h"
-#include "multiplication.h"
-#include "substraction.h"
 
 namespace math {
 
-std::string Division::GetString() {
-  return left_argument_->GetString() + " / " + right_argument_->GetString();
+std::string Division::GetInfix() {
+  return left_argument_->GetInfix() + " / " + right_argument_->GetInfix();
+}
+
+std::string Division::GetRPN() {
+  return left_argument_->GetRPN() + " " + right_argument_->GetRPN() + " /";
 }
 
 std::shared_ptr<Expression> Division::GetDerivative() {

@@ -4,7 +4,7 @@
 #include <string>
 #include <utility>
 #include "addition.h"
-#include "math/algebra/expressions/operations/binary-operation.h"
+#include "math/algebra/expressions/operations/binary_operation.h"
 
 namespace math {
 
@@ -14,7 +14,8 @@ class Multiplication final : public BinaryOperation {
       : BinaryOperation(std::move(left), std::move(right)) {
   }
 
-  std::string GetString() override;
+  std::string GetInfix() override;
+  std::string GetRPN() override;
   std::shared_ptr<Expression> GetDerivative() override;
 };
 

@@ -2,7 +2,7 @@
 
 #include <memory>
 #include <string>
-#include "math/algebra/expression.h"
+#include "math/algebra/expressions/expression.h"
 
 namespace math {
 
@@ -11,7 +11,8 @@ class Number : public Expression {
   explicit Number(double value) : value_(value) {
   }
 
-  std::string GetString() override;
+  std::string GetInfix() override;
+  std::string GetRPN() override;
   std::shared_ptr<Expression> GetDerivative() override;
 
  private:

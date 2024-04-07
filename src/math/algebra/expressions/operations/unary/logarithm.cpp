@@ -1,10 +1,13 @@
 #include "logarithm.h"
-#include "math/algebra/expressions/operations/binary/division.h"
 
 namespace math {
 
-std::string Logarithm::GetString() {
-  return " ln(" + argument_->GetString() + ") ";
+std::string Logarithm::GetInfix() {
+  return "ln(" + argument_->GetInfix() + ")";
+}
+
+std::string Logarithm::GetRPN() {
+  return argument_->GetInfix() + " ln";
 }
 
 std::shared_ptr<Expression> Logarithm::GetDerivative() {

@@ -1,13 +1,13 @@
 #include "exponentiation.h"
-#include "addition.h"
-#include "division.h"
-#include "math/algebra/expressions/operations/unary/logarithm.h"
-#include "multiplication.h"
 
 namespace math {
 
-std::string Exponentiation::GetString() {
-  return left_argument_->GetString() + " ^ " + right_argument_->GetString();
+std::string Exponentiation::GetInfix() {
+  return left_argument_->GetInfix() + " ^ " + right_argument_->GetInfix();
+}
+
+std::string Exponentiation::GetRPN() {
+  return left_argument_->GetRPN() + " " + right_argument_->GetRPN() + " ^";
 }
 
 std::shared_ptr<Expression> Exponentiation::GetDerivative() {

@@ -1,4 +1,4 @@
-#include "binary-operation.h"
+#include "binary_operation.h"
 
 namespace math {
 

@@ -2,7 +2,11 @@
 
 namespace math {
 
-std::string Number::GetString() {
+std::string Number::GetInfix() {
+  return std::to_string(value_);
+}
+
+std::string Number::GetRPN() {
   return std::to_string(value_);
 }
 

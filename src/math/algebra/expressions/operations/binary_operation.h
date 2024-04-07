@@ -2,7 +2,7 @@
 
 #include <memory>
 #include <utility>
-#include "math/algebra/expression.h"
+#include "math/algebra/expressions/expression.h"
 
 namespace math {
 

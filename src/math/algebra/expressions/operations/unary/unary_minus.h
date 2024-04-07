@@ -8,9 +8,9 @@
 
 namespace math {
 
-class Logarithm final : public UnaryOperation {
+class UnaryMinus final : public UnaryOperation {
  public:
-  explicit Logarithm(std::shared_ptr<Expression> argument) : UnaryOperation(std::move(argument)) {
+  explicit UnaryMinus(std::shared_ptr<Expression> argument) : UnaryOperation(std::move(argument)) {
   }
 
   std::string GetInfix() override;

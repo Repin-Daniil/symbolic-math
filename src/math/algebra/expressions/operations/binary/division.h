@@ -3,7 +3,11 @@
 #include <memory>
 #include <string>
 #include <utility>
-#include "math/algebra/expressions/operations/binary-operation.h"
+#include "exponentiation.h"
+#include "math/algebra/expressions/operands/number.h"
+#include "math/algebra/expressions/operations/binary_operation.h"
+#include "multiplication.h"
+#include "substraction.h"
 
 namespace math {
 
@@ -13,7 +17,8 @@ class Division final : public BinaryOperation {
       : BinaryOperation(std::move(left), std::move(right)) {
   }
 
-  std::string GetString() override;
+  std::string GetInfix() override;
+  std::string GetRPN() override;
   std::shared_ptr<Expression> GetDerivative() override;
 };
 

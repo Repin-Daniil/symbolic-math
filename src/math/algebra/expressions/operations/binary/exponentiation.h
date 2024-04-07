@@ -3,7 +3,11 @@
 #include <memory>
 #include <string>
 #include <utility>
-#include "math/algebra/expressions/operations/binary-operation.h"
+#include "addition.h"
+#include "division.h"
+#include "math/algebra/expressions/operations/binary_operation.h"
+#include "math/algebra/expressions/operations/unary/logarithm.h"
+#include "multiplication.h"
 
 namespace math {
 
@@ -13,7 +17,8 @@ class Exponentiation final : public BinaryOperation {
       : BinaryOperation(std::move(left), std::move(right)) {
   }
 
-  std::string GetString() override;
+  std::string GetInfix() override;
+  std::string GetRPN() override;
   std::shared_ptr<Expression> GetDerivative() override;
 };
 
