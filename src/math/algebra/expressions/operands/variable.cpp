@@ -7,11 +7,17 @@ std::shared_ptr<Expression> Variable::GetDerivative() {
 }
 
 std::string Variable::GetInfix() {
-  return std::to_string(symbol_);
+  return GetString();
 }
 
 std::string Variable::GetRPN() {
-  return std::to_string(symbol_);
+  return GetString();
+}
+
+std::string Variable::GetString() const noexcept {
+  std::stringstream stream;
+  stream << symbol_;
+  return stream.str();
 }
 
 }  // namespace math

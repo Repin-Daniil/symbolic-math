@@ -18,6 +18,8 @@ class Variable : public Expression {
   std::shared_ptr<Expression> GetDerivative() override;
 
  private:
+  std::string GetString() const noexcept;
+ private:
   char symbol_;
 };
 
