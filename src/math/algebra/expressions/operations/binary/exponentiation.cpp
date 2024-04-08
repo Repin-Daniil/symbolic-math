@@ -3,7 +3,7 @@
 namespace math {
 
 std::string Exponentiation::GetInfix() {
-  return left_argument_->GetInfix() + " ^ " + right_argument_->GetInfix();
+  return  "(" + left_argument_->GetInfix() + " ^ " + right_argument_->GetInfix() + ")";
 }
 
 std::string Exponentiation::GetRPN() {

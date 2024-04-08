@@ -3,7 +3,7 @@
 namespace math {
 
 std::string Division::GetInfix() {
-  return left_argument_->GetInfix() + " / " + right_argument_->GetInfix();
+  return  "(" + left_argument_->GetInfix() + " / " + right_argument_->GetInfix() + ")";
 }
 
 std::string Division::GetRPN() {

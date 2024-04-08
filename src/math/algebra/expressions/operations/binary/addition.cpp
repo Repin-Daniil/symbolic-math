@@ -7,7 +7,7 @@ std::shared_ptr<Expression> Addition::GetDerivative() {
 }
 
 std::string Addition::GetInfix() {
-  return left_argument_->GetInfix() + " + " + right_argument_->GetInfix();
+  return "(" + left_argument_->GetInfix() + " + " + right_argument_->GetInfix() + ")";
 }
 
 std::string Addition::GetRPN() {
