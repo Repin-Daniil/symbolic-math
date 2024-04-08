@@ -3,11 +3,11 @@
 namespace math {
 
 std::string UnaryMinus::GetInfix() {
-  return "-(" + argument_->GetInfix() + ")";
+  return "-" + argument_->GetInfix();
 }
 
 std::string UnaryMinus::GetRPN() {
-  return argument_->GetInfix() + " ~";
+  return argument_->GetRPN() + " ~";
 }
 
 std::shared_ptr<Expression> UnaryMinus::GetDerivative() {

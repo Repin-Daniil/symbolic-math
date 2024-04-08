@@ -7,7 +7,7 @@ std::string Logarithm::GetInfix() {
 }
 
 std::string Logarithm::GetRPN() {
-  return argument_->GetInfix() + " ln";
+  return argument_->GetRPN() + " ln";
 }
 
 std::shared_ptr<Expression> Logarithm::GetDerivative() {

@@ -58,8 +58,8 @@ add_library(OPERATIONS_LIB
         src/math/algebra/expressions/operations/unary/sin.cpp
         src/math/algebra/expressions/operations/unary/sqrt.h
         src/math/algebra/expressions/operations/unary/sqrt.cpp
-        src/math/algebra/expressions/operations/unary/tan.h
-        src/math/algebra/expressions/operations/unary/tan.cpp
+        src/math/algebra/expressions/operations/unary/tangent.h
+        src/math/algebra/expressions/operations/unary/tangent.cpp
         src/math/algebra/expressions/operations/unary/unary_minus.h
         src/math/algebra/expressions/operations/unary/unary_minus.cpp
 )

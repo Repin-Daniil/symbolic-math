@@ -12,9 +12,9 @@
 
 namespace math {
 
-class Tan final : public UnaryOperation {
+class Tangent final : public UnaryOperation {
  public:
-  explicit Tan(std::shared_ptr<Expression> argument) : UnaryOperation(std::move(argument)) {
+  explicit Tangent(std::shared_ptr<Expression> argument) : UnaryOperation(std::move(argument)) {
   }
 
   std::string GetInfix() override;

@@ -7,7 +7,7 @@ std::string Cos::GetInfix() {
 }
 
 std::string Cos::GetRPN() {
-  return argument_->GetInfix() + " cos";
+  return argument_->GetRPN() + " cos";
 }
 
 std::shared_ptr<Expression> Cos::GetDerivative() {

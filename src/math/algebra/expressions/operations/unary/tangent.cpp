@@ -1,16 +1,16 @@
-#include "tan.h"
+#include "tangent.h"
 
 namespace math {
 
-std::string Tan::GetInfix() {
+std::string Tangent::GetInfix() {
   return "tan(" + argument_->GetInfix() + ")";
 }
 
-std::string Sin::GetRPN() {
-  return argument_->GetInfix() + " tan";
+std::string Tangent::GetRPN() {
+  return argument_->GetRPN() + " tan";
 }
 
-std::shared_ptr<Expression> Sin::GetDerivative() {
+std::shared_ptr<Expression> Tangent::GetDerivative() {
   return std::make_shared<Division>(
       argument_->GetDerivative(),
       std::make_shared<Exponentiation>(std::make_shared<Cos>(argument_), std::make_shared<Number>(2)));

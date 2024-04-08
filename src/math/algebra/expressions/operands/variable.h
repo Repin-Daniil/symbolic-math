@@ -19,6 +19,7 @@ class Variable : public Expression {
 
  private:
   std::string GetString() const noexcept;
+
  private:
   char symbol_;
 };

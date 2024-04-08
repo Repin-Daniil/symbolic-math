@@ -7,7 +7,7 @@ std::string SquareRoot::GetInfix() {
 }
 
 std::string SquareRoot::GetRPN() {
-  return argument_->GetInfix() + " sqrt";
+  return argument_->GetRPN() + " sqrt";
 }
 
 std::shared_ptr<Expression> SquareRoot::GetDerivative() {

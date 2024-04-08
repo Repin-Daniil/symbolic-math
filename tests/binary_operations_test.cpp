@@ -7,6 +7,9 @@
 #include "math/algebra/expressions/operations/binary/addition.h"
 #include "math/algebra/expressions/operations/binary/addition.h"  // check include guards
 #include "math/algebra/expressions/operations/binary/division.h"
+#include "math/algebra/expressions/operations/binary/division.h"  // check include guards
+#include "math/algebra/expressions/operations/binary/exponentiation.h"
+#include "math/algebra/expressions/operations/binary/exponentiation.h"  // check include guards
 #include "math/algebra/expressions/operations/binary/multiplication.h"
 #include "math/algebra/expressions/operations/binary/multiplication.h"  // check include guards
 #include "math/algebra/expressions/operations/binary/substraction.h"
@@ -174,11 +177,11 @@ TEST_CASE("2 ^ x", "Exponentiation") {
   auto left_operand = std::make_shared<math::Number>(2);
   auto right_operand = std::make_shared<math::Variable>('x');
 
-  auto multiplication = std::make_shared<math::Exponentiation>(left_operand, right_operand);
-  auto derivative = multiplication->GetDerivative();
+  auto result = std::make_shared<math::Exponentiation>(left_operand, right_operand);
+  auto derivative = result->GetDerivative();
 
-  CHECK(multiplication->GetInfix() == "(2 ^ x)");
-  CHECK(multiplication->GetRPN() == "2 x ^");
+  CHECK(result->GetInfix() == "(2 ^ x)");
+  CHECK(result->GetRPN() == "2 x ^");
 
   CHECK(derivative->GetInfix() == "((2 ^ x) * ((1 * ln(2)) + ((x * 0) / 2)))");
   CHECK(derivative->GetRPN() == "2 x ^ 1 2 ln * x 0 * 2 / + *");
@@ -188,11 +191,11 @@ TEST_CASE("x ^ 2", "Exponentiation") {
   auto left_operand = std::make_shared<math::Variable>('x');
   auto right_operand = std::make_shared<math::Number>(2);
 
-  auto multiplication = std::make_shared<math::Exponentiation>(left_operand, right_operand);
-  auto derivative = multiplication->GetDerivative();
+  auto result = std::make_shared<math::Exponentiation>(left_operand, right_operand);
+  auto derivative = result->GetDerivative();
 
-  CHECK(multiplication->GetInfix() == "(x ^ 2)");
-  CHECK(multiplication->GetRPN() == "x 2 ^");
+  CHECK(result->GetInfix() == "(x ^ 2)");
+  CHECK(result->GetRPN() == "x 2 ^");
 
   CHECK(derivative->GetInfix() == "((x ^ 2) * ((0 * ln(x)) + ((2 * 1) / x)))");
   CHECK(derivative->GetRPN() == "x 2 ^ 0 x ln * 2 1 * x / + *");
@@ -203,11 +206,11 @@ TEST_CASE("x ^ (2 + 4)", "Exponentiation") {
   auto right_operand =
       std::make_shared<math::Addition>(std::make_shared<math::Number>(2), std::make_shared<math::Number>(4));
 
-  auto multiplication = std::make_shared<math::Exponentiation>(left_operand, right_operand);
-  auto derivative = multiplication->GetDerivative();
+  auto result = std::make_shared<math::Exponentiation>(left_operand, right_operand);
+  auto derivative = result->GetDerivative();
 
-  CHECK(multiplication->GetInfix() == "(x ^ (2 + 4))");
-  CHECK(multiplication->GetRPN() == "x 2 4 + ^");
+  CHECK(result->GetInfix() == "(x ^ (2 + 4))");
+  CHECK(result->GetRPN() == "x 2 4 + ^");
 
   CHECK(derivative->GetInfix() == "((x ^ (2 + 4)) * (((0 + 0) * ln(x)) + (((2 + 4) * 1) / x)))");
   CHECK(derivative->GetRPN() == "x 2 4 + ^ 0 0 + x ln * 2 4 + 1 * x / + *");

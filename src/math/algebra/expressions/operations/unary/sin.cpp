@@ -7,7 +7,7 @@ std::string Sin::GetInfix() {
 }
 
 std::string Sin::GetRPN() {
-  return argument_->GetInfix() + " sin";
+  return argument_->GetRPN() + " sin";
 }
 
 std::shared_ptr<Expression> Sin::GetDerivative() {
