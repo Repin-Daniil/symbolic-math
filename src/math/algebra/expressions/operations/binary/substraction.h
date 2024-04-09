@@ -14,7 +14,7 @@ class Substraction final : public BinaryOperation {
       : BinaryOperation(std::move(left), std::move(right)) {
   }
 
-  std::string GetInfix() override;
+  std::string GetInfix(bool brackets_required) override;
   std::string GetRPN() override;
   std::shared_ptr<Expression> GetDerivative() override;
 };

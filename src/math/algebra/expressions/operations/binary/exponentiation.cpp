@@ -2,8 +2,9 @@
 
 namespace math {
 
-std::string Exponentiation::GetInfix() {
-  return "(" + left_argument_->GetInfix() + " ^ " + right_argument_->GetInfix() + ")";
+std::string Exponentiation::GetInfix(bool brackets_required) {
+  return (brackets_required ? "(" : "") + left_argument_->GetInfix(true) + " ^ " + right_argument_->GetInfix(true) +
+         (brackets_required ? ")" : "");
 }
 
 std::string Exponentiation::GetRPN() {

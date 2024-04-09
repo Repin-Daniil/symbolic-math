@@ -3,7 +3,7 @@
 
 namespace math {
 
-std::string Number::GetInfix() {
+std::string Number::GetInfix(bool brackets_required) {
   return GetString();
 }
 

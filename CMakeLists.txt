@@ -66,12 +66,18 @@ add_library(OPERATIONS_LIB
         src/utils/abstract-syntax-tree/ast_builder.h
 )
 
-add_executable(calc src/main.cpp
+add_executable(calc src/main_calc.cpp
+        src/app/application.cpp
+        src/app/application.h)
+
+add_executable(algebra src/main_algebra.cpp
         src/app/application.cpp
         src/app/application.h)
 
 target_link_libraries(calc PRIVATE RPN_LIB)
 target_link_libraries(calc PRIVATE OPERATIONS_LIB)
+target_link_libraries(algebra PRIVATE RPN_LIB)
+target_link_libraries(algebra PRIVATE OPERATIONS_LIB)
 
 # Tests
 enable_testing()

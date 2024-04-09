@@ -13,7 +13,7 @@ class UnaryMinus final : public UnaryOperation {
   explicit UnaryMinus(std::shared_ptr<Expression> argument) : UnaryOperation(std::move(argument)) {
   }
 
-  std::string GetInfix() override;
+  std::string GetInfix(bool brackets_required) override;
   std::string GetRPN() override;
   std::shared_ptr<Expression> GetDerivative() override;
 };

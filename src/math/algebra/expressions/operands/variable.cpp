@@ -6,7 +6,7 @@ std::shared_ptr<Expression> Variable::GetDerivative() {
   return std::shared_ptr<Expression>(new Number(1));
 }
 
-std::string Variable::GetInfix() {
+std::string Variable::GetInfix(bool brackets_required) {
   return GetString();
 }
 

@@ -2,8 +2,8 @@
 
 namespace math {
 
-std::string SquareRoot::GetInfix() {
-  return "sqrt(" + argument_->GetInfix() + ")";
+std::string SquareRoot::GetInfix(bool brackets_required) {
+  return "sqrt(" + argument_->GetInfix(false) + ")";
 }
 
 std::string SquareRoot::GetRPN() {

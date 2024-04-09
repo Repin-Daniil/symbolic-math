@@ -2,8 +2,8 @@
 
 namespace math {
 
-std::string UnaryMinus::GetInfix() {
-  return "-" + argument_->GetInfix();
+std::string UnaryMinus::GetInfix(bool brackets_required) {
+  return "-" + argument_->GetInfix(true);
 }
 
 std::string UnaryMinus::GetRPN() {

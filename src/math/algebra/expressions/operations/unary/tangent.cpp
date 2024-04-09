@@ -2,8 +2,8 @@
 
 namespace math {
 
-std::string Tangent::GetInfix() {
-  return "tan(" + argument_->GetInfix() + ")";
+std::string Tangent::GetInfix(bool brackets_required) {
+  return "tan(" + argument_->GetInfix(false) + ")";
 }
 
 std::string Tangent::GetRPN() {

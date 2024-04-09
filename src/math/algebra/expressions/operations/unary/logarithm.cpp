@@ -2,8 +2,8 @@
 
 namespace math {
 
-std::string Logarithm::GetInfix() {
-  return "ln(" + argument_->GetInfix() + ")";
+std::string Logarithm::GetInfix(bool brackets_required) {
+  return "ln(" + argument_->GetInfix(false) + ")";
 }
 
 std::string Logarithm::GetRPN() {

@@ -2,8 +2,8 @@
 
 namespace math {
 
-std::string Cos::GetInfix() {
-  return "cos(" + argument_->GetInfix() + ")";
+std::string Cos::GetInfix(bool brackets_required) {
+  return "cos(" + argument_->GetInfix(false) + ")";
 }
 
 std::string Cos::GetRPN() {

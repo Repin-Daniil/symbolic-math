@@ -7,7 +7,7 @@ namespace math {
 
 class Expression {
  public:
-  virtual std::string GetInfix() = 0;
+  virtual std::string GetInfix(bool brackets_required) = 0;
   virtual std::string GetRPN() = 0;
   virtual std::shared_ptr<Expression> GetDerivative() = 0;
   //  virtual double GetNumericResult() = 0;
