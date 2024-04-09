@@ -2,12 +2,12 @@
 
 namespace math {
 
-double Calculator::Calculate(std::string_view expression) {
-  if (expression.empty()) {
+double Calculator::Calculate(std::string_view rpn_expression) {
+  if (rpn_expression.empty()) {
     throw std::invalid_argument(constants::ExceptionMessage::kEmptyExpression.data());
   }
 
-  std::istringstream istream{expression.data()};
+  std::istringstream istream{rpn_expression.data()};
   std::string input;
 
   while (istream >> input) {

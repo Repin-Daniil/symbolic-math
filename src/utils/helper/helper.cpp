@@ -16,11 +16,11 @@ std::optional<double> Helper::ParseOperand(std::string_view input) noexcept {
   }
 }
 
-bool Helper::IsOperandPart(const char& symbol) noexcept {
+bool Helper::IsOperandPart(char symbol) noexcept {
   return isdigit(symbol) || isalpha(symbol) || IsDecimalDelimiter(symbol);
 }
 
-bool Helper::IsDecimalDelimiter(const char& symbol) noexcept {
+bool Helper::IsDecimalDelimiter(char symbol) noexcept {
   return symbol == constants::Labels::kDecimalPoint || symbol == constants::Labels::kDecimalComma;
 }
 

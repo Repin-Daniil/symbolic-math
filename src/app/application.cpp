@@ -2,7 +2,7 @@
 
 namespace app {
 
-CalculationResult Application::Handle(std::string infix_expression) {
+CalculationResult Application::Calculate(std::string infix_expression) {
   if (infix_expression == "Reset") {
     calculator_.Reset();
 
@@ -24,6 +24,31 @@ CalculationResult Application::Handle(std::string infix_expression) {
   }
 
   return result;
+}
+
+FunctionAnalysis Application::AnalyzeFunction(std::string infix_expression) {
+  FunctionAnalysis result;
+
+  try {
+    std::string rpn_expression = utils::Converter::ConvertInfixToRPN(infix_expression);
+
+    algebra_.AddFunction(std::move(rpn_expression));
+    result.derivative = algebra_.GetDerivative();
+    result.graph_ = algebra_.GetFunctionGraph();
+  } catch (std::exception& ex) {
+    result.error = ex.what();
+    algebra_.Reset();
+  }
+
+  return result;
+}
+
+std::vector<math::Coordinate> Application::BuildTangent(double x) {
+  return algebra_.GetTangentGraph(x);
+}
+
+void Application::Reset() {
+  algebra_.Reset();
 }
 
 }  // namespace app

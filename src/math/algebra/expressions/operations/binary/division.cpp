@@ -15,7 +15,7 @@ std::shared_ptr<Expression> Division::GetDerivative() {
       std::make_shared<Multiplication>(left_argument_->GetDerivative(), right_argument_),
       std::make_shared<Multiplication>(left_argument_, right_argument_->GetDerivative()));
   auto denominator = std::make_shared<Exponentiation>(left_argument_, std::make_shared<Number>(2));
-  return std::shared_ptr<Expression>(new Division(numerator, denominator));
+  return std::make_shared<Division>(numerator, denominator);
 }
 
 }  // namespace math

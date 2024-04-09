@@ -62,6 +62,8 @@ add_library(OPERATIONS_LIB
         src/math/algebra/expressions/operations/unary/tangent.cpp
         src/math/algebra/expressions/operations/unary/unary_minus.h
         src/math/algebra/expressions/operations/unary/unary_minus.cpp
+        src/utils/abstract-syntax-tree/ast_builder.cpp
+        src/utils/abstract-syntax-tree/ast_builder.h
 )
 
 add_executable(calc src/main.cpp

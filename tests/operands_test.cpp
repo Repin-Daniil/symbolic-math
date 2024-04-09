@@ -20,7 +20,7 @@ TEST_CASE("3", "Number") {
 }
 
 TEST_CASE("Polymorphic 3", "Number") {
-  std::shared_ptr<Expression> number = std::make_shared<math::Number>(3);
+  std::shared_ptr<math::Expression> number = std::make_shared<math::Number>(3);
 
   auto rpn = number->GetRPN();
   auto infix = number->GetInfix();

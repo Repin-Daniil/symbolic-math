@@ -19,7 +19,7 @@ namespace math {
 
 class Calculator {
  public:
-  double Calculate(std::string_view expression);
+  double Calculate(std::string_view rpn_expression);
   void AddVariable(char symbol, double value);
   void Reset();
 

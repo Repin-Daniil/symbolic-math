@@ -11,9 +11,8 @@ std::string Multiplication::GetRPN() {
 }
 
 std::shared_ptr<Expression> Multiplication::GetDerivative() {
-  return std::shared_ptr<Expression>(
-      new Addition(std::make_shared<Multiplication>(left_argument_, right_argument_->GetDerivative()),
-                   std::make_shared<Multiplication>(left_argument_->GetDerivative(), right_argument_)));
+  return std::make_shared<Addition>(std::make_shared<Multiplication>(left_argument_, right_argument_->GetDerivative()),
+                                    std::make_shared<Multiplication>(left_argument_->GetDerivative(), right_argument_));
 }
 
 }  // namespace math

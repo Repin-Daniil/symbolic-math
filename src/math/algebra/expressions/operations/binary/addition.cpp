@@ -3,7 +3,7 @@
 namespace math {
 
 std::shared_ptr<Expression> Addition::GetDerivative() {
-  return std::shared_ptr<Expression>(new Addition(left_argument_->GetDerivative(), right_argument_->GetDerivative()));
+  return std::make_shared<Addition>(left_argument_->GetDerivative(), right_argument_->GetDerivative());
 }
 
 std::string Addition::GetInfix() {
