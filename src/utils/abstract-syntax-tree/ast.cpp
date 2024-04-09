@@ -21,7 +21,7 @@ AbstractSyntaxTree AbstractSyntaxTree::GetDerivative() const {
 }
 
 double AbstractSyntaxTree::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) const {
-  return 0;  // TODO
+  return root_->GetNumericResult(variable_to_value);
 }
 
 void AbstractSyntaxTree::Reset() {

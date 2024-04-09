@@ -21,5 +21,9 @@ std::shared_ptr<Expression> Exponentiation::GetDerivative() {
                                  left_argument_));
   return std::make_shared<Multiplication>(first, second);
 }
+double Exponentiation::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
+  return std::pow(left_argument_->GetNumericResult(variable_to_value),
+                  right_argument_->GetNumericResult(variable_to_value));
+}
 
 }  // namespace math

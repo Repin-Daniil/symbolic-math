@@ -14,4 +14,8 @@ std::shared_ptr<Expression> Sin::GetDerivative() {
   return std::make_shared<Multiplication>(std::make_shared<Cos>(argument_), argument_->GetDerivative());
 }
 
+double Sin::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
+  return std::sin(argument_->GetNumericResult(variable_to_value));
+}
+
 }  // namespace math

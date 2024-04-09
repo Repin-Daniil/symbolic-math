@@ -2,7 +2,9 @@
 
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include <utility>
+
 #include "math/algebra/expressions/operations/binary/division.h"
 #include "math/algebra/expressions/operations/unary_operation.h"
 
@@ -12,6 +14,7 @@ class UnaryMinus final : public UnaryOperation {
  public:
   explicit UnaryMinus(std::shared_ptr<Expression> argument) : UnaryOperation(std::move(argument)) {
   }
+  double GetNumericResult(const std::unordered_map<char, double>& variable_to_value) override;
 
   std::string GetInfix(int previous_priority) override;
   std::string GetRPN() override;

@@ -37,4 +37,8 @@ std::string Number::GetString() const noexcept {
   return str.substr(0, last_non_zero + 1);
 }
 
+double Number::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
+  return value_;
+}
+
 }  // namespace math

@@ -16,4 +16,14 @@ std::shared_ptr<Expression> SquareRoot::GetDerivative() {
       std::make_shared<Multiplication>(std::make_shared<Number>(2), std::make_shared<SquareRoot>(argument_)));
 }
 
+double SquareRoot::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
+  auto arg = argument_->GetNumericResult(variable_to_value);
+
+  if (arg < 0) {
+    throw std::runtime_error(constants::ExceptionMessage::kNegativeRoot.data());
+  }
+
+  return std::sqrt(arg);
+}
+
 }  // namespace math

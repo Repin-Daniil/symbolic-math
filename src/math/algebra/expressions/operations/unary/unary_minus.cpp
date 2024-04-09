@@ -14,4 +14,8 @@ std::shared_ptr<Expression> UnaryMinus::GetDerivative() {
   return std::make_shared<UnaryMinus>(argument_->GetDerivative());
 }
 
+double UnaryMinus::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
+  return -argument_->GetNumericResult(variable_to_value);
+}
+
 }  // namespace math
