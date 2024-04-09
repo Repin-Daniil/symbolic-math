@@ -10,7 +10,7 @@ using namespace std::literals;
 enum class Operations {
   UNARY_MINUS,
   ADDITION,
-  SUBTRACTION,
+  SUBSTRACTION,
   MULTIPLICATION,
   DIVISION,
   EXPONENTIATION,
@@ -51,7 +51,7 @@ struct Labels {
 
 const std::unordered_map<std::string_view, Operations> char_to_operations{
     {Labels::kPlus, Operations::ADDITION},
-    {Labels::kMinus, Operations::SUBTRACTION},
+    {Labels::kMinus, Operations::SUBSTRACTION},
     {Labels::kMultiplication, Operations::MULTIPLICATION},
     {Labels::kDivision, Operations::DIVISION},
     {Labels::kExponentiation, Operations::EXPONENTIATION},
@@ -63,18 +63,29 @@ const std::unordered_map<std::string_view, Operations> char_to_operations{
     {Labels::kUnaryMinus, Operations::UNARY_MINUS},
     {Labels::kSquareRoot, Operations::SQRT}};
 
-const std::unordered_map<Operations, int> operations_to_priority{{Operations::TANGENT, 4},
-                                                                 {Operations::COS, 4},
-                                                                 {Operations::SIN, 4},
-                                                                 {Operations::SQRT, 4},
-                                                                 {Operations::NATURAL_LOGARITHM, 4},
-                                                                 {Operations::EXPONENTIATION, 3},
-                                                                 {Operations::UNARY_MINUS, 2},
-                                                                 {Operations::MULTIPLICATION, 1},
-                                                                 {Operations::DIVISION, 1},
-                                                                 {Operations::ADDITION, 0},
-                                                                 {Operations::SUBTRACTION, 0}};
+// const std::unordered_map<Operations, int> operations_to_priority{{Operations::TANGENT, 5},
+//                                                                  {Operations::COS, 5},
+//                                                                  {Operations::SIN, 5},
+//                                                                  {Operations::SQRT, 5},
+//                                                                  {Operations::NATURAL_LOGARITHM, 5},
+//                                                                  {Operations::EXPONENTIATION, 4},
+//                                                                  {Operations::UNARY_MINUS, 3},
+//                                                                  {Operations::MULTIPLICATION, 2},
+//                                                                  {Operations::DIVISION, 2},
+//                                                                  {Operations::ADDITION, 1},
+//                                                                  {Operations::SUBSTRACTION, 1}};
 
+const std::unordered_map<Operations, int> operations_to_priority{{Operations::TANGENT, 6},
+                                                                 {Operations::COS, 6},
+                                                                 {Operations::SIN, 6},
+                                                                 {Operations::SQRT, 6},
+                                                                 {Operations::NATURAL_LOGARITHM, 6},
+                                                                 {Operations::EXPONENTIATION, 5},
+                                                                 {Operations::UNARY_MINUS, 4},
+                                                                 {Operations::MULTIPLICATION, 3},
+                                                                 {Operations::DIVISION, 3},
+                                                                 {Operations::SUBSTRACTION, 2},
+                                                                 {Operations::ADDITION, 1}};
 struct ExceptionMessage {
   ExceptionMessage() = delete;
 

@@ -2,8 +2,10 @@
 
 namespace math {
 
-std::string Cos::GetInfix(bool brackets_required) {
-  return "cos(" + argument_->GetInfix(false) + ")";
+std::string Cos::GetInfix(int previous_priority) {
+  bool brackets_required = previous_priority >= priority_;
+
+  return "cos(" + argument_->GetInfix(0) + ")";
 }
 
 std::string Cos::GetRPN() {

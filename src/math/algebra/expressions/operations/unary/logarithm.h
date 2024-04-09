@@ -13,9 +13,12 @@ class Logarithm final : public UnaryOperation {
   explicit Logarithm(std::shared_ptr<Expression> argument) : UnaryOperation(std::move(argument)) {
   }
 
-  std::string GetInfix(bool brackets_required) override;
+  std::string GetInfix(int previous_priority) override;
   std::string GetRPN() override;
   std::shared_ptr<Expression> GetDerivative() override;
+
+ private:
+  int priority_ = constants::operations_to_priority.at(constants::Operations::NATURAL_LOGARITHM);
 };
 
 }  // namespace math

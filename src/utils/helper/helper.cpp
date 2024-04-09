@@ -64,7 +64,7 @@ bool Helper::IsUnaryOperation(constants::Operations operation) noexcept {
 }
 
 bool Helper::IsBinaryOperation(constants::Operations operation) noexcept {
-  return operation == constants::Operations::ADDITION || operation == constants::Operations::SUBTRACTION ||
+  return operation == constants::Operations::ADDITION || operation == constants::Operations::SUBSTRACTION ||
          operation == constants::Operations::MULTIPLICATION || operation == constants::Operations::DIVISION ||
          operation == constants::Operations::EXPONENTIATION;
 }

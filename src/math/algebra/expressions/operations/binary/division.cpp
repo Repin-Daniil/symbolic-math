@@ -2,9 +2,11 @@
 
 namespace math {
 
-std::string Division::GetInfix(bool brackets_required) {
-  return (brackets_required ? "(" : "") + left_argument_->GetInfix(true) + " / " + right_argument_->GetInfix(true) +
-         (brackets_required ? ")" : "");
+std::string Division::GetInfix(int previous_priority) {
+  bool brackets_required = previous_priority >= priority_;
+
+  return (brackets_required ? "(" : "") + left_argument_->GetInfix(priority_) + " / " +
+         right_argument_->GetInfix(priority_) + (brackets_required ? ")" : "");
 }
 
 std::string Division::GetRPN() {

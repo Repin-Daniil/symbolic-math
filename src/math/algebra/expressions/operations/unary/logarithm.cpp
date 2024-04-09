@@ -2,8 +2,9 @@
 
 namespace math {
 
-std::string Logarithm::GetInfix(bool brackets_required) {
-  return "ln(" + argument_->GetInfix(false) + ")";
+std::string Logarithm::GetInfix(int previous_priority) {
+  bool brackets_required = previous_priority >= priority_;
+  return "ln(" + argument_->GetInfix(0) + ")";
 }
 
 std::string Logarithm::GetRPN() {

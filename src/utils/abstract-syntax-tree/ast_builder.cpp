@@ -73,7 +73,7 @@ void TreeBuilder::AddOperation(constants::Operations operation) {
   } else if (utils::Helper::IsBinaryOperation(operation)) {
     if (nodes_.size() < 2) {
       // Check unary minus/plus
-      if (operation == constants::Operations::SUBTRACTION) {
+      if (operation == constants::Operations::SUBSTRACTION) {
         operation_node = std::make_shared<math::UnaryMinus>(GetOperand());
       } else if (operation == constants::Operations::ADDITION) {
         operation_node = GetOperand();
@@ -86,7 +86,7 @@ void TreeBuilder::AddOperation(constants::Operations operation) {
 
       if (operation == constants::Operations::ADDITION) {
         operation_node = std::make_shared<math::Addition>(lhs, rhs);
-      } else if (operation == constants::Operations::SUBTRACTION) {
+      } else if (operation == constants::Operations::SUBSTRACTION) {
         operation_node = std::make_shared<math::Substraction>(lhs, rhs);
       } else if (operation == constants::Operations::MULTIPLICATION) {
         operation_node = std::make_shared<math::Multiplication>(lhs, rhs);

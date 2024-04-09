@@ -16,7 +16,7 @@ std::string AbstractSyntaxTree::GetRPNExpression() const {
 }
 
 std::string AbstractSyntaxTree::GetInfixExpression() const {
-  return root_->GetInfix(false);
+  return root_->GetInfix(0);
 }
 
 AbstractSyntaxTree AbstractSyntaxTree::GetDerivative() const {

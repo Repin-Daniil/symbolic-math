@@ -2,8 +2,9 @@
 
 namespace math {
 
-std::string Sin::GetInfix(bool brackets_required) {
-  return "sin(" + argument_->GetInfix(false) + ")";
+std::string Sin::GetInfix(int previous_priority) {
+  bool brackets_required = previous_priority >= priority_;
+  return "sin(" + argument_->GetInfix(0) + ")";
 }
 
 std::string Sin::GetRPN() {

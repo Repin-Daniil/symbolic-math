@@ -66,7 +66,7 @@ TEST_CASE("tan(1)", "Tangent") {
   CHECK(result->GetInfix(false) == "tan(1)");
   CHECK(result->GetRPN() == "1 tan");
 
-  CHECK(derivative->GetInfix(false) == "0 / (cos(1) ^ 2)");
+  CHECK(derivative->GetInfix(false) == "0 / cos(1) ^ 2");
   CHECK(derivative->GetRPN() == "0 1 cos 2 ^ /");
 }
 
@@ -79,7 +79,7 @@ TEST_CASE("tan(x)", "Tangent") {
   CHECK(result->GetInfix(false) == "tan(x)");
   CHECK(result->GetRPN() == "x tan");
 
-  CHECK(derivative->GetInfix(false) == "1 / (cos(x) ^ 2)");
+  CHECK(derivative->GetInfix(false) == "1 / cos(x) ^ 2");
   CHECK(derivative->GetRPN() == "1 x cos 2 ^ /");
 }
 
@@ -93,7 +93,7 @@ TEST_CASE("tan(x + 25.3)", "Tangent") {
   CHECK(result->GetInfix(false) == "tan(x + 25.3)");
   CHECK(result->GetRPN() == "x 25.3 + tan");
 
-  CHECK(derivative->GetInfix(false) == "(1 + 0) / (cos(x + 25.3) ^ 2)");
+  CHECK(derivative->GetInfix(false) == "(1 + 0) / cos(x + 25.3) ^ 2");
   CHECK(derivative->GetRPN() == "1 0 + x 25.3 + cos 2 ^ /");
 }
 
@@ -107,7 +107,7 @@ TEST_CASE("tan(x) + 12", "Tangent") {
   CHECK(result->GetInfix(false) == "tan(x) + 12");
   CHECK(result->GetRPN() == "x tan 12 +");
 
-  CHECK(derivative->GetInfix(false) == "1 / (cos(x) ^ 2) + 0");
+  CHECK(derivative->GetInfix(false) == "1 / cos(x) ^ 2 + 0");
   CHECK(derivative->GetRPN() == "1 x cos 2 ^ / 0 +");
 }
 
@@ -174,7 +174,7 @@ TEST_CASE("cos(1)", "Cos") {
   CHECK(result->GetInfix(false) == "cos(1)");
   CHECK(result->GetRPN() == "1 cos");
 
-  CHECK(derivative->GetInfix(false) == "-(sin(1) * 0)");
+  CHECK(derivative->GetInfix(false) == "-sin(1) * 0");
   CHECK(derivative->GetRPN() == "1 sin 0 * ~");
 }
 
@@ -187,7 +187,7 @@ TEST_CASE("cos(x)", "Cos") {
   CHECK(result->GetInfix(false) == "cos(x)");
   CHECK(result->GetRPN() == "x cos");
 
-  CHECK(derivative->GetInfix(false) == "-(sin(x) * 1)");
+  CHECK(derivative->GetInfix(false) == "-sin(x) * 1");
   CHECK(derivative->GetRPN() == "x sin 1 * ~");
 }
 
@@ -201,7 +201,7 @@ TEST_CASE("cos(x + 25.3)", "Cos") {
   CHECK(result->GetInfix(false) == "cos(x + 25.3)");
   CHECK(result->GetRPN() == "x 25.3 + cos");
 
-  CHECK(derivative->GetInfix(false) == "-(sin(x + 25.3) * (1 + 0))");
+  CHECK(derivative->GetInfix(false) == "-sin(x + 25.3) * (1 + 0)");
   CHECK(derivative->GetRPN() == "x 25.3 + sin 1 0 + * ~");
 }
 
@@ -215,7 +215,7 @@ TEST_CASE("cos(x) + 12", "Cos") {
   CHECK(result->GetInfix(false) == "cos(x) + 12");
   CHECK(result->GetRPN() == "x cos 12 +");
 
-  CHECK(derivative->GetInfix(false) == "-(sin(x) * 1) + 0");
+  CHECK(derivative->GetInfix(false) == "-sin(x) * 1 + 0");
   CHECK(derivative->GetRPN() == "x sin 1 * ~ 0 +");
 }
 
