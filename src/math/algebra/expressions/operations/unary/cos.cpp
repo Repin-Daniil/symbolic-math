@@ -3,8 +3,6 @@
 namespace math {
 
 std::string Cos::GetInfix(int previous_priority) {
-  bool brackets_required = previous_priority >= priority_;
-
   return "cos(" + argument_->GetInfix(0) + ")";
 }
 

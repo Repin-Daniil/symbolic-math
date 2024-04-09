@@ -5,6 +5,7 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+
 #include "utils/abstract-syntax-tree/ast.h"
 
 namespace math {

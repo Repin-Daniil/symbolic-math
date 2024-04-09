@@ -14,7 +14,7 @@
 #include <vector>
 
 #include "constants_storage.h"
-#include "math/algebra/expressions/expression.h"
+#include "math/algebra/expressions/math.h"
 #include "utils/helper/helper.h"
 
 namespace utils {

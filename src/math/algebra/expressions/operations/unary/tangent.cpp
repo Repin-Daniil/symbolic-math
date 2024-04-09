@@ -3,7 +3,6 @@
 namespace math {
 
 std::string Tangent::GetInfix(int previous_priority) {
-  bool brackets_required = previous_priority >= priority_;
   return "tan(" + argument_->GetInfix(0) + ")";
 }
 

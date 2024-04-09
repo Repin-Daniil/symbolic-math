@@ -9,6 +9,7 @@ std::shared_ptr<Expression> Addition::GetDerivative() {
 
 std::string Addition::GetInfix(int previous_priority) {
   bool brackets_required = previous_priority > priority_;
+
   return (brackets_required ? "(" : "") + left_argument_->GetInfix(priority_) + " + " +
          right_argument_->GetInfix(priority_) + (brackets_required ? ")" : "");
 }

@@ -1,10 +1,4 @@
 #include "ast_builder.h"
-#include "math/algebra/expressions/operands/number.h"
-#include "math/algebra/expressions/operands/variable.h"
-#include "math/algebra/expressions/operations/unary/sin.h"
-#include "math/algebra/expressions/operations/unary/sqrt.h"
-#include "math/algebra/expressions/operations/unary/tangent.h"
-#include "math/algebra/expressions/operations/unary/unary_minus.h"
 
 namespace utils {
 

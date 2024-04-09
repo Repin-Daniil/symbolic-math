@@ -3,8 +3,7 @@
 namespace math {
 
 std::string UnaryMinus::GetInfix(int previous_priority) {
-  bool brackets_required = previous_priority >= priority_;
-  return "-" + argument_->GetInfix(2);
+  return "-" + argument_->GetInfix(constants::operations_to_priority.at(constants::Operations::SUBSTRACTION));
 }
 
 std::string UnaryMinus::GetRPN() {

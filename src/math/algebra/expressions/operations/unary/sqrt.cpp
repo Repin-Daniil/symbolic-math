@@ -3,7 +3,6 @@
 namespace math {
 
 std::string SquareRoot::GetInfix(int previous_priority) {
-  bool brackets_required = previous_priority >= priority_;
   return "sqrt(" + argument_->GetInfix(0) + ")";
 }
 

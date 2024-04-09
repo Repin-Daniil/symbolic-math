@@ -6,6 +6,7 @@
 #include <utility>
 #include "ast_builder.h"
 #include "math/algebra/expressions/expression.h"
+#include "utils/helper/helper.h"
 
 namespace utils {
 
