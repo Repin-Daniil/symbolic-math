@@ -1,5 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers.hpp>
+#include <catch2/matchers/catch_matchers_floating_point.hpp>
 
 #include "math/algebra/expressions/operands/number.h"
 #include "math/algebra/expressions/operands/variable.h"
@@ -24,9 +25,11 @@ TEST_CASE("2 + 5", "Addition") {
 
   CHECK(addition->GetInfix(0) == "2 + 5");
   CHECK(addition->GetRPN() == "2 5 +");
+  CHECK(addition->GetNumericResult({}) == 7);
 
   CHECK(derivative->GetInfix(0) == "0 + 0");
   CHECK(derivative->GetRPN() == "0 0 +");
+  CHECK(derivative->GetNumericResult({}) == 0);
 }
 
 TEST_CASE("2 + x", "Addition") {
@@ -38,9 +41,11 @@ TEST_CASE("2 + x", "Addition") {
 
   CHECK(addition->GetInfix(0) == "2 + x");
   CHECK(addition->GetRPN() == "2 x +");
+  CHECK(addition->GetNumericResult({{'x', 5}}) == 7);
 
   CHECK(derivative->GetInfix(0) == "0 + 1");
   CHECK(derivative->GetRPN() == "0 1 +");
+  CHECK(derivative->GetNumericResult({}) == 1);
 }
 
 TEST_CASE("2 + (1.5 + x)", "Addition") {
@@ -53,9 +58,11 @@ TEST_CASE("2 + (1.5 + x)", "Addition") {
 
   CHECK(addition->GetInfix(0) == "2 + 1.5 + x");
   CHECK(addition->GetRPN() == "2 1.5 x + +");
+  REQUIRE_THAT(addition->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(8.5, 1e-5));
 
   CHECK(derivative->GetInfix(0) == "0 + 0 + 1");
   CHECK(derivative->GetRPN() == "0 0 1 + +");
+  CHECK(derivative->GetNumericResult({}) == 1);
 }
 
 TEST_CASE("2 - 5.1", "Substraction") {
@@ -67,9 +74,11 @@ TEST_CASE("2 - 5.1", "Substraction") {
 
   CHECK(substraction->GetInfix(0) == "2 - 5.1");
   CHECK(substraction->GetRPN() == "2 5.1 -");
+  REQUIRE_THAT(substraction->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(-3.1, 1e-5));
 
   CHECK(derivative->GetInfix(0) == "0 - 0");
   CHECK(derivative->GetRPN() == "0 0 -");
+  CHECK(derivative->GetNumericResult({}) == 0);
 }
 
 TEST_CASE("x - 2", "Substraction") {
@@ -81,9 +90,11 @@ TEST_CASE("x - 2", "Substraction") {
 
   CHECK(substraction->GetInfix(0) == "x - 2");
   CHECK(substraction->GetRPN() == "x 2 -");
+  REQUIRE_THAT(substraction->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(3.5, 1e-5));
 
   CHECK(derivative->GetInfix(0) == "1 - 0");
   CHECK(derivative->GetRPN() == "1 0 -");
+  CHECK(derivative->GetNumericResult({}) == 1);
 }
 
 TEST_CASE("2 - (1.5 + x)", "Substraction") {
@@ -96,9 +107,11 @@ TEST_CASE("2 - (1.5 + x)", "Substraction") {
 
   CHECK(substraction->GetInfix(0) == "2 - (1.5 + x)");
   CHECK(substraction->GetRPN() == "2 1.5 x + -");
+  REQUIRE_THAT(substraction->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(-5, 1e-5));
 
   CHECK(derivative->GetInfix(0) == "0 - (0 + 1)");
   CHECK(derivative->GetRPN() == "0 0 1 + -");
+  CHECK(derivative->GetNumericResult({}) == -1);
 }
 
 TEST_CASE("2 * 5.1", "Multiplication") {
@@ -110,9 +123,11 @@ TEST_CASE("2 * 5.1", "Multiplication") {
 
   CHECK(multiplication->GetInfix(0) == "2 * 5.1");
   CHECK(multiplication->GetRPN() == "2 5.1 *");
+  REQUIRE_THAT(multiplication->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(10.2, 1e-5));
 
   CHECK(derivative->GetInfix(0) == "2 * 0 + 0 * 5.1");
   CHECK(derivative->GetRPN() == "2 0 * 0 5.1 * +");
+  CHECK(derivative->GetNumericResult({}) == 0);
 }
 
 TEST_CASE("2 * x", "Multiplication") {
@@ -124,9 +139,11 @@ TEST_CASE("2 * x", "Multiplication") {
 
   CHECK(multiplication->GetInfix(0) == "2 * x");
   CHECK(multiplication->GetRPN() == "2 x *");
+  REQUIRE_THAT(multiplication->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(11, 1e-5));
 
   CHECK(derivative->GetInfix(0) == "2 * 1 + 0 * x");
   CHECK(derivative->GetRPN() == "2 1 * 0 x * +");
+  CHECK(derivative->GetNumericResult({{'x', 5.5}}) == 2);
 }
 
 TEST_CASE("2 * (x + 1)", "Multiplication") {
@@ -139,9 +156,11 @@ TEST_CASE("2 * (x + 1)", "Multiplication") {
 
   CHECK(multiplication->GetInfix(0) == "2 * (x + 1)");
   CHECK(multiplication->GetRPN() == "2 x 1 + *");
+  REQUIRE_THAT(multiplication->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(13, 1e-5));
 
   CHECK(derivative->GetInfix(0) == "2 * (1 + 0) + 0 * (x + 1)");
   CHECK(derivative->GetRPN() == "2 1 0 + * 0 x 1 + * +");
+  CHECK(derivative->GetNumericResult({{'x', 5.5}}) == 2);
 }
 
 TEST_CASE("2 / 5.1", "Division") {
@@ -153,9 +172,11 @@ TEST_CASE("2 / 5.1", "Division") {
 
   CHECK(division->GetInfix(0) == "2 / 5.1");
   CHECK(division->GetRPN() == "2 5.1 /");
+  REQUIRE_THAT(division->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(0.392, 1e-2));
 
   CHECK(derivative->GetInfix(0) == "(0 * 5.1 - 2 * 0) / 2 ^ 2");
   CHECK(derivative->GetRPN() == "0 5.1 * 2 0 * - 2 2 ^ /");
+  REQUIRE_THAT(derivative->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinAbs(0, 1e-5));
 }
 
 TEST_CASE("(2 + x) / 5.1", "Division") {
@@ -168,9 +189,11 @@ TEST_CASE("(2 + x) / 5.1", "Division") {
 
   CHECK(division->GetInfix(0) == "(2 + x) / 5.1");
   CHECK(division->GetRPN() == "2 x + 5.1 /");
+  REQUIRE_THAT(division->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(1.47, 1e-2));
 
   CHECK(derivative->GetInfix(0) == "((0 + 1) * 5.1 - (2 + x) * 0) / (2 + x) ^ 2");
   CHECK(derivative->GetRPN() == "0 1 + 5.1 * 2 x + 0 * - 2 x + 2 ^ /");
+  REQUIRE_THAT(derivative->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(5.1 / 56.25, 1e-2));
 }
 
 TEST_CASE("2 ^ x", "Exponentiation") {
@@ -182,9 +205,11 @@ TEST_CASE("2 ^ x", "Exponentiation") {
 
   CHECK(result->GetInfix(0) == "2 ^ x");
   CHECK(result->GetRPN() == "2 x ^");
+  REQUIRE_THAT(result->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(32, 1e-2));
 
   CHECK(derivative->GetInfix(0) == "2 ^ x * (1 * ln(2) + (x * 0) / 2)");
   CHECK(derivative->GetRPN() == "2 x ^ 1 2 ln * x 0 * 2 / + *");
+  REQUIRE_THAT(derivative->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(32 * std::log(2), 1e-2));
 }
 
 TEST_CASE("x ^ 2", "Exponentiation") {
@@ -196,9 +221,11 @@ TEST_CASE("x ^ 2", "Exponentiation") {
 
   CHECK(result->GetInfix(0) == "x ^ 2");
   CHECK(result->GetRPN() == "x 2 ^");
+  REQUIRE_THAT(result->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(25, 1e-2));
 
   CHECK(derivative->GetInfix(0) == "x ^ 2 * (0 * ln(x) + (2 * 1) / x)");
   CHECK(derivative->GetRPN() == "x 2 ^ 0 x ln * 2 1 * x / + *");
+  REQUIRE_THAT(derivative->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(10, 1e-2));
 }
 
 TEST_CASE("x ^ (2 + 4)", "Exponentiation") {
@@ -211,7 +238,9 @@ TEST_CASE("x ^ (2 + 4)", "Exponentiation") {
 
   CHECK(result->GetInfix(0) == "x ^ (2 + 4)");
   CHECK(result->GetRPN() == "x 2 4 + ^");
+  REQUIRE_THAT(result->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(15625, 1e-5));
 
   CHECK(derivative->GetInfix(0) == "x ^ (2 + 4) * ((0 + 0) * ln(x) + ((2 + 4) * 1) / x)");
   CHECK(derivative->GetRPN() == "x 2 4 + ^ 0 0 + x ln * 2 4 + 1 * x / + *");
+  REQUIRE_THAT(derivative->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(18750, 1e-5));
 }
