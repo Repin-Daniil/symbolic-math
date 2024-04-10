@@ -2,11 +2,11 @@
 
 namespace math {
 
-std::string Division::GetInfix(int previous_priority) {
+std::string Division::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
   bool brackets_required = previous_priority >= priority_;
 
-  return (brackets_required ? "(" : "") + left_argument_->GetInfix(priority_) + " / " +
-         right_argument_->GetInfix(priority_) + (brackets_required ? ")" : "");
+  return (brackets_required ? "(" : "") + left_argument_->GetInfix(priority_, variable_to_value) + " / " +
+         right_argument_->GetInfix(priority_, variable_to_value) + (brackets_required ? ")" : "");
 }
 
 std::string Division::GetRPN(const std::unordered_map<char, double>& variable_to_value) {

@@ -63,18 +63,6 @@ const std::unordered_map<std::string_view, Operations> char_to_operations{
     {Labels::kUnaryMinus, Operations::UNARY_MINUS},
     {Labels::kSquareRoot, Operations::SQRT}};
 
-// const std::unordered_map<Operations, int> operations_to_priority{{Operations::TANGENT, 5},
-//                                                                  {Operations::COS, 5},
-//                                                                  {Operations::SIN, 5},
-//                                                                  {Operations::SQRT, 5},
-//                                                                  {Operations::NATURAL_LOGARITHM, 5},
-//                                                                  {Operations::EXPONENTIATION, 4},
-//                                                                  {Operations::UNARY_MINUS, 3},
-//                                                                  {Operations::MULTIPLICATION, 2},
-//                                                                  {Operations::DIVISION, 2},
-//                                                                  {Operations::ADDITION, 1},
-//                                                                  {Operations::SUBSTRACTION, 1}};
-
 const std::unordered_map<Operations, int> operations_to_priority{{Operations::TANGENT, 6},
                                                                  {Operations::COS, 6},
                                                                  {Operations::SIN, 6},

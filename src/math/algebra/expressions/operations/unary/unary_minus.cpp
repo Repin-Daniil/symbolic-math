@@ -2,8 +2,14 @@
 
 namespace math {
 
-std::string UnaryMinus::GetInfix(int previous_priority) {
-  return "-" + argument_->GetInfix(constants::operations_to_priority.at(constants::Operations::SUBTRACTION));
+std::string UnaryMinus::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
+  bool brackets_required =
+      previous_priority == constants::operations_to_priority.at(constants::Operations::SUBTRACTION);
+
+  return std::string(brackets_required ? "(" : "") + "-" +
+         argument_->GetInfix(constants::operations_to_priority.at(constants::Operations::SUBTRACTION),
+                             variable_to_value) +
+         std::string(brackets_required ? ")" : "");
 }
 
 std::string UnaryMinus::GetRPN(const std::unordered_map<char, double>& variable_to_value) {

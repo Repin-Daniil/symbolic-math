@@ -7,13 +7,17 @@ std::shared_ptr<Expression> Variable::GetDerivative() {
   return std::shared_ptr<Expression>(new Number(1));
 }
 
-std::string Variable::GetInfix(int previous_priority) {
+std::string Variable::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
+  if (variable_to_value.contains(symbol_)) {
+    return math::Number(variable_to_value.at(symbol_)).GetInfix(previous_priority, {});
+  }
+
   return GetString();
 }
 
 std::string Variable::GetRPN(const std::unordered_map<char, double>& variable_to_value) {
   if (variable_to_value.contains(symbol_)) {
-    return math::Number(variable_to_value.at(symbol_)).GetInfix(0);
+    return math::Number(variable_to_value.at(symbol_)).GetRPN({});
   }
 
   return GetString();

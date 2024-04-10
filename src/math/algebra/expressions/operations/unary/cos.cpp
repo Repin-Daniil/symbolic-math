@@ -2,8 +2,8 @@
 
 namespace math {
 
-std::string Cos::GetInfix(int previous_priority) {
-  return "cos(" + argument_->GetInfix(0) + ")";
+std::string Cos::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
+  return "cos(" + argument_->GetInfix(0, variable_to_value) + ")";
 }
 
 std::string Cos::GetRPN(const std::unordered_map<char, double>& variable_to_value) {

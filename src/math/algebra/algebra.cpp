@@ -24,15 +24,25 @@ std::vector<Coordinate> Algebra::GetTangentGraph(double x) {
 }
 
 std::string Algebra::GetFunction() {
-  return function_.GetInfixExpression();
+  return function_.GetInfixExpression({});
 }
 
 std::string Algebra::GetDerivative() {
-  return derivative_.GetInfixExpression();
+  return derivative_.GetInfixExpression({});
 }
 
 std::string Algebra::GetTangent(double x) {
-  return tangent_.GetInfixExpression();
+  std::unordered_map<char, double> variable_to_value;
+
+  auto y = Calculate(function_, {{'x', x}});
+  auto k = Calculate(derivative_, {{'x', x}});
+  auto b = y - k * x;
+
+  variable_to_value.at('x') = x;
+  variable_to_value.at('k') = k;
+  variable_to_value.at('b') = b;
+
+  return tangent_.GetInfixExpression(variable_to_value);
 }
 
 utils::AbstractSyntaxTree Algebra::BuildFunctionTree(std::string_view rpn_expression) {

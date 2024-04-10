@@ -2,8 +2,8 @@
 
 namespace math {
 
-std::string Sin::GetInfix(int previous_priority) {
-  return "sin(" + argument_->GetInfix(0) + ")";
+std::string Sin::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
+  return "sin(" + argument_->GetInfix(0, variable_to_value) + ")";
 }
 
 std::string Sin::GetRPN(const std::unordered_map<char, double>& variable_to_value) {

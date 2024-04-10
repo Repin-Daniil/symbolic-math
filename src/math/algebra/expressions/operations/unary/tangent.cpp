@@ -2,8 +2,8 @@
 
 namespace math {
 
-std::string Tangent::GetInfix(int previous_priority) {
-  return "tan(" + argument_->GetInfix(0) + ")";
+std::string Tangent::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
+  return "tan(" + argument_->GetInfix(0, variable_to_value) + ")";
 }
 
 std::string Tangent::GetRPN(const std::unordered_map<char, double>& variable_to_value) {

@@ -2,8 +2,8 @@
 
 namespace math {
 
-std::string SquareRoot::GetInfix(int previous_priority) {
-  return "sqrt(" + argument_->GetInfix(0) + ")";
+std::string SquareRoot::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
+  return "sqrt(" + argument_->GetInfix(0, variable_to_value) + ")";
 }
 
 std::string SquareRoot::GetRPN(const std::unordered_map<char, double>& variable_to_value) {

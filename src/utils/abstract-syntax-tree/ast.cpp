@@ -12,8 +12,8 @@ std::string AbstractSyntaxTree::GetRPNExpression(const std::unordered_map<char, 
   return root_->GetRPN(variable_to_value);
 }
 
-std::string AbstractSyntaxTree::GetInfixExpression() const {
-  return root_->GetInfix(0);
+std::string AbstractSyntaxTree::GetInfixExpression(const std::unordered_map<char, double>& variable_to_value) const {
+  return root_->GetInfix(0, variable_to_value);
 }
 
 AbstractSyntaxTree AbstractSyntaxTree::GetDerivative() const {

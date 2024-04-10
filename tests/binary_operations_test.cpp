@@ -23,11 +23,11 @@ TEST_CASE("2 + 5", "Addition") {
   auto addition = std::make_shared<math::Addition>(left_operand, right_operand);
   auto derivative = addition->GetDerivative();
 
-  CHECK(addition->GetInfix(0) == "2 + 5");
+  CHECK(addition->GetInfix(0, {}) == "2 + 5");
   CHECK(addition->GetRPN({}) == "2 5 +");
   CHECK(addition->GetNumericResult({}) == 7);
 
-  CHECK(derivative->GetInfix(0) == "0 + 0");
+  CHECK(derivative->GetInfix(0, {}) == "0 + 0");
   CHECK(derivative->GetRPN({}) == "0 0 +");
   CHECK(derivative->GetNumericResult({}) == 0);
 }
@@ -39,11 +39,11 @@ TEST_CASE("2 + x", "Addition") {
   auto addition = std::make_shared<math::Addition>(left_operand, right_operand);
   auto derivative = addition->GetDerivative();
 
-  CHECK(addition->GetInfix(0) == "2 + x");
+  CHECK(addition->GetInfix(0, {}) == "2 + x");
   CHECK(addition->GetRPN({}) == "2 x +");
   CHECK(addition->GetNumericResult({{'x', 5}}) == 7);
 
-  CHECK(derivative->GetInfix(0) == "0 + 1");
+  CHECK(derivative->GetInfix(0, {}) == "0 + 1");
   CHECK(derivative->GetRPN({}) == "0 1 +");
   CHECK(derivative->GetNumericResult({}) == 1);
 }
@@ -56,11 +56,11 @@ TEST_CASE("2 + (1.5 + x)", "Addition") {
   auto addition = std::make_shared<math::Addition>(left_operand, right_operand);
   auto derivative = addition->GetDerivative();
 
-  CHECK(addition->GetInfix(0) == "2 + 1.5 + x");
+  CHECK(addition->GetInfix(0, {}) == "2 + 1.5 + x");
   CHECK(addition->GetRPN({{'x', 1}}) == "2 1.5 1 + +");
   REQUIRE_THAT(addition->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(8.5, 1e-5));
 
-  CHECK(derivative->GetInfix(0) == "0 + 0 + 1");
+  CHECK(derivative->GetInfix(0, {}) == "0 + 0 + 1");
   CHECK(derivative->GetRPN({{'x', 1}}) == "0 0 1 + +");
   CHECK(derivative->GetNumericResult({}) == 1);
 }
@@ -72,11 +72,11 @@ TEST_CASE("2 - 5.1", "Substraction") {
   auto substraction = std::make_shared<math::Subtraction>(left_operand, right_operand);
   auto derivative = substraction->GetDerivative();
 
-  CHECK(substraction->GetInfix(0) == "2 - 5.1");
+  CHECK(substraction->GetInfix(0, {}) == "2 - 5.1");
   CHECK(substraction->GetRPN({}) == "2 5.1 -");
   REQUIRE_THAT(substraction->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(-3.1, 1e-5));
 
-  CHECK(derivative->GetInfix(0) == "0 - 0");
+  CHECK(derivative->GetInfix(0, {}) == "0 - 0");
   CHECK(derivative->GetRPN({}) == "0 0 -");
   CHECK(derivative->GetNumericResult({}) == 0);
 }
@@ -88,11 +88,11 @@ TEST_CASE("x - 2", "Substraction") {
   auto substraction = std::make_shared<math::Subtraction>(left_operand, right_operand);
   auto derivative = substraction->GetDerivative();
 
-  CHECK(substraction->GetInfix(0) == "x - 2");
+  CHECK(substraction->GetInfix(0, {}) == "x - 2");
   CHECK(substraction->GetRPN({{'y', 1}}) == "x 2 -");
   REQUIRE_THAT(substraction->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(3.5, 1e-5));
 
-  CHECK(derivative->GetInfix(0) == "1 - 0");
+  CHECK(derivative->GetInfix(0, {}) == "1 - 0");
   CHECK(derivative->GetRPN({}) == "1 0 -");
   CHECK(derivative->GetNumericResult({}) == 1);
 }
@@ -105,11 +105,11 @@ TEST_CASE("2 - (1.5 + x)", "Substraction") {
   auto substraction = std::make_shared<math::Subtraction>(left_operand, right_operand);
   auto derivative = substraction->GetDerivative();
 
-  CHECK(substraction->GetInfix(0) == "2 - (1.5 + x)");
+  CHECK(substraction->GetInfix(0, {}) == "2 - (1.5 + x)");
   CHECK(substraction->GetRPN({}) == "2 1.5 x + -");
   REQUIRE_THAT(substraction->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(-5, 1e-5));
 
-  CHECK(derivative->GetInfix(0) == "0 - (0 + 1)");
+  CHECK(derivative->GetInfix(0, {}) == "0 - (0 + 1)");
   CHECK(derivative->GetRPN({}) == "0 0 1 + -");
   CHECK(derivative->GetNumericResult({}) == -1);
 }
@@ -121,11 +121,11 @@ TEST_CASE("2 * 5.1", "Multiplication") {
   auto multiplication = std::make_shared<math::Multiplication>(left_operand, right_operand);
   auto derivative = multiplication->GetDerivative();
 
-  CHECK(multiplication->GetInfix(0) == "2 * 5.1");
+  CHECK(multiplication->GetInfix(0, {}) == "2 * 5.1");
   CHECK(multiplication->GetRPN({}) == "2 5.1 *");
   REQUIRE_THAT(multiplication->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(10.2, 1e-5));
 
-  CHECK(derivative->GetInfix(0) == "2 * 0 + 0 * 5.1");
+  CHECK(derivative->GetInfix(0, {}) == "2 * 0 + 0 * 5.1");
   CHECK(derivative->GetRPN({}) == "2 0 * 0 5.1 * +");
   CHECK(derivative->GetNumericResult({}) == 0);
 }
@@ -137,11 +137,11 @@ TEST_CASE("2 * x", "Multiplication") {
   auto multiplication = std::make_shared<math::Multiplication>(left_operand, right_operand);
   auto derivative = multiplication->GetDerivative();
 
-  CHECK(multiplication->GetInfix(0) == "2 * x");
+  CHECK(multiplication->GetInfix(0, {}) == "2 * x");
   CHECK(multiplication->GetRPN({}) == "2 x *");
   REQUIRE_THAT(multiplication->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(11, 1e-5));
 
-  CHECK(derivative->GetInfix(0) == "2 * 1 + 0 * x");
+  CHECK(derivative->GetInfix(0, {}) == "2 * 1 + 0 * x");
   CHECK(derivative->GetRPN({}) == "2 1 * 0 x * +");
   CHECK(derivative->GetNumericResult({{'x', 5.5}}) == 2);
 }
@@ -154,11 +154,11 @@ TEST_CASE("2 * (x + 1)", "Multiplication") {
   auto multiplication = std::make_shared<math::Multiplication>(left_operand, right_operand);
   auto derivative = multiplication->GetDerivative();
 
-  CHECK(multiplication->GetInfix(0) == "2 * (x + 1)");
+  CHECK(multiplication->GetInfix(0, {}) == "2 * (x + 1)");
   CHECK(multiplication->GetRPN({}) == "2 x 1 + *");
   REQUIRE_THAT(multiplication->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(13, 1e-5));
 
-  CHECK(derivative->GetInfix(0) == "2 * (1 + 0) + 0 * (x + 1)");
+  CHECK(derivative->GetInfix(0, {}) == "2 * (1 + 0) + 0 * (x + 1)");
   CHECK(derivative->GetRPN({}) == "2 1 0 + * 0 x 1 + * +");
   CHECK(derivative->GetNumericResult({{'x', 5.5}}) == 2);
 }
@@ -170,11 +170,11 @@ TEST_CASE("2 / 5.1", "Division") {
   auto division = std::make_shared<math::Division>(left_operand, right_operand);
   auto derivative = division->GetDerivative();
 
-  CHECK(division->GetInfix(0) == "2 / 5.1");
+  CHECK(division->GetInfix(0, {}) == "2 / 5.1");
   CHECK(division->GetRPN({}) == "2 5.1 /");
   REQUIRE_THAT(division->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(0.392, 1e-2));
 
-  CHECK(derivative->GetInfix(0) == "(0 * 5.1 - 2 * 0) / 2 ^ 2");
+  CHECK(derivative->GetInfix(0, {}) == "(0 * 5.1 - 2 * 0) / 2 ^ 2");
   CHECK(derivative->GetRPN({}) == "0 5.1 * 2 0 * - 2 2 ^ /");
   REQUIRE_THAT(derivative->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinAbs(0, 1e-5));
 }
@@ -187,11 +187,11 @@ TEST_CASE("(2 + x) / 5.1", "Division") {
   auto division = std::make_shared<math::Division>(left_operand, right_operand);
   auto derivative = division->GetDerivative();
 
-  CHECK(division->GetInfix(0) == "(2 + x) / 5.1");
+  CHECK(division->GetInfix(0, {}) == "(2 + x) / 5.1");
   CHECK(division->GetRPN({}) == "2 x + 5.1 /");
   REQUIRE_THAT(division->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(1.47, 1e-2));
 
-  CHECK(derivative->GetInfix(0) == "((0 + 1) * 5.1 - (2 + x) * 0) / (2 + x) ^ 2");
+  CHECK(derivative->GetInfix(0, {}) == "((0 + 1) * 5.1 - (2 + x) * 0) / (2 + x) ^ 2");
   CHECK(derivative->GetRPN({}) == "0 1 + 5.1 * 2 x + 0 * - 2 x + 2 ^ /");
   REQUIRE_THAT(derivative->GetNumericResult({{'x', 5.5}}), Catch::Matchers::WithinRel(5.1 / 56.25, 1e-2));
 }
@@ -203,11 +203,11 @@ TEST_CASE("2 ^ x", "Exponentiation") {
   auto result = std::make_shared<math::Exponentiation>(left_operand, right_operand);
   auto derivative = result->GetDerivative();
 
-  CHECK(result->GetInfix(0) == "2 ^ x");
+  CHECK(result->GetInfix(0, {}) == "2 ^ x");
   CHECK(result->GetRPN({}) == "2 x ^");
   REQUIRE_THAT(result->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(32, 1e-2));
 
-  CHECK(derivative->GetInfix(0) == "2 ^ x * (1 * ln(2) + (x * 0) / 2)");
+  CHECK(derivative->GetInfix(0, {}) == "2 ^ x * (1 * ln(2) + (x * 0) / 2)");
   CHECK(derivative->GetRPN({}) == "2 x ^ 1 2 ln * x 0 * 2 / + *");
   REQUIRE_THAT(derivative->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(32 * std::log(2), 1e-2));
 }
@@ -219,11 +219,11 @@ TEST_CASE("x ^ 2", "Exponentiation") {
   auto result = std::make_shared<math::Exponentiation>(left_operand, right_operand);
   auto derivative = result->GetDerivative();
 
-  CHECK(result->GetInfix(0) == "x ^ 2");
+  CHECK(result->GetInfix(0, {}) == "x ^ 2");
   CHECK(result->GetRPN({}) == "x 2 ^");
   REQUIRE_THAT(result->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(25, 1e-2));
 
-  CHECK(derivative->GetInfix(0) == "x ^ 2 * (0 * ln(x) + (2 * 1) / x)");
+  CHECK(derivative->GetInfix(0, {}) == "x ^ 2 * (0 * ln(x) + (2 * 1) / x)");
   CHECK(derivative->GetRPN({}) == "x 2 ^ 0 x ln * 2 1 * x / + *");
   REQUIRE_THAT(derivative->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(10, 1e-2));
 }
@@ -236,11 +236,11 @@ TEST_CASE("x ^ (2 + 4)", "Exponentiation") {
   auto result = std::make_shared<math::Exponentiation>(left_operand, right_operand);
   auto derivative = result->GetDerivative();
 
-  CHECK(result->GetInfix(0) == "x ^ (2 + 4)");
+  CHECK(result->GetInfix(0, {}) == "x ^ (2 + 4)");
   CHECK(result->GetRPN({}) == "x 2 4 + ^");
   REQUIRE_THAT(result->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(15625, 1e-5));
 
-  CHECK(derivative->GetInfix(0) == "x ^ (2 + 4) * ((0 + 0) * ln(x) + ((2 + 4) * 1) / x)");
+  CHECK(derivative->GetInfix(0, {}) == "x ^ (2 + 4) * ((0 + 0) * ln(x) + ((2 + 4) * 1) / x)");
   CHECK(derivative->GetRPN({}) == "x 2 4 + ^ 0 0 + x ln * 2 4 + 1 * x / + *");
   REQUIRE_THAT(derivative->GetNumericResult({{'x', 5}}), Catch::Matchers::WithinRel(18750, 1e-5));
 }

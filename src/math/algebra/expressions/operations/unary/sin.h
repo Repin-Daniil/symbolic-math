@@ -17,7 +17,7 @@ class Sin final : public UnaryOperation {
   explicit Sin(std::shared_ptr<Expression> argument) : UnaryOperation(std::move(argument)) {
   }
 
-  std::string GetInfix(int previous_priority) override;
+  std::string GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) override;
   std::string GetRPN(const std::unordered_map<char, double>& variable_to_value) override;
   std::shared_ptr<Expression> GetDerivative() override;
 

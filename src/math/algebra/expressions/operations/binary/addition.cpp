@@ -7,11 +7,11 @@ std::shared_ptr<Expression> Addition::GetDerivative() {
   return std::make_shared<Addition>(left_argument_->GetDerivative(), right_argument_->GetDerivative());
 }
 
-std::string Addition::GetInfix(int previous_priority) {
+std::string Addition::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
   bool brackets_required = previous_priority > priority_;
 
-  return (brackets_required ? "(" : "") + left_argument_->GetInfix(priority_) + " + " +
-         right_argument_->GetInfix(priority_) + (brackets_required ? ")" : "");
+  return (brackets_required ? "(" : "") + left_argument_->GetInfix(priority_, variable_to_value) + " + " +
+         right_argument_->GetInfix(priority_, variable_to_value) + (brackets_required ? ")" : "");
 }
 
 std::string Addition::GetRPN(const std::unordered_map<char, double>& variable_to_value) {

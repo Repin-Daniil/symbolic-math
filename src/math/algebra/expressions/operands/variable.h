@@ -14,7 +14,7 @@ class Variable : public Expression {
   explicit Variable(char symbol) : symbol_(symbol) {
   }
 
-  std::string GetInfix(int previous_priority) override;
+  std::string GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) override;
   std::string GetRPN(const std::unordered_map<char, double>& variable_to_value) override;
   std::shared_ptr<Expression> GetDerivative() override;
 
