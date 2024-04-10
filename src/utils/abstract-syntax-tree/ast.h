@@ -21,9 +21,9 @@ class AbstractSyntaxTree {
   }
 
   std::shared_ptr<math::Expression> GetRoot() const;
-  std::string GetRPNExpression() const;      // TODO Передавать сюда переменные
-  std::string GetInfixExpression() const;    // TODO Передавать сюда переменные
-  AbstractSyntaxTree GetDerivative() const;  // TODO Передавать сюда переменные
+  std::string GetRPNExpression(const std::unordered_map<char, double>& variable_to_value) const;
+  std::string GetInfixExpression() const;
+  AbstractSyntaxTree GetDerivative() const;
   double GetNumericResult(const std::unordered_map<char, double>& variable_to_value) const;
 
   void Reset();

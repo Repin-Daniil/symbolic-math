@@ -6,8 +6,8 @@ std::string Sin::GetInfix(int previous_priority) {
   return "sin(" + argument_->GetInfix(0) + ")";
 }
 
-std::string Sin::GetRPN() {
-  return argument_->GetRPN() + " sin";
+std::string Sin::GetRPN(const std::unordered_map<char, double>& variable_to_value) {
+  return argument_->GetRPN(variable_to_value) + " sin";
 }
 
 std::shared_ptr<Expression> Sin::GetDerivative() {

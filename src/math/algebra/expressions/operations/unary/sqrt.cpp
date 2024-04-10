@@ -6,8 +6,8 @@ std::string SquareRoot::GetInfix(int previous_priority) {
   return "sqrt(" + argument_->GetInfix(0) + ")";
 }
 
-std::string SquareRoot::GetRPN() {
-  return argument_->GetRPN() + " sqrt";
+std::string SquareRoot::GetRPN(const std::unordered_map<char, double>& variable_to_value) {
+  return argument_->GetRPN(variable_to_value) + " sqrt";
 }
 
 std::shared_ptr<Expression> SquareRoot::GetDerivative() {

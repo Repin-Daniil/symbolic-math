@@ -6,8 +6,8 @@ std::string Tangent::GetInfix(int previous_priority) {
   return "tan(" + argument_->GetInfix(0) + ")";
 }
 
-std::string Tangent::GetRPN() {
-  return argument_->GetRPN() + " tan";
+std::string Tangent::GetRPN(const std::unordered_map<char, double>& variable_to_value) {
+  return argument_->GetRPN(variable_to_value) + " tan";
 }
 
 std::shared_ptr<Expression> Tangent::GetDerivative() {

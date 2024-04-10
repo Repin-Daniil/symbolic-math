@@ -9,8 +9,8 @@ std::string Multiplication::GetInfix(int previous_priority) {
          right_argument_->GetInfix(priority_) + (brackets_required ? ")" : "");
 }
 
-std::string Multiplication::GetRPN() {
-  return left_argument_->GetRPN() + " " + right_argument_->GetRPN() + " *";
+std::string Multiplication::GetRPN(const std::unordered_map<char, double>& variable_to_value) {
+  return left_argument_->GetRPN(variable_to_value) + " " + right_argument_->GetRPN(variable_to_value) + " *";
 }
 
 std::shared_ptr<Expression> Multiplication::GetDerivative() {

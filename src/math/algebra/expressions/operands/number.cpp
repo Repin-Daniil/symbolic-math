@@ -7,7 +7,7 @@ std::string Number::GetInfix(int previous_priority) {
   return GetString();
 }
 
-std::string Number::GetRPN() {
+std::string Number::GetRPN(const std::unordered_map<char, double>& variable_to_value) {
   return GetString();
 }
 

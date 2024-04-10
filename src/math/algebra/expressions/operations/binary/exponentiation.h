@@ -20,7 +20,7 @@ class Exponentiation final : public BinaryOperation {
   }
 
   std::string GetInfix(int previous_priority) override;
-  std::string GetRPN() override;
+  std::string GetRPN(const std::unordered_map<char, double>& variable_to_value) override;
   std::shared_ptr<Expression> GetDerivative() override;
 
  private:

@@ -6,8 +6,8 @@ std::string Logarithm::GetInfix(int previous_priority) {
   return "ln(" + argument_->GetInfix(0) + ")";
 }
 
-std::string Logarithm::GetRPN() {
-  return argument_->GetRPN() + " ln";
+std::string Logarithm::GetRPN(const std::unordered_map<char, double>& variable_to_value) {
+  return argument_->GetRPN(variable_to_value) + " ln";
 }
 
 std::shared_ptr<Expression> Logarithm::GetDerivative() {

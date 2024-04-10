@@ -11,7 +11,11 @@ std::string Variable::GetInfix(int previous_priority) {
   return GetString();
 }
 
-std::string Variable::GetRPN() {
+std::string Variable::GetRPN(const std::unordered_map<char, double>& variable_to_value) {
+  if (variable_to_value.contains(symbol_)) {
+    return math::Number(variable_to_value.at(symbol_)).GetInfix(0);
+  }
+
   return GetString();
 }
 

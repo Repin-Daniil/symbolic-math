@@ -6,8 +6,8 @@ std::string Cos::GetInfix(int previous_priority) {
   return "cos(" + argument_->GetInfix(0) + ")";
 }
 
-std::string Cos::GetRPN() {
-  return argument_->GetRPN() + " cos";
+std::string Cos::GetRPN(const std::unordered_map<char, double>& variable_to_value) {
+  return argument_->GetRPN(variable_to_value) + " cos";
 }
 
 std::shared_ptr<Expression> Cos::GetDerivative() {
