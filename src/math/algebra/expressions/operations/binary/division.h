@@ -10,7 +10,7 @@
 #include "math/algebra/expressions/operands/number.h"
 #include "math/algebra/expressions/operations/binary_operation.h"
 #include "multiplication.h"
-#include "substraction.h"
+#include "subtraction.h"
 
 namespace math {
 

@@ -16,4 +16,4 @@
 #include "operations/binary/division.h"
 #include "operations/binary/exponentiation.h"
 #include "operations/binary/multiplication.h"
-#include "operations/binary/substraction.h"
+#include "operations/binary/subtraction.h"

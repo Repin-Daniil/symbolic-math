@@ -43,8 +43,8 @@ add_library(OPERATIONS_LIB
         src/math/algebra/expressions/operations/binary/addition.cpp
         src/math/algebra/expressions/operations/binary/multiplication.h
         src/math/algebra/expressions/operations/binary/multiplication.cpp
-        src/math/algebra/expressions/operations/binary/substraction.h
-        src/math/algebra/expressions/operations/binary/substraction.cpp
+        src/math/algebra/expressions/operations/binary/subtraction.h
+        src/math/algebra/expressions/operations/binary/subtraction.cpp
         src/math/algebra/expressions/operations/binary/division.h
         src/math/algebra/expressions/operations/binary/division.cpp
         src/math/algebra/expressions/operations/binary/exponentiation.h

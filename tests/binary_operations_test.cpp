@@ -13,8 +13,8 @@
 #include "math/algebra/expressions/operations/binary/exponentiation.h"  // check include guards
 #include "math/algebra/expressions/operations/binary/multiplication.h"
 #include "math/algebra/expressions/operations/binary/multiplication.h"  // check include guards
-#include "math/algebra/expressions/operations/binary/substraction.h"
-#include "math/algebra/expressions/operations/binary/substraction.h"  // check include guards
+#include "math/algebra/expressions/operations/binary/subtraction.h"
+#include "math/algebra/expressions/operations/binary/subtraction.h"  // check include guards
 
 TEST_CASE("2 + 5", "Addition") {
   auto left_operand = std::make_shared<math::Number>(2);
@@ -69,7 +69,7 @@ TEST_CASE("2 - 5.1", "Substraction") {
   auto left_operand = std::make_shared<math::Number>(2);
   auto right_operand = std::make_shared<math::Number>(5.1);
 
-  auto substraction = std::make_shared<math::Substraction>(left_operand, right_operand);
+  auto substraction = std::make_shared<math::Subtraction>(left_operand, right_operand);
   auto derivative = substraction->GetDerivative();
 
   CHECK(substraction->GetInfix(0) == "2 - 5.1");
@@ -85,7 +85,7 @@ TEST_CASE("x - 2", "Substraction") {
   auto left_operand = std::make_shared<math::Variable>('x');
   auto right_operand = std::make_shared<math::Number>(2);
 
-  auto substraction = std::make_shared<math::Substraction>(left_operand, right_operand);
+  auto substraction = std::make_shared<math::Subtraction>(left_operand, right_operand);
   auto derivative = substraction->GetDerivative();
 
   CHECK(substraction->GetInfix(0) == "x - 2");
@@ -102,7 +102,7 @@ TEST_CASE("2 - (1.5 + x)", "Substraction") {
   auto right_operand =
       std::make_shared<math::Addition>(std::make_shared<math::Number>(1.5), std::make_shared<math::Variable>('x'));
 
-  auto substraction = std::make_shared<math::Substraction>(left_operand, right_operand);
+  auto substraction = std::make_shared<math::Subtraction>(left_operand, right_operand);
   auto derivative = substraction->GetDerivative();
 
   CHECK(substraction->GetInfix(0) == "2 - (1.5 + x)");

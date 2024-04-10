@@ -10,9 +10,9 @@
 
 namespace math {
 
-class Substraction final : public BinaryOperation {
+class Subtraction final : public BinaryOperation {
  public:
-  Substraction(std::shared_ptr<Expression> left, std::shared_ptr<Expression> right)
+  Subtraction(std::shared_ptr<Expression> left, std::shared_ptr<Expression> right)
       : BinaryOperation(std::move(left), std::move(right)) {
   }
 
@@ -25,7 +25,7 @@ class Substraction final : public BinaryOperation {
   double GetNumericResult(const std::unordered_map<char, double>& variable_to_value) override;
 
  private:
-  int priority_ = constants::operations_to_priority.at(constants::Operations::SUBSTRACTION);
+  int priority_ = constants::operations_to_priority.at(constants::Operations::SUBTRACTION);
 };
 
 }  // namespace math

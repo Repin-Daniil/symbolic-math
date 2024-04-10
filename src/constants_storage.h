@@ -10,7 +10,7 @@ using namespace std::literals;
 enum class Operations {
   UNARY_MINUS,
   ADDITION,
-  SUBSTRACTION,
+  SUBTRACTION,
   MULTIPLICATION,
   DIVISION,
   EXPONENTIATION,
@@ -51,7 +51,7 @@ struct Labels {
 
 const std::unordered_map<std::string_view, Operations> char_to_operations{
     {Labels::kPlus, Operations::ADDITION},
-    {Labels::kMinus, Operations::SUBSTRACTION},
+    {Labels::kMinus, Operations::SUBTRACTION},
     {Labels::kMultiplication, Operations::MULTIPLICATION},
     {Labels::kDivision, Operations::DIVISION},
     {Labels::kExponentiation, Operations::EXPONENTIATION},
@@ -84,7 +84,7 @@ const std::unordered_map<Operations, int> operations_to_priority{{Operations::TA
                                                                  {Operations::UNARY_MINUS, 4},
                                                                  {Operations::MULTIPLICATION, 3},
                                                                  {Operations::DIVISION, 3},
-                                                                 {Operations::SUBSTRACTION, 2},
+                                                                 {Operations::SUBTRACTION, 2},
                                                                  {Operations::ADDITION, 1}};
 struct ExceptionMessage {
   ExceptionMessage() = delete;

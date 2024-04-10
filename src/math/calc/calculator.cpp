@@ -75,7 +75,7 @@ void Calculator::ExecuteOperation(constants::Operations operation) {
   } else if (utils::Helper::IsBinaryOperation(operation)) {
     if (operands_.size() < 2) {
       // Check unary minus/plus
-      if (operation == constants::Operations::SUBSTRACTION) {
+      if (operation == constants::Operations::SUBTRACTION) {
         ans = -1 * GetOperand();
       } else if (operation == constants::Operations::ADDITION) {
         ans = GetOperand();
@@ -88,7 +88,7 @@ void Calculator::ExecuteOperation(constants::Operations operation) {
 
       if (operation == constants::Operations::ADDITION) {
         ans = lhs + rhs;
-      } else if (operation == constants::Operations::SUBSTRACTION) {
+      } else if (operation == constants::Operations::SUBTRACTION) {
         ans = lhs - rhs;
       } else if (operation == constants::Operations::MULTIPLICATION) {
         ans = lhs * rhs;
