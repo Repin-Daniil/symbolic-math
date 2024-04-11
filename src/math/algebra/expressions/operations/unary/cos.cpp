@@ -30,4 +30,8 @@ std::optional<std::shared_ptr<Expression>> Cos::Simplify() {
   return std::nullopt;
 }
 
+bool Cos::IsContainVariable() {
+  return argument_->IsContainVariable();
+}
+
 }  // namespace math

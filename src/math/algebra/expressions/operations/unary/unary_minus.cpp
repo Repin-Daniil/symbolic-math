@@ -42,4 +42,8 @@ std::optional<std::shared_ptr<Expression>> UnaryMinus::Simplify() {
   return std::nullopt;
 }
 
+bool UnaryMinus::IsContainVariable() {
+  return argument_->IsContainVariable();
+}
+
 }  // namespace math

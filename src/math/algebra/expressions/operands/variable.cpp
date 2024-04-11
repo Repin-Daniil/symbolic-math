@@ -43,4 +43,8 @@ std::optional<std::shared_ptr<Expression>> Variable::Simplify() {
   return std::nullopt;
 }
 
+bool Variable::IsContainVariable() {
+  return true;
+}
+
 }  // namespace math

@@ -22,6 +22,7 @@ class UnaryMinus final : public UnaryOperation {
   std::shared_ptr<Expression> GetDerivative() override;
   Expressions GetType() override;
   std::optional<std::shared_ptr<Expression>> Simplify() override;
+  bool IsContainVariable() override;
 
  private:
   int priority_ = constants::operations_to_priority.at(constants::Operations::UNARY_MINUS);

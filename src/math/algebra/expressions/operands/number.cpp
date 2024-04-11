@@ -55,4 +55,8 @@ std::optional<std::shared_ptr<Expression>> Number::Simplify() {
   return std::nullopt;
 }
 
+bool Number::IsContainVariable() {
+  return false;
+}
+
 }  // namespace math

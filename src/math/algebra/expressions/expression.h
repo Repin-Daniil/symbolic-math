@@ -31,6 +31,7 @@ class Expression {
   virtual std::shared_ptr<Expression> GetDerivative() = 0;
   virtual double GetNumericResult(const std::unordered_map<char, double>& variable_to_value) = 0;
   virtual std::optional<std::shared_ptr<Expression>> Simplify() = 0;
+  virtual bool IsContainVariable() = 0;
 
   virtual ~Expression() = default;
 };

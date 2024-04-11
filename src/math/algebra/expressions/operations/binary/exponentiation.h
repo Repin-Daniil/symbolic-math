@@ -27,6 +27,7 @@ class Exponentiation final : public BinaryOperation {
   Expressions GetType() override;
   double GetNumericResult(const std::unordered_map<char, double>& variable_to_value) override;
   std::optional<std::shared_ptr<Expression>> Simplify() override;
+  bool IsContainVariable() override;
 
  private:
   int priority_ = constants::operations_to_priority.at(constants::Operations::EXPONENTIATION);

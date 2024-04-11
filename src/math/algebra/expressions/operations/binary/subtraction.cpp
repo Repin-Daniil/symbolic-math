@@ -55,4 +55,8 @@ std::optional<std::shared_ptr<Expression>> Subtraction::Simplify() {
   return std::nullopt;
 }
 
+bool Subtraction::IsContainVariable() {
+  return left_argument_->IsContainVariable() || right_argument_->IsContainVariable();
+}
+
 }  // namespace math

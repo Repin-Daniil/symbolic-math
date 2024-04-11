@@ -28,4 +28,8 @@ std::optional<std::shared_ptr<Expression>> Sin::Simplify() {
   return std::nullopt;
 }
 
+bool Sin::IsContainVariable() {
+  return argument_->IsContainVariable();
+}
+
 }  // namespace math

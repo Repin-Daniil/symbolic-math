@@ -32,5 +32,8 @@ std::optional<std::shared_ptr<Expression>> Logarithm::Simplify() {
 
   return std::nullopt;
 }
+bool Logarithm::IsContainVariable() {
+  return argument_->IsContainVariable();
+}
 
 }  // namespace math

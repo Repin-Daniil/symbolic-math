@@ -46,4 +46,8 @@ std::optional<std::shared_ptr<Expression>> SquareRoot::Simplify() {
   return std::nullopt;
 }
 
+bool SquareRoot::IsContainVariable() {
+  return argument_->IsContainVariable();
+}
+
 }  // namespace math

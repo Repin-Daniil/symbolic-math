@@ -61,4 +61,8 @@ std::optional<std::shared_ptr<Expression>> Division::Simplify() {
   return std::nullopt;
 }
 
+bool Division::IsContainVariable() {
+  return left_argument_->IsContainVariable() || right_argument_->IsContainVariable();
+}
+
 }  // namespace math

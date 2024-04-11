@@ -37,4 +37,8 @@ std::optional<std::shared_ptr<Expression>> Tangent::Simplify() {
   return std::nullopt;
 }
 
+bool Tangent::IsContainVariable() {
+  return argument_->IsContainVariable();
+}
+
 }  // namespace math

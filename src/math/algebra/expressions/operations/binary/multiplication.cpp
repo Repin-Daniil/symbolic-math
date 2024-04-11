@@ -59,4 +59,8 @@ std::optional<std::shared_ptr<Expression>> Multiplication::Simplify() {
   return std::nullopt;
 }
 
+bool Multiplication::IsContainVariable() {
+  return left_argument_->IsContainVariable() || right_argument_->IsContainVariable();
+}
+
 }  // namespace math
