@@ -34,7 +34,7 @@ class Algebra {
   utils::AbstractSyntaxTree BuildDerivativeTree(const utils::AbstractSyntaxTree& function);
   utils::AbstractSyntaxTree BuildTangentTree();
 
-  std::vector<Coordinate> BuildGraph(const utils::AbstractSyntaxTree& function,
+  std::vector<Coordinate> BuildGraph(const utils::AbstractSyntaxTree& function, double left_border, double right_border,
                                      std::unordered_map<char, double> variable_to_value);
 
   std::unordered_map<char, double> CalculateTangent(double x);
@@ -46,8 +46,8 @@ class Algebra {
   utils::AbstractSyntaxTree derivative_;
   utils::AbstractSyntaxTree tangent_;
 
-  double left_border = -50;
-  double right_border = 50;
+  double left_border_ = -50;
+  double right_border_ = 50;
 };
 
 }  // namespace math

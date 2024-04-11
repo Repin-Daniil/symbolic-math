@@ -8,19 +8,19 @@ void Algebra::AddFunction(std::string_view rpn_expression) {
 }
 
 std::vector<Coordinate> Algebra::GetFunctionGraph() {
-  auto graph = BuildGraph(function_, {});
-  left_border = graph[0].first;
-  right_border = graph[graph.size() - 1].first;
+  auto graph = BuildGraph(function_, left_border_, right_border_, {});
+  left_border_ = graph[0].first;
+  right_border_ = graph[graph.size() - 1].first;
 
   return graph;
 }
 
 std::vector<Coordinate> Algebra::GetDerivativeGraph() {
-  return BuildGraph(derivative_, {});
+  return BuildGraph(derivative_, left_border_, right_border_, {});
 }
 
 std::vector<Coordinate> Algebra::GetTangentGraph(double x) {
-  return BuildGraph(tangent_, CalculateTangent(x));
+  return BuildGraph(tangent_, left_border_ - 10, right_border_ + 10, CalculateTangent(x));
 }
 
 std::string Algebra::GetFunction() {
@@ -50,8 +50,8 @@ utils::AbstractSyntaxTree Algebra::BuildTangentTree() {
 void Algebra::Reset() {
   function_.Reset();
   derivative_.Reset();
-  left_border = -50;
-  right_border = 50;
+  left_border_ = -50;
+  right_border_ = 50;
 }
 
 double Algebra::Calculate(const utils::AbstractSyntaxTree& function,
@@ -59,8 +59,8 @@ double Algebra::Calculate(const utils::AbstractSyntaxTree& function,
   return function.GetNumericResult(variable_to_value);
 }
 
-std::vector<Coordinate> Algebra::BuildGraph(const utils::AbstractSyntaxTree& function,
-                                            std::unordered_map<char, double> variable_to_value) {
+std::vector<Coordinate> Algebra::BuildGraph(const utils::AbstractSyntaxTree& function, double left_border,
+                                            double right_border, std::unordered_map<char, double> variable_to_value) {
   std::vector<Coordinate> coords;
 
   for (int i = left_border * 100; i <= right_border * 100; i += 1) {
