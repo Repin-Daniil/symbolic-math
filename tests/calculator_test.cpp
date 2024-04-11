@@ -510,7 +510,7 @@ TEST_CASE("ZeroInLogarithm", "[RPN]") {
   math::Calculator calc;
   std::string expression = "0 ln";
 
-  CHECK_THROWS_WITH(calc.Calculate(expression), constants::ExceptionMessage::kZeroLogarithm.data());
+  CHECK_THROWS_WITH(calc.Calculate(expression), constants::ExceptionMessage::kWrongLogarithm.data());
 }
 
 TEST_CASE("TangensPi/2", "[RPN]") {

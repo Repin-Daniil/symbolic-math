@@ -17,5 +17,15 @@ std::shared_ptr<Expression> Sin::GetDerivative() {
 double Sin::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
   return std::sin(argument_->GetNumericResult(variable_to_value));
 }
+Expressions Sin::GetType() {
+  return Expressions::SIN;
+}
+std::optional<std::shared_ptr<Expression>> Sin::Simplify() {
+  if (auto simplified = argument_->Simplify()) {
+    argument_ = *simplified;
+  }
+
+  return std::nullopt;
+}
 
 }  // namespace math

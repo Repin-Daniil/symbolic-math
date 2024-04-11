@@ -19,7 +19,13 @@ struct CalculationResult {
 struct FunctionAnalysis {
   std::optional<std::string> error;
   std::string derivative;
-  std::vector<math::Coordinate> graph_;
+  std::vector<math::Coordinate> graph;
+};
+
+struct TangentBuildingResult {
+  std::optional<std::string> error;
+  std::string tangent;
+  std::vector<math::Coordinate> graph;
 };
 
 class Application {
@@ -27,7 +33,7 @@ class Application {
   CalculationResult Calculate(std::string infix_expression);
 
   FunctionAnalysis AnalyzeFunction(std::string infix_expression);
-  std::vector<math::Coordinate> BuildTangent(double x);
+  TangentBuildingResult BuildTangent(double x);
 
   void Reset();
 

@@ -192,7 +192,7 @@ TEST_CASE("Zero Logarithm", "RPN") {
   auto ans = application.Calculate(input);
 
   REQUIRE(ans.error.has_value());
-  REQUIRE(ans.error == constants::ExceptionMessage::kZeroLogarithm);
+  REQUIRE(ans.error == constants::ExceptionMessage::kWrongLogarithm);
 }
 
 TEST_CASE("No Operands", "RPN") {

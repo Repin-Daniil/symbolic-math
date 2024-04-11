@@ -16,11 +16,21 @@ std::shared_ptr<Expression> Logarithm::GetDerivative() {
 double Logarithm::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
   auto arg = argument_->GetNumericResult(variable_to_value);
 
-  if (std::abs(arg - 0) < std::numeric_limits<double>::epsilon()) {
-    throw std::runtime_error(constants::ExceptionMessage::kZeroLogarithm.data());
+  if (arg < 0 || std::abs(arg - 0) < std::numeric_limits<double>::epsilon()) {
+    throw std::runtime_error(constants::ExceptionMessage::kWrongLogarithm.data());
   }
 
   return std::log(arg);
+}
+Expressions Logarithm::GetType() {
+  return Expressions::LOGARITHM;
+}
+std::optional<std::shared_ptr<Expression>> Logarithm::Simplify() {
+  if (auto simplified = argument_->Simplify()) {
+    argument_ = *simplified;
+  }
+
+  return std::nullopt;
 }
 
 }  // namespace math

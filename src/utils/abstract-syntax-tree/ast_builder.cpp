@@ -41,7 +41,7 @@ void TreeBuilder::AddOperand(std::string_view token) {
   } else if (token.size() == 1) {
     nodes_.push(std::make_shared<math::Variable>(token[0]));
   } else {
-    throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data());
+    throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data() + std::string(token.data()));
   }
 }
 

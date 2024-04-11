@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(RPN CXX)
+project(RPN)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -85,12 +85,14 @@ enable_testing()
 add_executable(rpn_test tests/calculator_test.cpp)
 add_executable(converter_test tests/converter_test.cpp)
 add_executable(app_test tests/application_test.cpp src/app/application.h src/app/application.cpp)
-add_executable(expression_test tests/operands_test.cpp tests/binary_operations_test.cpp tests/unary_operations_test.cpp)
+add_executable(expression_test tests/operands_test.cpp tests/binary_operations_test.cpp tests/unary_operations_test.cpp
+        tests/ast_test.cpp
+        tests/algebra_test.cpp)
 
 target_link_libraries(rpn_test PRIVATE RPN_LIB CONAN_PKG::catch2)
 target_link_libraries(converter_test PRIVATE RPN_LIB CONAN_PKG::catch2)
 target_link_libraries(app_test PRIVATE RPN_LIB OPERATIONS_LIB CONAN_PKG::catch2)
-target_link_libraries(expression_test PRIVATE OPERATIONS_LIB CONAN_PKG::catch2)
+target_link_libraries(expression_test PRIVATE OPERATIONS_LIB RPN_LIB CONAN_PKG::catch2)
 
 add_test(NAME RPN_TEST COMMAND rpn_test)
 add_test(NAME CONVERTER_TEST COMMAND converter_test)

@@ -30,7 +30,7 @@ class TreeBuilder {
   void Reset();
 
  private:
-  std::stack<std::shared_ptr<math::Expression>> nodes_;  // TODO Rename
+  std::stack<std::shared_ptr<math::Expression>> nodes_;
 };
 
 }  // namespace utils

@@ -81,7 +81,7 @@ struct ExceptionMessage {
   constexpr static std::string_view kZeroDivision = "Zero division!"sv;
   constexpr static std::string_view kNegativeRoot = "Negative square root"sv;
   constexpr static std::string_view kWrongTangent = "Tangent of pi/2"sv;
-  constexpr static std::string_view kZeroLogarithm = "ln(0) = -inf"sv;
+  constexpr static std::string_view kWrongLogarithm = "ln arg < 0"sv;
   constexpr static std::string_view kNoOperands = "No operands entered!"sv;
   constexpr static std::string_view kWrongFormat = "Unknown operator or variable: "sv;
   constexpr static std::string_view kUnbalancedBracket = "Wrong expression: Unbalanced bracket sequence"sv;

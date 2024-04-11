@@ -6,24 +6,25 @@ int main() {
   try {
     app::Application app;
 
-    std::cout << "Application start" << std::endl;
+    std::cout << "Enter expression" << std::endl;
+    std::string input;
+    std::getline(std::cin, input);
+    auto result = app.AnalyzeFunction(input);
 
-    while (true) {
-      std::string input;
-      std::getline(std::cin, input);
+    std::cout << result.derivative << std::endl;
 
-      auto result = app.AnalyzeFunction(input);
+    std::cout << "Function left border is " << result.graph[0].first << " Function right border is "
+              << result.graph[result.graph.size() - 1].first << std::endl;
 
-      std::cout << result.derivative << std::endl;
+    double x;
+    std::cout << "Enter x" << std::endl;
+    std::cin >> x;
+    auto result2 = app.BuildTangent(x);
+    std::cout << result2.tangent << std::endl;
+    std::cout << "Tangent left border is " << result2.graph[0].first << " Tangent right border is "
+              << result2.graph[result2.graph.size() - 1].first << std::endl;
 
-      double x;
-      std::cin >> x;
-      auto result2 = app.BuildTangent(x);
-
-      for (auto coord : result2) {
-        std::cout << coord.first << " " << coord.second << std::endl;
-      }
-    }
+    std::cout << "Complete" << std::endl;
 
     return EXIT_SUCCESS;
   } catch (std::exception& ex) {

@@ -26,4 +26,15 @@ double Tangent::GetNumericResult(const std::unordered_map<char, double>& variabl
   return std::tan(arg);
 }
 
+Expressions Tangent::GetType() {
+  return Expressions::TANGENT;
+}
+std::optional<std::shared_ptr<Expression>> Tangent::Simplify() {
+  if (auto simplified = argument_->Simplify()) {
+    argument_ = *simplified;
+  }
+
+  return std::nullopt;
+}
+
 }  // namespace math

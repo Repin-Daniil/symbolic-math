@@ -1,6 +1,4 @@
 #include "number.h"
-#include <cmath>
-#include "constants_storage.h"
 
 namespace math {
 
@@ -20,7 +18,7 @@ std::string Number::GetRPN(const std::unordered_map<char, double>& variable_to_v
 }
 
 std::shared_ptr<Expression> Number::GetDerivative() {
-  return std::shared_ptr<Expression>(new Number(0));
+  return std::make_shared<Number>(0);
 }
 
 std::string Number::GetString() const noexcept {
@@ -47,6 +45,14 @@ std::string Number::GetString() const noexcept {
 
 double Number::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
   return value_;
+}
+
+Expressions Number::GetType() {
+  return Expressions::NUMBER;
+}
+
+std::optional<std::shared_ptr<Expression>> Number::Simplify() {
+  return std::nullopt;
 }
 
 }  // namespace math

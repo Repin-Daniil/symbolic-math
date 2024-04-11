@@ -25,5 +25,25 @@ double SquareRoot::GetNumericResult(const std::unordered_map<char, double>& vari
 
   return std::sqrt(arg);
 }
+Expressions SquareRoot::GetType() {
+  return Expressions::SQRT;
+}
+std::optional<std::shared_ptr<Expression>> SquareRoot::Simplify() {
+  if (auto simplified = argument_->Simplify()) {
+    argument_ = *simplified;
+  }
+
+  if (argument_->GetType() == Expressions::NUMBER) {
+    if (argument_->GetNumericResult({}) == 0) {
+      return std::make_shared<Number>(0);
+    }
+
+    if (argument_->GetNumericResult({}) == 1) {
+      return std::make_shared<Number>(1);
+    }
+  }
+
+  return std::nullopt;
+}
 
 }  // namespace math

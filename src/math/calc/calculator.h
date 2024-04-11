@@ -26,7 +26,6 @@ class Calculator {
  private:
   void ExecuteOperation(constants::Operations operation);
   double GetOperand();
-  static bool IsEqual(double lhs, double rhs);
 
  private:
   std::stack<double> operands_;

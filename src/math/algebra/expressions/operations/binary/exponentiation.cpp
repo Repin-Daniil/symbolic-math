@@ -25,5 +25,43 @@ double Exponentiation::GetNumericResult(const std::unordered_map<char, double>& 
   return std::pow(left_argument_->GetNumericResult(variable_to_value),
                   right_argument_->GetNumericResult(variable_to_value));
 }
+Expressions Exponentiation::GetType() {
+  return Expressions::EXPONENTIATION;
+}
+std::optional<std::shared_ptr<Expression>> Exponentiation::Simplify() {
+  if (auto simplified = left_argument_->Simplify()) {
+    left_argument_ = *simplified;
+  }
+
+  if (auto simplified = right_argument_->Simplify()) {
+    right_argument_ = *simplified;
+  }
+
+  if (left_argument_->GetType() == right_argument_->GetType() && left_argument_->GetType() == Expressions::NUMBER) {
+    return std::make_shared<Number>(GetNumericResult({}));
+  }
+
+  if (left_argument_->GetType() == Expressions::NUMBER &&
+      utils::Helper::IsEqual(left_argument_->GetNumericResult({}), 0)) {
+    return std::make_shared<Number>(0);
+  }
+
+  if (right_argument_->GetType() == Expressions::NUMBER &&
+      utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 0)) {
+    return std::make_shared<Number>(1);
+  }
+
+  if (left_argument_->GetType() == Expressions::NUMBER &&
+      utils::Helper::IsEqual(left_argument_->GetNumericResult({}), 1)) {
+    return std::make_shared<Number>(1);
+  }
+
+  if (right_argument_->GetType() == Expressions::NUMBER &&
+      utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 1)) {
+    return left_argument_;
+  }
+
+  return std::nullopt;
+}
 
 }  // namespace math

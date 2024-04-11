@@ -30,5 +30,35 @@ double Division::GetNumericResult(const std::unordered_map<char, double>& variab
 
   return divisible / divider;
 }
+Expressions Division::GetType() {
+  return Expressions::DIVISION;
+}
+std::optional<std::shared_ptr<Expression>> Division::Simplify() {
+  if (auto simplified = left_argument_->Simplify()) {
+    left_argument_ = *simplified;
+  }
+
+  if (auto simplified = right_argument_->Simplify()) {
+    right_argument_ = *simplified;
+  }
+
+  // TODO Может убрать, пусть будут дроби
+  if (left_argument_->GetType() == right_argument_->GetType() && left_argument_->GetType() == Expressions::NUMBER &&
+      !utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 0)) {
+    return std::make_shared<Number>(left_argument_->GetNumericResult({}) / right_argument_->GetNumericResult({}));
+  }
+
+  if (left_argument_->GetType() == Expressions::NUMBER &&
+      utils::Helper::IsEqual(left_argument_->GetNumericResult({}), 0)) {
+    return std::make_shared<Number>(0);
+  }
+
+  if (right_argument_->GetType() == Expressions::NUMBER &&
+      utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 1)) {
+    return left_argument_;
+  }
+
+  return std::nullopt;
+}
 
 }  // namespace math

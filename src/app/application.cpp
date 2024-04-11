@@ -34,7 +34,7 @@ FunctionAnalysis Application::AnalyzeFunction(std::string infix_expression) {
 
     algebra_.AddFunction(std::move(rpn_expression));
     result.derivative = algebra_.GetDerivative();
-    result.graph_ = algebra_.GetFunctionGraph();
+    result.graph = algebra_.GetFunctionGraph();
   } catch (std::exception& ex) {
     result.error = ex.what();
     algebra_.Reset();
@@ -43,8 +43,12 @@ FunctionAnalysis Application::AnalyzeFunction(std::string infix_expression) {
   return result;
 }
 
-std::vector<math::Coordinate> Application::BuildTangent(double x) {
-  return algebra_.GetTangentGraph(x);
+TangentBuildingResult Application::BuildTangent(double x) {
+  TangentBuildingResult result;
+  result.tangent = algebra_.GetTangent(x);
+  result.graph = algebra_.GetTangentGraph(x);
+
+  return result;
 }
 
 void Application::Reset() {

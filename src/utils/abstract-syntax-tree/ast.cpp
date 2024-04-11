@@ -27,5 +27,10 @@ double AbstractSyntaxTree::GetNumericResult(const std::unordered_map<char, doubl
 void AbstractSyntaxTree::Reset() {
   root_.reset();
 }
+void AbstractSyntaxTree::Simplify() {
+  if (auto simplified = root_->Simplify()) {
+    root_ = *simplified;
+  }
+}
 
 }  // namespace utils

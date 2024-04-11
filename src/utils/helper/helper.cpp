@@ -69,4 +69,8 @@ bool Helper::IsBinaryOperation(constants::Operations operation) noexcept {
          operation == constants::Operations::EXPONENTIATION;
 }
 
+bool Helper::IsEqual(double lhs, double rhs) {
+  return std::abs(rhs - lhs) < std::numeric_limits<double>::epsilon();
+}
+
 }  // namespace utils

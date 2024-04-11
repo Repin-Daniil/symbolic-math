@@ -23,5 +23,23 @@ std::shared_ptr<Expression> UnaryMinus::GetDerivative() {
 double UnaryMinus::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
   return -argument_->GetNumericResult(variable_to_value);
 }
+Expressions UnaryMinus::GetType() {
+  return Expressions::UNARY_MINUS;
+}
+std::optional<std::shared_ptr<Expression>> UnaryMinus::Simplify() {
+  if (auto simplified = argument_->Simplify()) {
+    argument_ = *simplified;
+  }
+
+  if (argument_->GetType() == Expressions::UNARY_MINUS) {
+    return std::dynamic_pointer_cast<UnaryOperation>(argument_)->GetArgument();
+  }
+
+  if (argument_->GetType() == Expressions::NUMBER && argument_->GetNumericResult({}) < 0) {
+    return std::make_shared<Number>(std::abs(argument_->GetNumericResult({})));
+  }
+
+  return std::nullopt;
+}
 
 }  // namespace math

@@ -2,13 +2,17 @@
 
 namespace math {
 
-void Algebra::AddFunction(std::string rpn_expression) {
+void Algebra::AddFunction(std::string_view rpn_expression) {
   function_ = BuildFunctionTree(rpn_expression);
   derivative_ = BuildDerivativeTree(function_);
 }
 
 std::vector<Coordinate> Algebra::GetFunctionGraph() {
-  return BuildGraph(function_, {});
+  auto graph = BuildGraph(function_, {});
+  left_border = graph[0].first;
+  right_border = graph[graph.size() - 1].first;
+
+  return graph;
 }
 
 std::vector<Coordinate> Algebra::GetDerivativeGraph() {
@@ -16,11 +20,7 @@ std::vector<Coordinate> Algebra::GetDerivativeGraph() {
 }
 
 std::vector<Coordinate> Algebra::GetTangentGraph(double x) {
-  auto y = Calculate(function_, {{'x', x}});
-  auto k = Calculate(derivative_, {{'x', x}});
-  auto b = y - k * x;
-
-  return BuildGraph(tangent_, {{'k', k}, {'x', x}, {'b', b}});
+  return BuildGraph(tangent_, CalculateTangent(x));
 }
 
 std::string Algebra::GetFunction() {
@@ -32,17 +32,7 @@ std::string Algebra::GetDerivative() {
 }
 
 std::string Algebra::GetTangent(double x) {
-  std::unordered_map<char, double> variable_to_value;
-
-  auto y = Calculate(function_, {{'x', x}});
-  auto k = Calculate(derivative_, {{'x', x}});
-  auto b = y - k * x;
-
-  variable_to_value.at('x') = x;
-  variable_to_value.at('k') = k;
-  variable_to_value.at('b') = b;
-
-  return tangent_.GetInfixExpression(variable_to_value);
+  return tangent_.GetInfixExpression(CalculateTangent(x));
 }
 
 utils::AbstractSyntaxTree Algebra::BuildFunctionTree(std::string_view rpn_expression) {
@@ -60,6 +50,8 @@ utils::AbstractSyntaxTree Algebra::BuildTangentTree() {
 void Algebra::Reset() {
   function_.Reset();
   derivative_.Reset();
+  left_border = -50;
+  right_border = 50;
 }
 
 double Algebra::Calculate(const utils::AbstractSyntaxTree& function,
@@ -71,12 +63,38 @@ std::vector<Coordinate> Algebra::BuildGraph(const utils::AbstractSyntaxTree& fun
                                             std::unordered_map<char, double> variable_to_value) {
   std::vector<Coordinate> coords;
 
-  for (int x = -5000; x <= 5000; x += 1) {
-    variable_to_value['x'] = x / 100;
-    coords.emplace_back(x / 100, Calculate(function, variable_to_value));  // FIXME поиграть с координатами
+  for (int i = left_border * 100; i <= right_border * 100; i += 1) {
+    double x = i / 100.;
+    variable_to_value['x'] = x;
+
+    try {
+      double y = Calculate(function, variable_to_value);
+      coords.emplace_back(x, y);
+    } catch (const std::exception& ex) {
+      continue;
+    }
   }
 
   return coords;
+}
+
+std::unordered_map<char, double> Algebra::CalculateTangent(double x) {
+  std::unordered_map<char, double> variable_to_value;
+
+  auto y = Calculate(function_, {{'x', x}});
+  double k;
+  try {
+    k = Calculate(derivative_, {{'x', x}});
+  } catch (...) {
+    k = Calculate(derivative_, {{'x', x + 0.01}});
+  }
+  auto b = y - k * x;
+
+  variable_to_value['x'] = x;
+  variable_to_value['k'] = k;
+  variable_to_value['b'] = b;
+
+  return variable_to_value;
 }
 
 }  // namespace math

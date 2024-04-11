@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <memory>
+#include <optional>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -20,10 +21,9 @@ class Sin final : public UnaryOperation {
   std::string GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) override;
   std::string GetRPN(const std::unordered_map<char, double>& variable_to_value) override;
   std::shared_ptr<Expression> GetDerivative() override;
-
- private:
- public:
+  Expressions GetType() override;
   double GetNumericResult(const std::unordered_map<char, double>& variable_to_value) override;
+  std::optional<std::shared_ptr<Expression>> Simplify() override;
 
  private:
   int priority_ = constants::operations_to_priority.at(constants::Operations::SIN);

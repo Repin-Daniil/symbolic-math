@@ -1,5 +1,6 @@
 #pragma once
 
+#include <limits>
 #include <optional>
 #include <string>
 #include <string_view>
@@ -13,6 +14,7 @@ class Helper {
   static std::optional<int> GetPriority(std::string_view operation);
   static bool ComparePriorities(std::string_view lhs, std::string_view rhs);
 
+  static bool IsEqual(double lhs, double rhs);
   static bool IsOperator(std::string_view input) noexcept;
   static bool IsOperandPart(char symbol) noexcept;
   static bool IsDecimalDelimiter(char symbol) noexcept;

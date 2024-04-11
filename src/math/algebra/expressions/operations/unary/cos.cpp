@@ -18,4 +18,16 @@ double Cos::GetNumericResult(const std::unordered_map<char, double>& variable_to
   return std::cos(argument_->GetNumericResult(variable_to_value));
 }
 
+Expressions Cos::GetType() {
+  return Expressions::COS;
+}
+
+std::optional<std::shared_ptr<Expression>> Cos::Simplify() {
+  if (auto simplified = argument_->Simplify()) {
+    argument_ = *simplified;
+  }
+
+  return std::nullopt;
+}
+
 }  // namespace math

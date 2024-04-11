@@ -1,7 +1,9 @@
 #pragma once
 
 #include <memory>
+#include <optional>
 #include <utility>
+
 #include "math/algebra/expressions/expression.h"
 
 namespace math {

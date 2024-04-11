@@ -60,14 +60,14 @@ void Calculator::ExecuteOperation(constants::Operations operation) {
     } else if (operation == constants::Operations::COS) {
       ans = std::cos(arg);
     } else if (operation == constants::Operations::TANGENT) {
-      if (IsEqual(std::fmod(arg, std::numbers::pi), std::numbers::pi / 2.0)) {
+      if (utils::Helper::IsEqual(std::fmod(arg, std::numbers::pi), std::numbers::pi / 2.0)) {
         throw std::runtime_error(constants::ExceptionMessage::kWrongTangent.data());
       }
 
       ans = std::tan(arg);
     } else if (operation == constants::Operations::NATURAL_LOGARITHM) {
-      if (IsEqual(arg, 0)) {
-        throw std::runtime_error(constants::ExceptionMessage::kZeroLogarithm.data());
+      if (utils::Helper::IsEqual(arg, 0)) {
+        throw std::runtime_error(constants::ExceptionMessage::kWrongLogarithm.data());
       }
 
       ans = std::log(arg);
@@ -93,7 +93,7 @@ void Calculator::ExecuteOperation(constants::Operations operation) {
       } else if (operation == constants::Operations::MULTIPLICATION) {
         ans = lhs * rhs;
       } else if (operation == constants::Operations::DIVISION) {
-        if (IsEqual(rhs, 0)) {
+        if (utils::Helper::IsEqual(rhs, 0)) {
           throw std::runtime_error(constants::ExceptionMessage::kZeroDivision.data());
         }
 
@@ -116,10 +116,6 @@ double Calculator::GetOperand() {
   operands_.pop();
 
   return operand;
-}
-
-bool Calculator::IsEqual(double lhs, double rhs) {
-  return std::abs(rhs - lhs) < std::numeric_limits<double>::epsilon();
 }
 
 void Calculator::AddVariable(char symbol, double value) {

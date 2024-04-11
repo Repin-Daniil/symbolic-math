@@ -15,15 +15,18 @@ class AbstractSyntaxTree {
   AbstractSyntaxTree() = default;
   explicit AbstractSyntaxTree(std::string_view rpn_expression) {
     root_ = builder.BuildAST(rpn_expression);
+    Simplify();
   }
 
   explicit AbstractSyntaxTree(std::shared_ptr<math::Expression> root) : root_(std::move(root)) {
+    Simplify();
   }
 
   std::shared_ptr<math::Expression> GetRoot() const;
   std::string GetRPNExpression(const std::unordered_map<char, double>& variable_to_value) const;
   std::string GetInfixExpression(const std::unordered_map<char, double>& variable_to_value) const;
   AbstractSyntaxTree GetDerivative() const;
+  void Simplify();
   double GetNumericResult(const std::unordered_map<char, double>& variable_to_value) const;
 
   void Reset();

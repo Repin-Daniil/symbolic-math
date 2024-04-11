@@ -20,5 +20,43 @@ std::shared_ptr<Expression> Multiplication::GetDerivative() {
 double Multiplication::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
   return left_argument_->GetNumericResult(variable_to_value) * right_argument_->GetNumericResult(variable_to_value);
 }
+Expressions Multiplication::GetType() {
+  return Expressions::MULTIPLICATION;
+}
+std::optional<std::shared_ptr<Expression>> Multiplication::Simplify() {
+  if (auto simplified = left_argument_->Simplify()) {
+    left_argument_ = *simplified;
+  }
+
+  if (auto simplified = right_argument_->Simplify()) {
+    right_argument_ = *simplified;
+  }
+
+  if (left_argument_->GetType() == right_argument_->GetType() && left_argument_->GetType() == Expressions::NUMBER) {
+    return std::make_shared<Number>(GetNumericResult({}));
+  }
+
+  if (left_argument_->GetType() == Expressions::NUMBER &&
+      utils::Helper::IsEqual(left_argument_->GetNumericResult({}), 0)) {
+    return std::make_shared<Number>(0);
+  }
+
+  if (right_argument_->GetType() == Expressions::NUMBER &&
+      utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 0)) {
+    return std::make_shared<Number>(0);
+  }
+
+  if (left_argument_->GetType() == Expressions::NUMBER &&
+      utils::Helper::IsEqual(left_argument_->GetNumericResult({}), 1)) {
+    return right_argument_;
+  }
+
+  if (right_argument_->GetType() == Expressions::NUMBER &&
+      utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 1)) {
+    return left_argument_;
+  }
+
+  return std::nullopt;
+}
 
 }  // namespace math

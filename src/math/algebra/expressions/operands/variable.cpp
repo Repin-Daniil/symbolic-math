@@ -1,5 +1,4 @@
 #include "variable.h"
-#include "constants_storage.h"
 
 namespace math {
 
@@ -34,6 +33,14 @@ double Variable::GetNumericResult(const std::unordered_map<char, double>& variab
   }
 
   return variable_to_value.at(symbol_);
+}
+
+Expressions Variable::GetType() {
+  return Expressions::VARIABLE;
+}
+
+std::optional<std::shared_ptr<Expression>> Variable::Simplify() {
+  return std::nullopt;
 }
 
 }  // namespace math
