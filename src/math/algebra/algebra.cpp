@@ -1,4 +1,5 @@
 #include "algebra.h"
+#include <iostream>
 
 namespace math {
 
@@ -9,8 +10,11 @@ void Algebra::AddFunction(std::string_view rpn_expression) {
 
 std::vector<Coordinate> Algebra::GetFunctionGraph() {
   auto graph = BuildGraph(function_, left_border_, right_border_, {});
-  left_border_ = graph[0].first;
-  right_border_ = graph[graph.size() - 1].first;
+
+  if (graph.empty()) {
+    left_border_ = graph.at(0).first;
+    right_border_ = graph.at(graph.size() - 1).first;
+  }
 
   return graph;
 }
@@ -81,14 +85,16 @@ std::vector<Coordinate> Algebra::BuildGraph(const utils::AbstractSyntaxTree& fun
 std::unordered_map<char, double> Algebra::CalculateTangent(double x) {
   std::unordered_map<char, double> variable_to_value;
 
-  auto y = Calculate(function_, {{'x', x}});
+  double y = Calculate(function_, {{'x', x}});
   double k;
+
   try {
     k = Calculate(derivative_, {{'x', x}});
   } catch (...) {
-    k = Calculate(derivative_, {{'x', x + 0.01}});
+    k = Calculate(derivative_, {{'x', x + 1e-10}});
   }
-  auto b = y - k * x;
+
+  double b = y - k * x;
 
   variable_to_value['x'] = x;
   variable_to_value['k'] = k;

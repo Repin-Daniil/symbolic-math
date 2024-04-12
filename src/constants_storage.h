@@ -70,8 +70,8 @@ const std::unordered_map<Operations, int> operations_to_priority{{Operations::TA
                                                                  {Operations::NATURAL_LOGARITHM, 6},
                                                                  {Operations::EXPONENTIATION, 5},
                                                                  {Operations::UNARY_MINUS, 4},
+                                                                 {Operations::DIVISION, 4},
                                                                  {Operations::MULTIPLICATION, 3},
-                                                                 {Operations::DIVISION, 3},
                                                                  {Operations::SUBTRACTION, 2},
                                                                  {Operations::ADDITION, 1}};
 struct ExceptionMessage {
@@ -81,7 +81,7 @@ struct ExceptionMessage {
   constexpr static std::string_view kZeroDivision = "Zero division!"sv;
   constexpr static std::string_view kNegativeRoot = "Negative square root"sv;
   constexpr static std::string_view kWrongTangent = "Tangent of pi/2"sv;
-  constexpr static std::string_view kWrongLogarithm = "ln arg < 0"sv;
+  constexpr static std::string_view kWrongLogarithm = "Ln argument must be positive"sv;
   constexpr static std::string_view kNoOperands = "No operands entered!"sv;
   constexpr static std::string_view kWrongFormat = "Unknown operator or variable: "sv;
   constexpr static std::string_view kUnbalancedBracket = "Wrong expression: Unbalanced bracket sequence"sv;

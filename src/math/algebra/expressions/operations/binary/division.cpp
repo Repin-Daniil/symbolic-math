@@ -24,7 +24,7 @@ double Division::GetNumericResult(const std::unordered_map<char, double>& variab
   auto divisible = left_argument_->GetNumericResult(variable_to_value);
   auto divider = right_argument_->GetNumericResult(variable_to_value);
 
-  if (std::abs(divider - 0) < std::numeric_limits<double>::epsilon()) {
+  if (utils::Helper::IsEqual(divider, 0)) {
     throw std::runtime_error(constants::ExceptionMessage::kZeroDivision.data());
   }
 
@@ -42,10 +42,9 @@ std::optional<std::shared_ptr<Expression>> Division::Simplify() {
     right_argument_ = *simplified;
   }
 
-  // TODO Может убрать, пусть будут дроби
-  if (left_argument_->GetType() == right_argument_->GetType() && left_argument_->GetType() == Expressions::NUMBER &&
-      !utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 0)) {
-    return std::make_shared<Number>(left_argument_->GetNumericResult({}) / right_argument_->GetNumericResult({}));
+  if (right_argument_->GetType() == Expressions::NUMBER &&
+      utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 0)) {
+    throw std::runtime_error(constants::ExceptionMessage::kZeroDivision.data());
   }
 
   if (left_argument_->GetType() == Expressions::NUMBER &&

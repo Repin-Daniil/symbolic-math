@@ -45,8 +45,13 @@ FunctionAnalysis Application::AnalyzeFunction(std::string infix_expression) {
 
 TangentBuildingResult Application::BuildTangent(double x) {
   TangentBuildingResult result;
-  result.tangent = algebra_.GetTangent(x);
-  result.graph = algebra_.GetTangentGraph(x);
+
+  try {
+    result.tangent = algebra_.GetTangent(x);
+    result.graph = algebra_.GetTangentGraph(x);
+  } catch (std::exception& ex) {
+    result.error = ex.what();
+  }
 
   return result;
 }

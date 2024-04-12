@@ -56,6 +56,7 @@ std::optional<std::shared_ptr<Expression>> Addition::Simplify() {
 Expressions Addition::GetType() {
   return Expressions::ADDITION;
 }
+
 bool Addition::IsContainVariable() {
   return left_argument_->IsContainVariable() || right_argument_->IsContainVariable();
 }

@@ -3,7 +3,7 @@
 namespace math {
 
 std::string Multiplication::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
-  bool brackets_required = previous_priority >= priority_;
+  bool brackets_required = previous_priority > priority_;
 
   return (brackets_required ? "(" : "") + left_argument_->GetInfix(priority_, variable_to_value) + " * " +
          right_argument_->GetInfix(priority_, variable_to_value) + (brackets_required ? ")" : "");
@@ -23,6 +23,7 @@ double Multiplication::GetNumericResult(const std::unordered_map<char, double>& 
 Expressions Multiplication::GetType() {
   return Expressions::MULTIPLICATION;
 }
+
 std::optional<std::shared_ptr<Expression>> Multiplication::Simplify() {
   if (auto simplified = left_argument_->Simplify()) {
     left_argument_ = *simplified;

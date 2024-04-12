@@ -15,14 +15,15 @@ std::string Exponentiation::GetRPN(const std::unordered_map<char, double>& varia
 
 std::shared_ptr<Expression> Exponentiation::GetDerivative() {
   if (left_argument_->IsContainVariable() && !right_argument_->IsContainVariable()) {
-    auto first = right_argument_;
+    auto first = std::make_shared<Multiplication>(right_argument_, left_argument_->GetDerivative());
     auto second = std::make_shared<Exponentiation>(
         left_argument_, std::make_shared<Subtraction>(right_argument_, std::make_shared<Number>(1)));
 
     return std::make_shared<Multiplication>(first, second);
   } else if (!left_argument_->IsContainVariable() && right_argument_->IsContainVariable()) {
-    auto first = std::make_shared<Exponentiation>(left_argument_, right_argument_);
-    auto second = std::make_shared<Logarithm>(left_argument_);
+    auto first =
+        std::make_shared<Multiplication>(right_argument_->GetDerivative(), std::make_shared<Logarithm>(left_argument_));
+    auto second = std::make_shared<Exponentiation>(left_argument_, right_argument_);
 
     return std::make_shared<Multiplication>(first, second);
   } else {

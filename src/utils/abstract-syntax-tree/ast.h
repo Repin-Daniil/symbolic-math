@@ -26,9 +26,9 @@ class AbstractSyntaxTree {
   std::string GetRPNExpression(const std::unordered_map<char, double>& variable_to_value) const;
   std::string GetInfixExpression(const std::unordered_map<char, double>& variable_to_value) const;
   AbstractSyntaxTree GetDerivative() const;
-  void Simplify();
   double GetNumericResult(const std::unordered_map<char, double>& variable_to_value) const;
 
+  void Simplify();
   void Reset();
 
  private:

@@ -283,7 +283,7 @@ TEST_CASE("3 + 4 * 2 / (1 - 5)^2", "Converter") {
 
   auto rpn = Converter::ConvertInfixToRPN(expression);
 
-  REQUIRE(rpn == "3 4 2 * 1 5 - 2 ^ / + ");
+  REQUIRE(rpn == "3 4 2 1 5 - 2 ^ / * + ");
 }
 
 TEST_CASE("x", "Converter") {

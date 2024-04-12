@@ -35,8 +35,8 @@ std::optional<std::shared_ptr<Expression>> UnaryMinus::Simplify() {
     return std::dynamic_pointer_cast<UnaryOperation>(argument_)->GetArgument();
   }
 
-  if (argument_->GetType() == Expressions::NUMBER && argument_->GetNumericResult({}) < 0) {
-    return std::make_shared<Number>(std::abs(argument_->GetNumericResult({})));
+  if (argument_->GetType() == Expressions::NUMBER) {
+    return std::make_shared<Number>(-argument_->GetNumericResult({}));
   }
 
   return std::nullopt;

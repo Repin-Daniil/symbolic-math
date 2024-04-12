@@ -30,6 +30,11 @@ std::optional<std::shared_ptr<Expression>> Logarithm::Simplify() {
     argument_ = *simplified;
   }
 
+  if (argument_->GetType() == Expressions::NUMBER &&
+      utils::Helper::IsEqual(argument_->GetNumericResult({}), std::numbers::e)) {
+    return std::make_shared<Number>(1);
+  }
+
   return std::nullopt;
 }
 bool Logarithm::IsContainVariable() {

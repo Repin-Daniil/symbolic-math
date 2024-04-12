@@ -34,11 +34,11 @@ std::optional<std::shared_ptr<Expression>> SquareRoot::Simplify() {
   }
 
   if (argument_->GetType() == Expressions::NUMBER) {
-    if (argument_->GetNumericResult({}) == 0) {
+    if (utils::Helper::IsEqual(argument_->GetNumericResult({}), 0)) {
       return std::make_shared<Number>(0);
     }
 
-    if (argument_->GetNumericResult({}) == 1) {
+    if (utils::Helper::IsEqual(argument_->GetNumericResult({}), 1)) {
       return std::make_shared<Number>(1);
     }
   }
