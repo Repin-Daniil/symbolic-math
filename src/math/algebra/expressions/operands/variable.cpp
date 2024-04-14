@@ -23,10 +23,9 @@ std::string Variable::GetRPN(const std::unordered_map<char, double>& variable_to
 }
 
 std::string Variable::GetString() const noexcept {
-  std::stringstream stream;
-  stream << symbol_;
-  return stream.str();
+  return {symbol_};
 }
+
 double Variable::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
   if (!variable_to_value.contains(symbol_)) {
     throw std::runtime_error(std::string(constants::ExceptionMessage::kWrongFormat.data()) + symbol_);
@@ -35,8 +34,8 @@ double Variable::GetNumericResult(const std::unordered_map<char, double>& variab
   return variable_to_value.at(symbol_);
 }
 
-Expressions Variable::GetType() {
-  return Expressions::VARIABLE;
+constants::Expressions Variable::GetType() {
+  return constants::Expressions::VARIABLE;
 }
 
 std::optional<std::shared_ptr<Expression>> Variable::Simplify() {

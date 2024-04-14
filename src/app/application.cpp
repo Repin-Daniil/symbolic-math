@@ -31,8 +31,9 @@ FunctionAnalysis Application::AnalyzeFunction(std::string infix_expression) {
 
   try {
     std::string rpn_expression = utils::Converter::ConvertInfixToRPN(infix_expression);
-
     algebra_.AddFunction(std::move(rpn_expression));
+
+    result.function = algebra_.GetFunction();
     result.derivative = algebra_.GetDerivative();
     result.graph = algebra_.GetFunctionGraph();
   } catch (std::exception& ex) {

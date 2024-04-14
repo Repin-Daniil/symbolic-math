@@ -14,7 +14,7 @@ class BinaryOperation : public Expression {
       : left_argument_(std::move(left)), right_argument_(std::move(right)) {
   }
 
-  virtual std::shared_ptr<Expression> GetLeftArgument();  // TODO Законстантить бы все это и ссылку, и метод
+  virtual std::shared_ptr<Expression> GetLeftArgument();
   virtual std::shared_ptr<Expression> GetRightArgument();
 
   virtual ~BinaryOperation() = default;

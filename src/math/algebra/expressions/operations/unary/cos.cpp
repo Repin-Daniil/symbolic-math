@@ -3,11 +3,17 @@
 namespace math {
 
 std::string Cos::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
-  return "cos(" + argument_->GetInfix(0, variable_to_value) + ")";
+  std::stringstream stream;
+  stream << constants::Labels::kCos << constants::Labels::kOpenParen << argument_->GetInfix(0, variable_to_value)
+         << constants::Labels::kEndParen;
+
+  return stream.str();
 }
 
 std::string Cos::GetRPN(const std::unordered_map<char, double>& variable_to_value) {
-  return argument_->GetRPN(variable_to_value) + " cos";
+  std::stringstream stream;
+  stream << argument_->GetRPN(variable_to_value) << " " << constants::Labels::kCos;
+  return stream.str();
 }
 
 std::shared_ptr<Expression> Cos::GetDerivative() {
@@ -19,8 +25,8 @@ double Cos::GetNumericResult(const std::unordered_map<char, double>& variable_to
   return std::cos(argument_->GetNumericResult(variable_to_value));
 }
 
-Expressions Cos::GetType() {
-  return Expressions::COS;
+constants::Expressions Cos::GetType() {
+  return constants::Expressions::COS;
 }
 
 std::optional<std::shared_ptr<Expression>> Cos::Simplify() {

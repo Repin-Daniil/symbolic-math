@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <utility>
+
 #include "ast_builder.h"
 #include "math/algebra/expressions/expression.h"
 #include "utils/helper/helper.h"
@@ -13,14 +14,8 @@ namespace utils {
 class AbstractSyntaxTree {
  public:
   AbstractSyntaxTree() = default;
-  explicit AbstractSyntaxTree(std::string_view rpn_expression) {
-    root_ = builder.BuildAST(rpn_expression);
-    Simplify();
-  }
-
-  explicit AbstractSyntaxTree(std::shared_ptr<math::Expression> root) : root_(std::move(root)) {
-    Simplify();
-  }
+  explicit AbstractSyntaxTree(std::string_view rpn_expression);
+  explicit AbstractSyntaxTree(std::shared_ptr<math::Expression> root);
 
   std::shared_ptr<math::Expression> GetRoot() const;
   std::string GetRPNExpression(const std::unordered_map<char, double>& variable_to_value) const;

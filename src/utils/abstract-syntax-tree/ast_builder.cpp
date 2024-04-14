@@ -28,10 +28,6 @@ std::shared_ptr<math::Expression> TreeBuilder::BuildAST(std::string_view rpn_exp
     }
   }
 
-  if (nodes_.size() > 1) {
-    throw std::runtime_error("Smth went wrong in ast_builder, stack.size() > 1");
-  }
-
   return nodes_.top();
 }
 

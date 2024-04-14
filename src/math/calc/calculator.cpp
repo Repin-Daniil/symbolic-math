@@ -48,7 +48,7 @@ void Calculator::ExecuteOperation(constants::Operations operation) {
     auto arg = GetOperand();
 
     if (operation == constants::Operations::UNARY_MINUS) {
-      ans = -1 * arg;
+      ans = -arg;
     } else if (operation == constants::Operations::SQRT) {
       if (arg < 0) {
         throw std::runtime_error(constants::ExceptionMessage::kNegativeRoot.data());

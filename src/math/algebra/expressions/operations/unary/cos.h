@@ -23,7 +23,7 @@ class Cos final : public UnaryOperation {
   std::string GetRPN(const std::unordered_map<char, double>& variable_to_value) override;
   std::shared_ptr<Expression> GetDerivative() override;
   double GetNumericResult(const std::unordered_map<char, double>& variable_to_value) override;
-  Expressions GetType() override;
+  constants::Expressions GetType() override;
   std::optional<std::shared_ptr<Expression>> Simplify() override;
   bool IsContainVariable() override;
 

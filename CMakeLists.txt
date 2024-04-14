@@ -21,12 +21,14 @@ add_library(RPN_LIB
         src/utils/helper/helper.cpp
 )
 
-add_library(OPERATIONS_LIB
+add_library(DERIVATIVE_LIB
         src/math/algebra/algebra.h
         src/math/algebra/algebra.cpp
 
         src/utils/abstract-syntax-tree/ast.h
         src/utils/abstract-syntax-tree/ast.cpp
+        src/utils/abstract-syntax-tree/ast_builder.h
+        src/utils/abstract-syntax-tree/ast_builder.cpp
 
         src/math/algebra/expressions/expression.h
         src/math/algebra/expressions/operations/unary_operation.h
@@ -62,22 +64,14 @@ add_library(OPERATIONS_LIB
         src/math/algebra/expressions/operations/unary/tangent.cpp
         src/math/algebra/expressions/operations/unary/unary_minus.h
         src/math/algebra/expressions/operations/unary/unary_minus.cpp
-        src/utils/abstract-syntax-tree/ast_builder.cpp
-        src/utils/abstract-syntax-tree/ast_builder.h
 )
 
 add_executable(calc src/main_calc.cpp
         src/app/application.cpp
         src/app/application.h)
 
-add_executable(algebra src/main_algebra.cpp
-        src/app/application.cpp
-        src/app/application.h)
-
 target_link_libraries(calc PRIVATE RPN_LIB)
-target_link_libraries(calc PRIVATE OPERATIONS_LIB)
-target_link_libraries(algebra PRIVATE RPN_LIB)
-target_link_libraries(algebra PRIVATE OPERATIONS_LIB)
+target_link_libraries(calc PRIVATE DERIVATIVE_LIB)
 
 # Tests
 enable_testing()
@@ -91,8 +85,8 @@ add_executable(expression_test tests/operands_test.cpp tests/binary_operations_t
 
 target_link_libraries(rpn_test PRIVATE RPN_LIB CONAN_PKG::catch2)
 target_link_libraries(converter_test PRIVATE RPN_LIB CONAN_PKG::catch2)
-target_link_libraries(app_test PRIVATE RPN_LIB OPERATIONS_LIB CONAN_PKG::catch2)
-target_link_libraries(expression_test PRIVATE OPERATIONS_LIB RPN_LIB CONAN_PKG::catch2)
+target_link_libraries(app_test PRIVATE RPN_LIB DERIVATIVE_LIB CONAN_PKG::catch2)
+target_link_libraries(expression_test PRIVATE DERIVATIVE_LIB RPN_LIB CONAN_PKG::catch2)
 
 add_test(NAME RPN_TEST COMMAND rpn_test)
 add_test(NAME CONVERTER_TEST COMMAND converter_test)

@@ -1,5 +1,4 @@
 #include "algebra.h"
-#include <iostream>
 
 namespace math {
 
@@ -9,22 +8,15 @@ void Algebra::AddFunction(std::string_view rpn_expression) {
 }
 
 std::vector<Coordinate> Algebra::GetFunctionGraph() {
-  auto graph = BuildGraph(function_, left_border_, right_border_, {});
-
-  if (graph.empty()) {
-    left_border_ = graph.at(0).first;
-    right_border_ = graph.at(graph.size() - 1).first;
-  }
-
-  return graph;
+  return BuildGraph(function_, {});
 }
 
 std::vector<Coordinate> Algebra::GetDerivativeGraph() {
-  return BuildGraph(derivative_, left_border_, right_border_, {});
+  return BuildGraph(derivative_, {});
 }
 
 std::vector<Coordinate> Algebra::GetTangentGraph(double x) {
-  return BuildGraph(tangent_, left_border_ - 10, right_border_ + 10, CalculateTangent(x));
+  return BuildGraph(tangent_, CalculateTangent(x));
 }
 
 std::string Algebra::GetFunction() {
@@ -48,14 +40,12 @@ utils::AbstractSyntaxTree Algebra::BuildDerivativeTree(const utils::AbstractSynt
 }
 
 utils::AbstractSyntaxTree Algebra::BuildTangentTree() {
-  return utils::AbstractSyntaxTree("k x * b +");
+  return utils::AbstractSyntaxTree(utils::Converter::ConvertInfixToRPN(constants::AlgebraConstants::kTangentFunction));
 }
 
 void Algebra::Reset() {
   function_.Reset();
   derivative_.Reset();
-  left_border_ = -50;
-  right_border_ = 50;
 }
 
 double Algebra::Calculate(const utils::AbstractSyntaxTree& function,
@@ -63,13 +53,15 @@ double Algebra::Calculate(const utils::AbstractSyntaxTree& function,
   return function.GetNumericResult(variable_to_value);
 }
 
-std::vector<Coordinate> Algebra::BuildGraph(const utils::AbstractSyntaxTree& function, double left_border,
-                                            double right_border, std::unordered_map<char, double> variable_to_value) {
+std::vector<Coordinate> Algebra::BuildGraph(const utils::AbstractSyntaxTree& function,
+                                            std::unordered_map<char, double> variable_to_value) {
   std::vector<Coordinate> coords;
+  int left_border = constants::AlgebraConstants::kLeftBorder;
+  int right_border = constants::AlgebraConstants::kRightBorder;
 
   for (int i = left_border * 100; i <= right_border * 100; i += 1) {
     double x = i / 100.;
-    variable_to_value['x'] = x;
+    variable_to_value[constants::AlgebraConstants::kArgumentChar] = x;
 
     try {
       double y = Calculate(function, variable_to_value);
@@ -85,20 +77,20 @@ std::vector<Coordinate> Algebra::BuildGraph(const utils::AbstractSyntaxTree& fun
 std::unordered_map<char, double> Algebra::CalculateTangent(double x) {
   std::unordered_map<char, double> variable_to_value;
 
-  double y = Calculate(function_, {{'x', x}});
+  double y = Calculate(function_, {{constants::AlgebraConstants::kArgumentChar, x}});
   double k;
 
   try {
-    k = Calculate(derivative_, {{'x', x}});
+    k = Calculate(derivative_, {{constants::AlgebraConstants::kArgumentChar, x}});
   } catch (...) {
-    k = Calculate(derivative_, {{'x', x + 1e-10}});
+    k = Calculate(derivative_, {{constants::AlgebraConstants::kArgumentChar, x + 1e-10}});
   }
 
   double b = y - k * x;
 
-  variable_to_value['x'] = x;
-  variable_to_value['k'] = k;
-  variable_to_value['b'] = b;
+  variable_to_value[constants::AlgebraConstants::kArgumentChar] = x;
+  variable_to_value[constants::AlgebraConstants::kAngularFactorChar] = k;
+  variable_to_value[constants::AlgebraConstants::kFreeFactorChar] = b;
 
   return variable_to_value;
 }

@@ -18,6 +18,7 @@ struct CalculationResult {
 
 struct FunctionAnalysis {
   std::optional<std::string> error;
+  std::string function;
   std::string derivative;
   std::vector<math::Coordinate> graph;
 };

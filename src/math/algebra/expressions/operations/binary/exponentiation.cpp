@@ -5,12 +5,20 @@ namespace math {
 std::string Exponentiation::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
   bool brackets_required = previous_priority >= priority_;
 
-  return (brackets_required ? "(" : "") + left_argument_->GetInfix(priority_, variable_to_value) + " ^ " +
-         right_argument_->GetInfix(priority_, variable_to_value) + (brackets_required ? ")" : "");
+  std::stringstream stream;
+  stream << (brackets_required ? constants::Labels::kOpenParen : "")
+         << left_argument_->GetInfix(priority_, variable_to_value) << " " << constants::Labels::kExponentiation << " "
+         << right_argument_->GetInfix(priority_, variable_to_value)
+         << (brackets_required ? constants::Labels::kEndParen : "");
+
+  return stream.str();
 }
 
 std::string Exponentiation::GetRPN(const std::unordered_map<char, double>& variable_to_value) {
-  return left_argument_->GetRPN(variable_to_value) + " " + right_argument_->GetRPN(variable_to_value) + " ^";
+  std::stringstream stream;
+  stream << left_argument_->GetRPN(variable_to_value) << " " << right_argument_->GetRPN(variable_to_value) << " "
+         << constants::Labels::kExponentiation;
+  return stream.str();
 }
 
 std::shared_ptr<Expression> Exponentiation::GetDerivative() {
@@ -42,8 +50,8 @@ double Exponentiation::GetNumericResult(const std::unordered_map<char, double>& 
                   right_argument_->GetNumericResult(variable_to_value));
 }
 
-Expressions Exponentiation::GetType() {
-  return Expressions::EXPONENTIATION;
+constants::Expressions Exponentiation::GetType() {
+  return constants::Expressions::EXPONENTIATION;
 }
 
 std::optional<std::shared_ptr<Expression>> Exponentiation::Simplify() {
@@ -55,26 +63,27 @@ std::optional<std::shared_ptr<Expression>> Exponentiation::Simplify() {
     right_argument_ = *simplified;
   }
 
-  if (left_argument_->GetType() == right_argument_->GetType() && left_argument_->GetType() == Expressions::NUMBER) {
+  if (left_argument_->GetType() == right_argument_->GetType() &&
+      left_argument_->GetType() == constants::Expressions::NUMBER) {
     return std::make_shared<Number>(GetNumericResult({}));
   }
 
-  if (left_argument_->GetType() == Expressions::NUMBER &&
+  if (left_argument_->GetType() == constants::Expressions::NUMBER &&
       utils::Helper::IsEqual(left_argument_->GetNumericResult({}), 0)) {
     return std::make_shared<Number>(0);
   }
 
-  if (right_argument_->GetType() == Expressions::NUMBER &&
+  if (right_argument_->GetType() == constants::Expressions::NUMBER &&
       utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 0)) {
     return std::make_shared<Number>(1);
   }
 
-  if (left_argument_->GetType() == Expressions::NUMBER &&
+  if (left_argument_->GetType() == constants::Expressions::NUMBER &&
       utils::Helper::IsEqual(left_argument_->GetNumericResult({}), 1)) {
     return std::make_shared<Number>(1);
   }
 
-  if (right_argument_->GetType() == Expressions::NUMBER &&
+  if (right_argument_->GetType() == constants::Expressions::NUMBER &&
       utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 1)) {
     return left_argument_;
   }

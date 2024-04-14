@@ -5,27 +5,13 @@
 #include <string>
 #include <unordered_map>
 
-namespace math {
+#include "constants_storage.h"
 
-enum class Expressions {
-  NUMBER,
-  VARIABLE,
-  ADDITION,
-  DIVISION,
-  EXPONENTIATION,
-  MULTIPLICATION,
-  SUBTRACTION,
-  LOGARITHM,
-  COS,
-  SIN,
-  SQRT,
-  TANGENT,
-  UNARY_MINUS
-};
+namespace math {
 
 class Expression {
  public:
-  virtual Expressions GetType() = 0;
+  virtual constants::Expressions GetType() = 0;
   virtual std::string GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) = 0;
   virtual std::string GetRPN(const std::unordered_map<char, double>& variable_to_value) = 0;
   virtual std::shared_ptr<Expression> GetDerivative() = 0;

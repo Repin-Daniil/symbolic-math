@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "utils/abstract-syntax-tree/ast.h"
+#include "utils/converter/converter.h"
 
 namespace math {
 
@@ -34,7 +35,7 @@ class Algebra {
   utils::AbstractSyntaxTree BuildDerivativeTree(const utils::AbstractSyntaxTree& function);
   utils::AbstractSyntaxTree BuildTangentTree();
 
-  std::vector<Coordinate> BuildGraph(const utils::AbstractSyntaxTree& function, double left_border, double right_border,
+  std::vector<Coordinate> BuildGraph(const utils::AbstractSyntaxTree& function,
                                      std::unordered_map<char, double> variable_to_value);
 
   std::unordered_map<char, double> CalculateTangent(double x);
@@ -45,9 +46,6 @@ class Algebra {
   utils::AbstractSyntaxTree function_;
   utils::AbstractSyntaxTree derivative_;
   utils::AbstractSyntaxTree tangent_;
-
-  double left_border_ = -50;
-  double right_border_ = 50;
 };
 
 }  // namespace math
