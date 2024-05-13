@@ -15,10 +15,10 @@ std::string Logarithm::GetRPN(const std::unordered_map<char, double>& variable_t
   return stream.str();
 }
 
-std::shared_ptr<Expression> Logarithm::GetDerivative() {
+std::unique_ptr<Expression> Logarithm::GetDerivative() {
   CheckArgument({});
 
-  return std::make_shared<Division>(argument_->GetDerivative(), argument_);
+  return std::make_unique<Division>(argument_->GetDerivative(), argument_->Clone());
 }
 
 double Logarithm::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
@@ -31,12 +31,12 @@ constants::Expressions Logarithm::GetType() {
   return constants::Expressions::LOGARITHM;
 }
 
-std::optional<std::shared_ptr<Expression>> Logarithm::Simplify() {
+std::optional<std::unique_ptr<Expression>> Logarithm::Simplify() {
   if (auto simplified = argument_->Simplify()) {
-    argument_ = *simplified;
+    argument_ = std::move(*simplified);
   } else if (argument_->GetType() == constants::Expressions::NUMBER &&
              utils::Helper::IsEqual(argument_->GetNumericResult({}), std::numbers::e)) {
-    return std::make_shared<Number>(1);
+    return std::make_unique<Number>(1);
   }
 
   return std::nullopt;
@@ -62,6 +62,10 @@ std::optional<double> Logarithm::CheckArgument(const std::unordered_map<char, do
   }
 
   return result;
+}
+
+std::unique_ptr<Expression> Logarithm::Clone() {
+  return std::make_unique<Logarithm>(argument_->Clone());
 }
 
 }  // namespace math

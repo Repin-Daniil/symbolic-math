@@ -10,15 +10,15 @@ namespace math {
 
 class UnaryOperation : public Expression {
  public:
-  explicit UnaryOperation(std::shared_ptr<Expression> argument) : argument_(std::move(argument)) {
+  explicit UnaryOperation(std::unique_ptr<Expression> argument) : argument_(std::move(argument)) {
   }
 
-  virtual std::shared_ptr<Expression> GetArgument();
+  virtual std::unique_ptr<Expression> ReleaseArgument();
 
   virtual ~UnaryOperation() = default;
 
  protected:
-  std::shared_ptr<Expression> argument_;
+  std::unique_ptr<Expression> argument_;
 };
 
 }  // namespace math

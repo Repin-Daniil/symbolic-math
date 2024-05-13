@@ -32,7 +32,7 @@ std::string Algebra::GetTangent(double x) {
 }
 
 utils::AbstractSyntaxTree Algebra::BuildFunctionTree(std::string_view rpn_expression) {
-  return utils::AbstractSyntaxTree(rpn_expression);
+  return utils::AbstractSyntaxTree{rpn_expression};
 }
 
 utils::AbstractSyntaxTree Algebra::BuildDerivativeTree(const utils::AbstractSyntaxTree& function) {
@@ -40,7 +40,7 @@ utils::AbstractSyntaxTree Algebra::BuildDerivativeTree(const utils::AbstractSynt
 }
 
 utils::AbstractSyntaxTree Algebra::BuildTangentTree() {
-  return utils::AbstractSyntaxTree(utils::Converter::ConvertInfixToRPN(constants::AlgebraConstants::kTangentFunction));
+  return utils::AbstractSyntaxTree{utils::Converter::ConvertInfixToRPN(constants::AlgebraConstants::kTangentFunction)};
 }
 
 void Algebra::Reset() {

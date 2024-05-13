@@ -2,8 +2,8 @@
 
 namespace math {
 
-std::shared_ptr<Expression> UnaryOperation::GetArgument() {
-  return argument_;
+std::unique_ptr<Expression> UnaryOperation::ReleaseArgument() {
+  return std::move(argument_);
 }
 
 }  // namespace math

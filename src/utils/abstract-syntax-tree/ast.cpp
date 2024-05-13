@@ -5,16 +5,16 @@ namespace utils {
 TreeBuilder AbstractSyntaxTree::builder;
 
 AbstractSyntaxTree::AbstractSyntaxTree(std::string_view rpn_expression) {
-  root_ = builder.BuildAST(rpn_expression);
+  root_ = std::move(builder.BuildAST(rpn_expression));
   Simplify();
 }
 
-AbstractSyntaxTree::AbstractSyntaxTree(std::shared_ptr<math::Expression> root) : root_(std::move(root)) {
+AbstractSyntaxTree::AbstractSyntaxTree(std::unique_ptr<math::Expression> root) : root_(std::move(root)) {
   Simplify();
 }
 
-std::shared_ptr<math::Expression> AbstractSyntaxTree::GetRoot() const {
-  return root_;
+const math::Expression& AbstractSyntaxTree::GetRoot() const {
+  return *root_;
 }
 
 std::string AbstractSyntaxTree::GetRPNExpression(const std::unordered_map<char, double>& variable_to_value) const {
@@ -39,7 +39,7 @@ void AbstractSyntaxTree::Reset() {
 
 void AbstractSyntaxTree::Simplify() {
   if (auto simplified = root_->Simplify()) {
-    root_ = *simplified;
+    root_ = std::move(*simplified);
   }
 }
 

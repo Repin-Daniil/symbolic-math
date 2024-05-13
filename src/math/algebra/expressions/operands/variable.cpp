@@ -2,8 +2,8 @@
 
 namespace math {
 
-std::shared_ptr<Expression> Variable::GetDerivative() {
-  return std::shared_ptr<Expression>(new Number(1));
+std::unique_ptr<Expression> Variable::GetDerivative() {
+  return std::make_unique<Number>(1);
 }
 
 std::string Variable::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
@@ -38,12 +38,16 @@ constants::Expressions Variable::GetType() {
   return constants::Expressions::VARIABLE;
 }
 
-std::optional<std::shared_ptr<Expression>> Variable::Simplify() {
+std::optional<std::unique_ptr<Expression>> Variable::Simplify() {
   return std::nullopt;
 }
 
 bool Variable::IsContainVariable() {
   return true;
+}
+
+std::unique_ptr<Expression> Variable::Clone() {
+  return std::make_unique<Variable>(symbol_);
 }
 
 }  // namespace math

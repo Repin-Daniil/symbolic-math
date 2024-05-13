@@ -21,16 +21,16 @@ namespace utils {
 
 class TreeBuilder {
  public:
-  std::shared_ptr<math::Expression> BuildAST(std::string_view rpn_expression);
+  std::unique_ptr<math::Expression> BuildAST(std::string_view rpn_expression);
 
  private:
   void AddOperation(constants::Operations operation);
   void AddOperand(std::string_view token);
-  std::shared_ptr<math::Expression> GetOperand();
+  std::unique_ptr<math::Expression> GetOperand();
   void Reset();
 
  private:
-  std::stack<std::shared_ptr<math::Expression>> nodes_;
+  std::stack<std::unique_ptr<math::Expression>> nodes_;
 };
 
 }  // namespace utils

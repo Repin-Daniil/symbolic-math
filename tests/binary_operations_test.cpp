@@ -18,10 +18,11 @@
 #include "utils/abstract-syntax-tree/ast.h"
 
 TEST_CASE("2 + 5", "Addition") {
-  auto left_operand = std::make_shared<math::Number>(2);
-  auto right_operand = std::make_shared<math::Number>(5);
+  auto left_operand = std::make_unique<math::Number>(2);
+  auto right_operand = std::make_unique<math::Number>(5);
 
-  auto addition = utils::AbstractSyntaxTree(std::make_shared<math::Addition>(left_operand, right_operand));
+  auto addition =
+      utils::AbstractSyntaxTree(std::make_unique<math::Addition>(std::move(left_operand), std::move(right_operand)));
   auto derivative = addition.GetDerivative();
 
   CHECK(addition.GetInfixExpression({}) == "7");
@@ -34,10 +35,11 @@ TEST_CASE("2 + 5", "Addition") {
 }
 
 TEST_CASE("2 + x", "Addition") {
-  auto left_operand = std::make_shared<math::Number>(2);
-  auto right_operand = std::make_shared<math::Variable>('x');
+  auto left_operand = std::make_unique<math::Number>(2);
+  auto right_operand = std::make_unique<math::Variable>('x');
 
-  auto addition = utils::AbstractSyntaxTree(std::make_shared<math::Addition>(left_operand, right_operand));
+  auto addition =
+      utils::AbstractSyntaxTree(std::make_unique<math::Addition>(std::move(left_operand), std::move(right_operand)));
   auto derivative = addition.GetDerivative();
 
   CHECK(addition.GetInfixExpression({}) == "2 + x");
@@ -50,11 +52,12 @@ TEST_CASE("2 + x", "Addition") {
 }
 
 TEST_CASE("2 + (1.5 + x)", "Addition") {
-  auto left_operand = std::make_shared<math::Number>(2);
+  auto left_operand = std::make_unique<math::Number>(2);
   auto right_operand =
-      std::make_shared<math::Addition>(std::make_shared<math::Number>(1.5), std::make_shared<math::Variable>('x'));
+      std::make_unique<math::Addition>(std::make_unique<math::Number>(1.5), std::make_unique<math::Variable>('x'));
 
-  auto addition = utils::AbstractSyntaxTree(std::make_shared<math::Addition>(left_operand, right_operand));
+  auto addition =
+      utils::AbstractSyntaxTree(std::make_unique<math::Addition>(std::move(left_operand), std::move(right_operand)));
   auto derivative = addition.GetDerivative();
 
   CHECK(addition.GetInfixExpression({}) == "2 + 1.5 + x");
@@ -67,10 +70,11 @@ TEST_CASE("2 + (1.5 + x)", "Addition") {
 }
 
 TEST_CASE("2 - 5.1", "Substraction") {
-  auto left_operand = std::make_shared<math::Number>(2);
-  auto right_operand = std::make_shared<math::Number>(5.1);
+  auto left_operand = std::make_unique<math::Number>(2);
+  auto right_operand = std::make_unique<math::Number>(5.1);
 
-  auto substraction = utils::AbstractSyntaxTree(std::make_shared<math::Subtraction>(left_operand, right_operand));
+  auto substraction =
+      utils::AbstractSyntaxTree(std::make_unique<math::Subtraction>(std::move(left_operand), std::move(right_operand)));
   auto derivative = substraction.GetDerivative();
 
   CHECK(substraction.GetInfixExpression({}) == "-3.1");
@@ -83,10 +87,11 @@ TEST_CASE("2 - 5.1", "Substraction") {
 }
 
 TEST_CASE("x - 2", "Substraction") {
-  auto left_operand = std::make_shared<math::Variable>('x');
-  auto right_operand = std::make_shared<math::Number>(2);
+  auto left_operand = std::make_unique<math::Variable>('x');
+  auto right_operand = std::make_unique<math::Number>(2);
 
-  auto substraction = utils::AbstractSyntaxTree(std::make_shared<math::Subtraction>(left_operand, right_operand));
+  auto substraction =
+      utils::AbstractSyntaxTree(std::make_unique<math::Subtraction>(std::move(left_operand), std::move(right_operand)));
   auto derivative = substraction.GetDerivative();
 
   CHECK(substraction.GetInfixExpression({}) == "x - 2");
@@ -99,11 +104,12 @@ TEST_CASE("x - 2", "Substraction") {
 }
 
 TEST_CASE("2 - (1.5 + x)", "Substraction") {
-  auto left_operand = std::make_shared<math::Number>(2);
+  auto left_operand = std::make_unique<math::Number>(2);
   auto right_operand =
-      std::make_shared<math::Addition>(std::make_shared<math::Number>(1.5), std::make_shared<math::Variable>('x'));
+      std::make_unique<math::Addition>(std::make_unique<math::Number>(1.5), std::make_unique<math::Variable>('x'));
 
-  auto substraction = utils::AbstractSyntaxTree(std::make_shared<math::Subtraction>(left_operand, right_operand));
+  auto substraction =
+      utils::AbstractSyntaxTree(std::make_unique<math::Subtraction>(std::move(left_operand), std::move(right_operand)));
   auto derivative = substraction.GetDerivative();
 
   CHECK(substraction.GetInfixExpression({}) == "2 - (1.5 + x)");
@@ -116,10 +122,11 @@ TEST_CASE("2 - (1.5 + x)", "Substraction") {
 }
 
 TEST_CASE("2 * 5.1", "Multiplication") {
-  auto left_operand = std::make_shared<math::Number>(2);
-  auto right_operand = std::make_shared<math::Number>(5.1);
+  auto left_operand = std::make_unique<math::Number>(2);
+  auto right_operand = std::make_unique<math::Number>(5.1);
 
-  auto multiplication = utils::AbstractSyntaxTree(std::make_shared<math::Multiplication>(left_operand, right_operand));
+  auto multiplication = utils::AbstractSyntaxTree(
+      std::make_unique<math::Multiplication>(std::move(left_operand), std::move(right_operand)));
   auto derivative = multiplication.GetDerivative();
 
   CHECK(multiplication.GetInfixExpression({}) == "10.2");
@@ -132,10 +139,11 @@ TEST_CASE("2 * 5.1", "Multiplication") {
 }
 
 TEST_CASE("2 * x", "Multiplication") {
-  auto left_operand = std::make_shared<math::Number>(2);
-  auto right_operand = std::make_shared<math::Variable>('x');
+  auto left_operand = std::make_unique<math::Number>(2);
+  auto right_operand = std::make_unique<math::Variable>('x');
 
-  auto multiplication = utils::AbstractSyntaxTree(std::make_shared<math::Multiplication>(left_operand, right_operand));
+  auto multiplication = utils::AbstractSyntaxTree(
+      std::make_unique<math::Multiplication>(std::move(left_operand), std::move(right_operand)));
   auto derivative = multiplication.GetDerivative();
 
   CHECK(multiplication.GetInfixExpression({}) == "2 * x");
@@ -148,11 +156,12 @@ TEST_CASE("2 * x", "Multiplication") {
 }
 
 TEST_CASE("2 * (x + 1)", "Multiplication") {
-  auto left_operand = std::make_shared<math::Number>(2);
+  auto left_operand = std::make_unique<math::Number>(2);
   auto right_operand =
-      std::make_shared<math::Addition>(std::make_shared<math::Variable>('x'), std::make_shared<math::Number>(1));
+      std::make_unique<math::Addition>(std::make_unique<math::Variable>('x'), std::make_unique<math::Number>(1));
 
-  auto multiplication = utils::AbstractSyntaxTree(std::make_shared<math::Multiplication>(left_operand, right_operand));
+  auto multiplication = utils::AbstractSyntaxTree(
+      std::make_unique<math::Multiplication>(std::move(left_operand), std::move(right_operand)));
   auto derivative = multiplication.GetDerivative();
 
   CHECK(multiplication.GetInfixExpression({}) == "2 * (x + 1)");
@@ -165,10 +174,11 @@ TEST_CASE("2 * (x + 1)", "Multiplication") {
 }
 
 TEST_CASE("2 / 5.1", "Division") {
-  auto left_operand = std::make_shared<math::Number>(2);
-  auto right_operand = std::make_shared<math::Number>(5.1);
+  auto left_operand = std::make_unique<math::Number>(2);
+  auto right_operand = std::make_unique<math::Number>(5.1);
 
-  auto division = utils::AbstractSyntaxTree(std::make_shared<math::Division>(left_operand, right_operand));
+  auto division =
+      utils::AbstractSyntaxTree(std::make_unique<math::Division>(std::move(left_operand), std::move(right_operand)));
   auto derivative = division.GetDerivative();
 
   CHECK(division.GetInfixExpression({}) == "2 / 5.1");
@@ -182,10 +192,11 @@ TEST_CASE("2 / 5.1", "Division") {
 
 TEST_CASE("(2 + x) / 5.1", "Division") {
   auto left_operand =
-      std::make_shared<math::Addition>(std::make_shared<math::Number>(2), std::make_shared<math::Variable>('x'));
-  auto right_operand = std::make_shared<math::Number>(5.1);
+      std::make_unique<math::Addition>(std::make_unique<math::Number>(2), std::make_unique<math::Variable>('x'));
+  auto right_operand = std::make_unique<math::Number>(5.1);
 
-  auto division = utils::AbstractSyntaxTree(std::make_shared<math::Division>(left_operand, right_operand));
+  auto division =
+      utils::AbstractSyntaxTree(std::make_unique<math::Division>(std::move(left_operand), std::move(right_operand)));
   auto derivative = division.GetDerivative();
 
   CHECK(division.GetInfixExpression({}) == "(2 + x) / 5.1");
@@ -198,11 +209,11 @@ TEST_CASE("(2 + x) / 5.1", "Division") {
 }
 
 TEST_CASE("2 ^ x", "Exponentiation") {
-  auto left_operand = std::make_shared<math::Number>(2);
-  auto right_operand = std::make_shared<math::Variable>('x');
+  auto left_operand = std::make_unique<math::Number>(2);
+  auto right_operand = std::make_unique<math::Variable>('x');
 
-  auto result = utils::AbstractSyntaxTree(
-      utils::AbstractSyntaxTree(std::make_shared<math::Exponentiation>(left_operand, right_operand)));
+  auto result = utils::AbstractSyntaxTree(utils::AbstractSyntaxTree(
+      std::make_unique<math::Exponentiation>(std::move(left_operand), std::move(right_operand))));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "2 ^ x");
@@ -215,10 +226,11 @@ TEST_CASE("2 ^ x", "Exponentiation") {
 }
 
 TEST_CASE("x ^ 2", "Exponentiation") {
-  auto left_operand = std::make_shared<math::Variable>('x');
-  auto right_operand = std::make_shared<math::Number>(2);
+  auto left_operand = std::make_unique<math::Variable>('x');
+  auto right_operand = std::make_unique<math::Number>(2);
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::Exponentiation>(left_operand, right_operand));
+  auto result = utils::AbstractSyntaxTree(
+      std::make_unique<math::Exponentiation>(std::move(left_operand), std::move(right_operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "x ^ 2");
@@ -231,11 +243,12 @@ TEST_CASE("x ^ 2", "Exponentiation") {
 }
 
 TEST_CASE("x ^ (2 + 4)", "Exponentiation") {
-  auto left_operand = std::make_shared<math::Variable>('x');
+  auto left_operand = std::make_unique<math::Variable>('x');
   auto right_operand =
-      std::make_shared<math::Addition>(std::make_shared<math::Number>(2), std::make_shared<math::Number>(4));
+      std::make_unique<math::Addition>(std::make_unique<math::Number>(2), std::make_unique<math::Number>(4));
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::Exponentiation>(left_operand, right_operand));
+  auto result = utils::AbstractSyntaxTree(
+      std::make_unique<math::Exponentiation>(std::move(left_operand), std::move(right_operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "x ^ 6");

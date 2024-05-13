@@ -18,7 +18,7 @@ namespace math {
 
 class Division final : public BinaryOperation {
  public:
-  Division(std::shared_ptr<Expression> left, std::shared_ptr<Expression> right)
+  Division(std::unique_ptr<Expression> left, std::unique_ptr<Expression> right)
       : BinaryOperation(std::move(left), std::move(right)) {
   }
 
@@ -26,11 +26,11 @@ class Division final : public BinaryOperation {
   std::string GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) override;
   std::string GetRPN(const std::unordered_map<char, double>& variable_to_value) override;
   double GetNumericResult(const std::unordered_map<char, double>& variable_to_value) override;
-  std::shared_ptr<Expression> GetDerivative() override;
-
+  std::unique_ptr<Expression> GetDerivative() override;
+  std::unique_ptr<Expression> Clone() override;
   bool IsContainVariable() override;
 
-  std::optional<std::shared_ptr<Expression>> Simplify() override;
+  std::optional<std::unique_ptr<Expression>> Simplify() override;
 
  private:
   std::optional<double> CheckDivider(const std::unordered_map<char, double>& variable_to_value);

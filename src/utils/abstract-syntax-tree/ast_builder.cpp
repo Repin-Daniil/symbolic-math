@@ -2,7 +2,7 @@
 
 namespace utils {
 
-std::shared_ptr<math::Expression> TreeBuilder::BuildAST(std::string_view rpn_expression) {
+std::unique_ptr<math::Expression> TreeBuilder::BuildAST(std::string_view rpn_expression) {
   Reset();
 
   if (rpn_expression.empty()) {
@@ -28,43 +28,41 @@ std::shared_ptr<math::Expression> TreeBuilder::BuildAST(std::string_view rpn_exp
     }
   }
 
-  return nodes_.top();
+  return GetOperand();
 }
 
 void TreeBuilder::AddOperand(std::string_view token) {
   if (auto operand = utils::Helper::ParseOperand(token)) {
-    nodes_.push(std::make_shared<math::Number>(*operand));
+    nodes_.push(std::make_unique<math::Number>(*operand));
   } else if (token.size() == 1) {
-    nodes_.push(std::make_shared<math::Variable>(token[0]));
+    nodes_.push(std::make_unique<math::Variable>(token[0]));
   } else {
     throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data() + std::string(token.data()));
   }
 }
 
 void TreeBuilder::AddOperation(constants::Operations operation) {
-  std::shared_ptr<math::Expression> operation_node;
+  std::unique_ptr<math::Expression> operation_node;
 
   if (utils::Helper::IsUnaryOperation(operation)) {
-    auto arg = GetOperand();
-
     if (operation == constants::Operations::UNARY_MINUS) {
-      operation_node = std::make_shared<math::UnaryMinus>(arg);
+      operation_node = std::make_unique<math::UnaryMinus>(GetOperand());
     } else if (operation == constants::Operations::SQRT) {
-      operation_node = std::make_shared<math::SquareRoot>(arg);
+      operation_node = std::make_unique<math::SquareRoot>(GetOperand());
     } else if (operation == constants::Operations::SIN) {
-      operation_node = std::make_shared<math::Sin>(arg);
+      operation_node = std::make_unique<math::Sin>(GetOperand());
     } else if (operation == constants::Operations::COS) {
-      operation_node = std::make_shared<math::Cos>(arg);
+      operation_node = std::make_unique<math::Cos>(GetOperand());
     } else if (operation == constants::Operations::TANGENT) {
-      operation_node = std::make_shared<math::Tangent>(arg);
+      operation_node = std::make_unique<math::Tangent>(GetOperand());
     } else if (operation == constants::Operations::NATURAL_LOGARITHM) {
-      operation_node = std::make_shared<math::Logarithm>(arg);
+      operation_node = std::make_unique<math::Logarithm>(GetOperand());
     }
   } else if (utils::Helper::IsBinaryOperation(operation)) {
     if (nodes_.size() < 2) {
       // Check unary minus/plus
       if (operation == constants::Operations::SUBTRACTION) {
-        operation_node = std::make_shared<math::UnaryMinus>(GetOperand());
+        operation_node = std::make_unique<math::UnaryMinus>(GetOperand());
       } else if (operation == constants::Operations::ADDITION) {
         operation_node = GetOperand();
       } else {
@@ -75,33 +73,33 @@ void TreeBuilder::AddOperation(constants::Operations operation) {
       auto lhs = GetOperand();
 
       if (operation == constants::Operations::ADDITION) {
-        operation_node = std::make_shared<math::Addition>(lhs, rhs);
+        operation_node = std::make_unique<math::Addition>(std::move(lhs), std::move(rhs));
       } else if (operation == constants::Operations::SUBTRACTION) {
-        operation_node = std::make_shared<math::Subtraction>(lhs, rhs);
+        operation_node = std::make_unique<math::Subtraction>(std::move(lhs), std::move(rhs));
       } else if (operation == constants::Operations::MULTIPLICATION) {
-        operation_node = std::make_shared<math::Multiplication>(lhs, rhs);
+        operation_node = std::make_unique<math::Multiplication>(std::move(lhs), std::move(rhs));
       } else if (operation == constants::Operations::DIVISION) {
-        operation_node = std::make_shared<math::Division>(lhs, rhs);
+        operation_node = std::make_unique<math::Division>(std::move(lhs), std::move(rhs));
       } else if (operation == constants::Operations::EXPONENTIATION) {
-        operation_node = std::make_shared<math::Exponentiation>(lhs, rhs);
+        operation_node = std::make_unique<math::Exponentiation>(std::move(lhs), std::move(rhs));
       }
     }
   }
 
-  nodes_.push(operation_node);
+  nodes_.push(std::move(operation_node));
 }
 
 void TreeBuilder::Reset() {
-  std::stack<std::shared_ptr<math::Expression>> empty;
+  std::stack<std::unique_ptr<math::Expression>> empty;
   std::swap(nodes_, empty);
 }
 
-std::shared_ptr<math::Expression> TreeBuilder::GetOperand() {
+std::unique_ptr<math::Expression> TreeBuilder::GetOperand() {
   if (nodes_.empty()) {
     throw std::runtime_error(constants::ExceptionMessage::kNoOperands.data());
   }
 
-  auto operand = nodes_.top();
+  auto operand = std::move(nodes_.top());
   nodes_.pop();
 
   return operand;

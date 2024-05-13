@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "math/algebra/algebra.h"
-#include "math/calc/calculator.h"
+#include "math/stack_calc/calculator.h"
 #include "utils/converter/converter.h"
 
 namespace app {

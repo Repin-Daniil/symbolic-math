@@ -15,8 +15,8 @@ std::string Sin::GetRPN(const std::unordered_map<char, double>& variable_to_valu
   return stream.str();
 }
 
-std::shared_ptr<Expression> Sin::GetDerivative() {
-  return std::make_shared<Multiplication>(std::make_shared<Cos>(argument_), argument_->GetDerivative());
+std::unique_ptr<Expression> Sin::GetDerivative() {
+  return std::make_unique<Multiplication>(std::make_unique<Cos>(argument_->Clone()), argument_->GetDerivative());
 }
 
 double Sin::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
@@ -27,9 +27,9 @@ constants::Expressions Sin::GetType() {
   return constants::Expressions::SIN;
 }
 
-std::optional<std::shared_ptr<Expression>> Sin::Simplify() {
+std::optional<std::unique_ptr<Expression>> Sin::Simplify() {
   if (auto simplified = argument_->Simplify()) {
-    argument_ = *simplified;
+    argument_ = std::move(*simplified);
   }
 
   return std::nullopt;
@@ -37,6 +37,10 @@ std::optional<std::shared_ptr<Expression>> Sin::Simplify() {
 
 bool Sin::IsContainVariable() {
   return argument_->IsContainVariable();
+}
+
+std::unique_ptr<Expression> Sin::Clone() {
+  return std::make_unique<Sin>(argument_->Clone());
 }
 
 }  // namespace math

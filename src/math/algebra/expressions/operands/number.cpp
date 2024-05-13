@@ -20,20 +20,20 @@ std::string Number::GetRPN(const std::unordered_map<char, double>& variable_to_v
   return GetString() + (value_ < 0 ? " "s.append(constants::Labels::kUnaryMinus) : "");
 }
 
-std::shared_ptr<Expression> Number::GetDerivative() {
-  return std::make_shared<Number>(0);
+std::unique_ptr<Expression> Number::GetDerivative() {
+  return std::make_unique<Number>(0);
 }
 
 std::string Number::GetString() const noexcept {
   auto str = std::to_string(std::abs(value_));
 
-  int dot_position = str.find(constants::Labels::kDecimalPoint);
+  int64_t dot_position = str.find(constants::Labels::kDecimalPoint);
 
   if (dot_position == std::string::npos) {
     return str;
   }
 
-  int last_non_zero = str.size() - 1;
+  int64_t last_non_zero = str.size() - 1;
 
   while (str[last_non_zero] == constants::Labels::kZero) {
     last_non_zero--;
@@ -54,12 +54,16 @@ constants::Expressions Number::GetType() {
   return constants::Expressions::NUMBER;
 }
 
-std::optional<std::shared_ptr<Expression>> Number::Simplify() {
+std::optional<std::unique_ptr<Expression>> Number::Simplify() {
   return std::nullopt;
 }
 
 bool Number::IsContainVariable() {
   return false;
+}
+
+std::unique_ptr<Expression> Number::Clone() {
+  return std::make_unique<Number>(value_);
 }
 
 }  // namespace math

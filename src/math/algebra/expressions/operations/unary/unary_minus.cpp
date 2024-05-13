@@ -18,8 +18,8 @@ std::string UnaryMinus::GetRPN(const std::unordered_map<char, double>& variable_
   return argument_->GetRPN(variable_to_value) + " ~";
 }
 
-std::shared_ptr<Expression> UnaryMinus::GetDerivative() {
-  return std::make_shared<UnaryMinus>(argument_->GetDerivative());
+std::unique_ptr<Expression> UnaryMinus::GetDerivative() {
+  return std::make_unique<UnaryMinus>(argument_->GetDerivative());
 }
 
 double UnaryMinus::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
@@ -30,17 +30,17 @@ constants::Expressions UnaryMinus::GetType() {
   return constants::Expressions::UNARY_MINUS;
 }
 
-std::optional<std::shared_ptr<Expression>> UnaryMinus::Simplify() {
+std::optional<std::unique_ptr<Expression>> UnaryMinus::Simplify() {
   if (auto simplified = argument_->Simplify()) {
-    argument_ = *simplified;
+    argument_ = std::move(*simplified);
   }
 
   if (argument_->GetType() == constants::Expressions::UNARY_MINUS) {
-    return std::dynamic_pointer_cast<UnaryOperation>(argument_)->GetArgument();
+    return dynamic_cast<UnaryOperation*>(argument_.get())->ReleaseArgument();
   }
 
   if (argument_->GetType() == constants::Expressions::NUMBER) {
-    return std::make_shared<Number>(-argument_->GetNumericResult({}));
+    return std::make_unique<Number>(-argument_->GetNumericResult({}));
   }
 
   return std::nullopt;
@@ -48,6 +48,10 @@ std::optional<std::shared_ptr<Expression>> UnaryMinus::Simplify() {
 
 bool UnaryMinus::IsContainVariable() {
   return argument_->IsContainVariable();
+}
+
+std::unique_ptr<Expression> UnaryMinus::Clone() {
+  return std::make_unique<UnaryMinus>(argument_->Clone());
 }
 
 }  // namespace math

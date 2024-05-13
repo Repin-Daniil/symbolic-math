@@ -20,9 +20,9 @@
 #include "utils/abstract-syntax-tree/ast.h"
 
 TEST_CASE("-5", "UnaryMinus") {
-  auto operand = std::make_shared<math::Number>(5);
+  auto operand = std::make_unique<math::Number>(5);
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::UnaryMinus>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::UnaryMinus>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "-5");
@@ -35,9 +35,9 @@ TEST_CASE("-5", "UnaryMinus") {
 }
 
 TEST_CASE("-x {3}", "UnaryMinus") {
-  auto operand = std::make_shared<math::Variable>('x');
+  auto operand = std::make_unique<math::Variable>('x');
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::UnaryMinus>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::UnaryMinus>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({{'x', -3}}) == "-(-3)");
@@ -50,9 +50,9 @@ TEST_CASE("-x {3}", "UnaryMinus") {
 }
 
 TEST_CASE("-x", "UnaryMinus") {
-  auto operand = std::make_shared<math::Variable>('x');
+  auto operand = std::make_unique<math::Variable>('x');
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::UnaryMinus>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::UnaryMinus>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "-x");
@@ -65,10 +65,10 @@ TEST_CASE("-x", "UnaryMinus") {
 }
 
 TEST_CASE("-(-x))", "UnaryMinus") {
-  auto operand = std::make_shared<math::Variable>('x');
+  auto operand = std::make_unique<math::Variable>('x');
 
-  auto result =
-      utils::AbstractSyntaxTree(std::make_shared<math::UnaryMinus>(std::make_shared<math::UnaryMinus>(operand)));
+  auto result = utils::AbstractSyntaxTree(
+      std::make_unique<math::UnaryMinus>(std::make_unique<math::UnaryMinus>(std::move(operand))));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "x");
@@ -81,9 +81,9 @@ TEST_CASE("-(-x))", "UnaryMinus") {
 }
 
 TEST_CASE("-(-3))", "UnaryMinus") {
-  auto operand = std::make_shared<math::Number>(-3);
+  auto operand = std::make_unique<math::Number>(-3);
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::UnaryMinus>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::UnaryMinus>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "3");
@@ -96,10 +96,10 @@ TEST_CASE("-(-3))", "UnaryMinus") {
 }
 
 TEST_CASE("-(x + 1)", "UnaryMinus") {
-  auto operand = std::make_shared<math::Variable>('x');
+  auto operand = std::make_unique<math::Variable>('x');
 
-  auto result = utils::AbstractSyntaxTree(
-      std::make_shared<math::UnaryMinus>(std::make_shared<math::Addition>(operand, std::make_shared<math::Number>(1))));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::UnaryMinus>(
+      std::make_unique<math::Addition>(std::move(operand), std::make_unique<math::Number>(1))));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "-(x + 1)");
@@ -112,9 +112,9 @@ TEST_CASE("-(x + 1)", "UnaryMinus") {
 }
 
 TEST_CASE("tan(1)", "Tangent") {
-  auto operand = std::make_shared<math::Number>(1);
+  auto operand = std::make_unique<math::Number>(1);
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::Tangent>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Tangent>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "tan(1)");
@@ -127,9 +127,9 @@ TEST_CASE("tan(1)", "Tangent") {
 }
 
 TEST_CASE("tan(x)", "Tangent") {
-  auto operand = std::make_shared<math::Variable>('x');
+  auto operand = std::make_unique<math::Variable>('x');
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::Tangent>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Tangent>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "tan(x)");
@@ -144,9 +144,9 @@ TEST_CASE("tan(x)", "Tangent") {
 
 TEST_CASE("tan(x + 25.3)", "Tangent") {
   auto operand =
-      std::make_shared<math::Addition>(std::make_shared<math::Variable>('x'), std::make_shared<math::Number>(25.3));
+      std::make_unique<math::Addition>(std::make_unique<math::Variable>('x'), std::make_unique<math::Number>(25.3));
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::Tangent>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Tangent>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "tan(x + 25.3)");
@@ -160,10 +160,10 @@ TEST_CASE("tan(x + 25.3)", "Tangent") {
 }
 
 TEST_CASE("tan(x) + 12", "Tangent") {
-  auto operand = std::make_shared<math::Variable>('x');
+  auto operand = std::make_unique<math::Variable>('x');
 
-  auto result = utils::AbstractSyntaxTree(
-      std::make_shared<math::Addition>(std::make_shared<math::Tangent>(operand), std::make_shared<math::Number>(12)));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Addition>(
+      std::make_unique<math::Tangent>(std::move(operand)), std::make_unique<math::Number>(12)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "tan(x) + 12");
@@ -177,9 +177,9 @@ TEST_CASE("tan(x) + 12", "Tangent") {
 }
 
 TEST_CASE("sin(1)", "Sin") {
-  auto operand = std::make_shared<math::Number>(1);
+  auto operand = std::make_unique<math::Number>(1);
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::Sin>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Sin>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "sin(1)");
@@ -192,9 +192,9 @@ TEST_CASE("sin(1)", "Sin") {
 }
 
 TEST_CASE("sin(x)", "Sin") {
-  auto operand = std::make_shared<math::Variable>('x');
+  auto operand = std::make_unique<math::Variable>('x');
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::Sin>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Sin>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "sin(x)");
@@ -208,9 +208,9 @@ TEST_CASE("sin(x)", "Sin") {
 
 TEST_CASE("sin(x + 25.3)", "Sin") {
   auto operand =
-      std::make_shared<math::Addition>(std::make_shared<math::Variable>('x'), std::make_shared<math::Number>(25.3));
+      std::make_unique<math::Addition>(std::make_unique<math::Variable>('x'), std::make_unique<math::Number>(25.3));
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::Sin>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Sin>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "sin(x + 25.3)");
@@ -223,10 +223,10 @@ TEST_CASE("sin(x + 25.3)", "Sin") {
 }
 
 TEST_CASE("sin(x) + 12", "Sin") {
-  auto operand = std::make_shared<math::Variable>('x');
+  auto operand = std::make_unique<math::Variable>('x');
 
-  auto result = utils::AbstractSyntaxTree(
-      std::make_shared<math::Addition>(std::make_shared<math::Sin>(operand), std::make_shared<math::Number>(12)));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Addition>(
+      std::make_unique<math::Sin>(std::move(operand)), std::make_unique<math::Number>(12)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "sin(x) + 12");
@@ -239,9 +239,9 @@ TEST_CASE("sin(x) + 12", "Sin") {
 }
 
 TEST_CASE("cos(1)", "Cos") {
-  auto operand = std::make_shared<math::Number>(1);
+  auto operand = std::make_unique<math::Number>(1);
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::Cos>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Cos>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "cos(1)");
@@ -254,9 +254,9 @@ TEST_CASE("cos(1)", "Cos") {
 }
 
 TEST_CASE("cos(x)", "Cos") {
-  auto operand = std::make_shared<math::Variable>('x');
+  auto operand = std::make_unique<math::Variable>('x');
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::Cos>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Cos>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "cos(x)");
@@ -270,9 +270,9 @@ TEST_CASE("cos(x)", "Cos") {
 
 TEST_CASE("cos(x + 25.3)", "Cos") {
   auto operand =
-      std::make_shared<math::Addition>(std::make_shared<math::Variable>('x'), std::make_shared<math::Number>(25.3));
+      std::make_unique<math::Addition>(std::make_unique<math::Variable>('x'), std::make_unique<math::Number>(25.3));
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::Cos>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Cos>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "cos(x + 25.3)");
@@ -285,10 +285,10 @@ TEST_CASE("cos(x + 25.3)", "Cos") {
 }
 
 TEST_CASE("cos(x) + 12", "Cos") {
-  auto operand = std::make_shared<math::Variable>('x');
+  auto operand = std::make_unique<math::Variable>('x');
 
-  auto result = utils::AbstractSyntaxTree(
-      std::make_shared<math::Addition>(std::make_shared<math::Cos>(operand), std::make_shared<math::Number>(12)));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Addition>(
+      std::make_unique<math::Cos>(std::move(operand)), std::make_unique<math::Number>(12)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "cos(x) + 12");
@@ -301,9 +301,9 @@ TEST_CASE("cos(x) + 12", "Cos") {
 }
 
 TEST_CASE("ln(1)", "Logarithm") {
-  auto operand = std::make_shared<math::Number>(1);
+  auto operand = std::make_unique<math::Number>(1);
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::Logarithm>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Logarithm>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "ln(1)");
@@ -316,9 +316,9 @@ TEST_CASE("ln(1)", "Logarithm") {
 }
 
 TEST_CASE("ln(x)", "Logarithm") {
-  auto operand = std::make_shared<math::Variable>('x');
+  auto operand = std::make_unique<math::Variable>('x');
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::Logarithm>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Logarithm>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "ln(x)");
@@ -332,9 +332,9 @@ TEST_CASE("ln(x)", "Logarithm") {
 
 TEST_CASE("ln(x + 25.3)", "Logarithm") {
   auto operand =
-      std::make_shared<math::Addition>(std::make_shared<math::Variable>('x'), std::make_shared<math::Number>(25.3));
+      std::make_unique<math::Addition>(std::make_unique<math::Variable>('x'), std::make_unique<math::Number>(25.3));
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::Logarithm>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Logarithm>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "ln(x + 25.3)");
@@ -347,10 +347,10 @@ TEST_CASE("ln(x + 25.3)", "Logarithm") {
 }
 
 TEST_CASE("ln(x) + 12", "Logarithm") {
-  auto operand = std::make_shared<math::Variable>('x');
+  auto operand = std::make_unique<math::Variable>('x');
 
-  auto result = utils::AbstractSyntaxTree(
-      std::make_shared<math::Addition>(std::make_shared<math::Logarithm>(operand), std::make_shared<math::Number>(12)));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Addition>(
+      std::make_unique<math::Logarithm>(std::move(operand)), std::make_unique<math::Number>(12)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "ln(x) + 12");
@@ -363,9 +363,9 @@ TEST_CASE("ln(x) + 12", "Logarithm") {
 }
 
 TEST_CASE("sqrt(1)", "SquareRoot") {
-  auto operand = std::make_shared<math::Number>(1);
+  auto operand = std::make_unique<math::Number>(1);
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::SquareRoot>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::SquareRoot>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "1");
@@ -378,9 +378,9 @@ TEST_CASE("sqrt(1)", "SquareRoot") {
 }
 
 TEST_CASE("sqrt(4)", "SquareRoot") {
-  auto operand = std::make_shared<math::Number>(4);
+  auto operand = std::make_unique<math::Number>(4);
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::SquareRoot>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::SquareRoot>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "sqrt(4)");
@@ -393,9 +393,9 @@ TEST_CASE("sqrt(4)", "SquareRoot") {
 }
 
 TEST_CASE("sqrt(x)", "SquareRoot") {
-  auto operand = std::make_shared<math::Variable>('x');
+  auto operand = std::make_unique<math::Variable>('x');
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::SquareRoot>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::SquareRoot>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "sqrt(x)");
@@ -409,9 +409,9 @@ TEST_CASE("sqrt(x)", "SquareRoot") {
 
 TEST_CASE("sqrt(x + 25.3)", "SquareRoot") {
   auto operand =
-      std::make_shared<math::Addition>(std::make_shared<math::Variable>('x'), std::make_shared<math::Number>(25.3));
+      std::make_unique<math::Addition>(std::make_unique<math::Variable>('x'), std::make_unique<math::Number>(25.3));
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::SquareRoot>(operand));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::SquareRoot>(std::move(operand)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "sqrt(x + 25.3)");
@@ -424,10 +424,10 @@ TEST_CASE("sqrt(x + 25.3)", "SquareRoot") {
 }
 
 TEST_CASE("sqrt(x) + 12", "SquareRoot") {
-  auto operand = std::make_shared<math::Variable>('x');
+  auto operand = std::make_unique<math::Variable>('x');
 
-  auto result = utils::AbstractSyntaxTree(std::make_shared<math::Addition>(std::make_shared<math::SquareRoot>(operand),
-                                                                           std::make_shared<math::Number>(12)));
+  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Addition>(
+      std::make_unique<math::SquareRoot>(std::move(operand)), std::make_unique<math::Number>(12)));
   auto derivative = result.GetDerivative();
 
   CHECK(result.GetInfixExpression({}) == "sqrt(x) + 12");

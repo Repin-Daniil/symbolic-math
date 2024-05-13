@@ -24,7 +24,7 @@ TEST_CASE("3", "Number") {
 }
 
 TEST_CASE("Polymorphic 3", "Number") {
-  std::shared_ptr<math::Expression> number = std::make_shared<math::Number>(3);
+  std::unique_ptr<math::Expression> number = std::make_unique<math::Number>(3);
 
   auto rpn = number->GetRPN({});
   auto infix = number->GetInfix(0, {});
@@ -123,7 +123,7 @@ TEST_CASE("x", "Variable") {
 }
 
 TEST_CASE("Polymorphic y", "Variable") {
-  std::shared_ptr<math::Expression> var = std::make_shared<math::Variable>('y');
+  std::unique_ptr<math::Expression> var = std::make_unique<math::Variable>('y');
 
   auto rpn = var->GetRPN({});
   auto infix = var->GetInfix(0, {});

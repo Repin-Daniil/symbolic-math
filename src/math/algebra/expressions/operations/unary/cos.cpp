@@ -16,9 +16,9 @@ std::string Cos::GetRPN(const std::unordered_map<char, double>& variable_to_valu
   return stream.str();
 }
 
-std::shared_ptr<Expression> Cos::GetDerivative() {
-  return std::make_shared<UnaryMinus>(
-      std::make_shared<Multiplication>(std::make_shared<Sin>(argument_), argument_->GetDerivative()));
+std::unique_ptr<Expression> Cos::GetDerivative() {
+  return std::make_unique<UnaryMinus>(
+      std::make_unique<Multiplication>(std::make_unique<Sin>(argument_->Clone()), argument_->GetDerivative()));
 }
 
 double Cos::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
@@ -29,9 +29,9 @@ constants::Expressions Cos::GetType() {
   return constants::Expressions::COS;
 }
 
-std::optional<std::shared_ptr<Expression>> Cos::Simplify() {
+std::optional<std::unique_ptr<Expression>> Cos::Simplify() {
   if (auto simplified = argument_->Simplify()) {
-    argument_ = *simplified;
+    argument_ = std::move(*simplified);
   }
 
   return std::nullopt;
@@ -39,6 +39,10 @@ std::optional<std::shared_ptr<Expression>> Cos::Simplify() {
 
 bool Cos::IsContainVariable() {
   return argument_->IsContainVariable();
+}
+
+std::unique_ptr<Expression> Cos::Clone() {
+  return std::make_unique<Cos>(argument_->Clone());
 }
 
 }  // namespace math

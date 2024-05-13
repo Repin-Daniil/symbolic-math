@@ -19,14 +19,14 @@ std::string Division::GetRPN(const std::unordered_map<char, double>& variable_to
   return stream.str();
 }
 
-std::shared_ptr<Expression> Division::GetDerivative() {
+std::unique_ptr<Expression> Division::GetDerivative() {
   CheckDivider({});
 
-  auto numerator =
-      std::make_shared<Subtraction>(std::make_shared<Multiplication>(left_argument_->GetDerivative(), right_argument_),
-                                    std::make_shared<Multiplication>(left_argument_, right_argument_->GetDerivative()));
-  auto denominator = std::make_shared<Exponentiation>(right_argument_, std::make_shared<Number>(2));
-  return std::make_shared<Division>(numerator, denominator);
+  auto numerator = std::make_unique<Subtraction>(
+      std::make_unique<Multiplication>(left_argument_->GetDerivative(), right_argument_->Clone()),
+      std::make_unique<Multiplication>(left_argument_->Clone(), right_argument_->GetDerivative()));
+  auto denominator = std::make_unique<Exponentiation>(right_argument_->Clone(), std::make_unique<Number>(2));
+  return std::make_unique<Division>(std::move(numerator), std::move(denominator));
 }
 
 double Division::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
@@ -40,29 +40,29 @@ constants::Expressions Division::GetType() {
   return constants::Expressions::DIVISION;
 }
 
-std::optional<std::shared_ptr<Expression>> Division::Simplify() {
+std::optional<std::unique_ptr<Expression>> Division::Simplify() {
   if (auto simplified = left_argument_->Simplify()) {
-    left_argument_ = *simplified;
+    left_argument_ = std::move(*simplified);
   }
 
   CheckDivider({});
 
   if (auto simplified = right_argument_->Simplify()) {
-    right_argument_ = *simplified;
+    right_argument_ = std::move(*simplified);
   }
 
   if (left_argument_->GetRPN({}) == right_argument_->GetRPN({})) {
-    return std::make_shared<Number>(1);
+    return std::make_unique<Number>(1);
   }
 
   if (left_argument_->GetType() == constants::Expressions::NUMBER &&
       utils::Helper::IsEqual(left_argument_->GetNumericResult({}), 0)) {
-    return std::make_shared<Number>(0);
+    return std::make_unique<Number>(0);
   }
 
   if (right_argument_->GetType() == constants::Expressions::NUMBER &&
       utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 1)) {
-    return left_argument_;
+    return ReleaseLeftArgument();
   }
 
   return std::nullopt;
@@ -86,6 +86,10 @@ std::optional<double> Division::CheckDivider(const std::unordered_map<char, doub
   }
 
   return result;
+}
+
+std::unique_ptr<Expression> Division::Clone() {
+  return std::make_unique<Division>(left_argument_->Clone(), right_argument_->Clone());
 }
 
 }  // namespace math

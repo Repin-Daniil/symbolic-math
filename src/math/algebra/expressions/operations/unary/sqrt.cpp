@@ -15,12 +15,12 @@ std::string SquareRoot::GetRPN(const std::unordered_map<char, double>& variable_
   return stream.str();
 }
 
-std::shared_ptr<Expression> SquareRoot::GetDerivative() {
+std::unique_ptr<Expression> SquareRoot::GetDerivative() {
   CheckArgument({});
 
-  return std::make_shared<Division>(
+  return std::make_unique<Division>(
       argument_->GetDerivative(),
-      std::make_shared<Multiplication>(std::make_shared<Number>(2), std::make_shared<SquareRoot>(argument_)));
+      std::make_unique<Multiplication>(std::make_unique<Number>(2), std::make_unique<SquareRoot>(argument_->Clone())));
 }
 
 double SquareRoot::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
@@ -33,18 +33,18 @@ constants::Expressions SquareRoot::GetType() {
   return constants::Expressions::SQRT;
 }
 
-std::optional<std::shared_ptr<Expression>> SquareRoot::Simplify() {
+std::optional<std::unique_ptr<Expression>> SquareRoot::Simplify() {
   if (auto simplified = argument_->Simplify()) {
-    argument_ = *simplified;
+    argument_ = std::move(*simplified);
   }
 
   if (argument_->GetType() == constants::Expressions::NUMBER) {
     if (utils::Helper::IsEqual(argument_->GetNumericResult({}), 0)) {
-      return std::make_shared<Number>(0);
+      return std::make_unique<Number>(0);
     }
 
     if (utils::Helper::IsEqual(argument_->GetNumericResult({}), 1)) {
-      return std::make_shared<Number>(1);
+      return std::make_unique<Number>(1);
     }
   }
 
@@ -69,6 +69,10 @@ std::optional<double> SquareRoot::CheckArgument(const std::unordered_map<char, d
   }
 
   return result;
+}
+
+std::unique_ptr<Expression> SquareRoot::Clone() {
+  return std::make_unique<SquareRoot>(argument_->Clone());
 }
 
 }  // namespace math

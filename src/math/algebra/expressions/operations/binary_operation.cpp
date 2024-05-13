@@ -2,12 +2,12 @@
 
 namespace math {
 
-std::shared_ptr<Expression> BinaryOperation::GetLeftArgument() {
-  return left_argument_;
+std::unique_ptr<Expression> BinaryOperation::ReleaseLeftArgument() {
+  return std::move(left_argument_);
 }
 
-std::shared_ptr<Expression> BinaryOperation::GetRightArgument() {
-  return right_argument_;
+std::unique_ptr<Expression> BinaryOperation::ReleaseRightArgument() {
+  return std::move(right_argument_);
 }
 
 }  // namespace math

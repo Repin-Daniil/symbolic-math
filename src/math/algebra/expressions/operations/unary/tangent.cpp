@@ -15,12 +15,12 @@ std::string Tangent::GetRPN(const std::unordered_map<char, double>& variable_to_
   return stream.str();
 }
 
-std::shared_ptr<Expression> Tangent::GetDerivative() {
+std::unique_ptr<Expression> Tangent::GetDerivative() {
   CheckArgument({});
 
-  return std::make_shared<Division>(
+  return std::make_unique<Division>(
       argument_->GetDerivative(),
-      std::make_shared<Exponentiation>(std::make_shared<Cos>(argument_), std::make_shared<Number>(2)));
+      std::make_unique<Exponentiation>(std::make_unique<Cos>(argument_->Clone()), std::make_unique<Number>(2)));
 }
 
 double Tangent::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
@@ -33,9 +33,9 @@ constants::Expressions Tangent::GetType() {
   return constants::Expressions::TANGENT;
 }
 
-std::optional<std::shared_ptr<Expression>> Tangent::Simplify() {
+std::optional<std::unique_ptr<Expression>> Tangent::Simplify() {
   if (auto simplified = argument_->Simplify()) {
-    argument_ = *simplified;
+    argument_ = std::move(*simplified);
   }
 
   return std::nullopt;
@@ -60,6 +60,10 @@ std::optional<double> Tangent::CheckArgument(const std::unordered_map<char, doub
   }
 
   return result;
+}
+
+std::unique_ptr<Expression> Tangent::Clone() {
+  return std::make_unique<Tangent>(argument_->Clone());
 }
 
 }  // namespace math

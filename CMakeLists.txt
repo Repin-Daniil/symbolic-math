@@ -11,8 +11,8 @@ include_directories(src)
 add_library(RPN_LIB
         src/constants_storage.h
 
-        src/math/calc/calculator.h
-        src/math/calc/calculator.cpp
+        src/math/stack_calc/calculator.h
+        src/math/stack_calc/calculator.cpp
 
         src/utils/converter/converter.h
         src/utils/converter/converter.cpp
@@ -64,11 +64,24 @@ add_library(DERIVATIVE_LIB
         src/math/algebra/expressions/operations/unary/tangent.cpp
         src/math/algebra/expressions/operations/unary/unary_minus.h
         src/math/algebra/expressions/operations/unary/unary_minus.cpp
+
+        src/constants_storage.h
+
+        src/utils/converter/converter.h
+        src/utils/converter/converter.cpp
+
+        src/utils/helper/helper.h
+        src/utils/helper/helper.cpp
 )
 
 add_executable(calc src/main_calc.cpp
         src/app/application.cpp
         src/app/application.h)
+
+add_executable(lib src/main_lib.cpp)
+
+target_link_libraries(lib PRIVATE RPN_LIB)
+target_link_libraries(lib PRIVATE DERIVATIVE_LIB)
 
 target_link_libraries(calc PRIVATE RPN_LIB)
 target_link_libraries(calc PRIVATE DERIVATIVE_LIB)

@@ -21,9 +21,10 @@ std::string Multiplication::GetRPN(const std::unordered_map<char, double>& varia
   return stream.str();
 }
 
-std::shared_ptr<Expression> Multiplication::GetDerivative() {
-  return std::make_shared<Addition>(std::make_shared<Multiplication>(left_argument_, right_argument_->GetDerivative()),
-                                    std::make_shared<Multiplication>(left_argument_->GetDerivative(), right_argument_));
+std::unique_ptr<Expression> Multiplication::GetDerivative() {
+  return std::make_unique<Addition>(
+      std::make_unique<Multiplication>(left_argument_->Clone(), right_argument_->GetDerivative()),
+      std::make_unique<Multiplication>(left_argument_->GetDerivative(), right_argument_->Clone()));
 }
 
 double Multiplication::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
@@ -34,38 +35,38 @@ constants::Expressions Multiplication::GetType() {
   return constants::Expressions::MULTIPLICATION;
 }
 
-std::optional<std::shared_ptr<Expression>> Multiplication::Simplify() {
+std::optional<std::unique_ptr<Expression>> Multiplication::Simplify() {
   if (auto simplified = left_argument_->Simplify()) {
-    left_argument_ = *simplified;
+    left_argument_ = std::move(*simplified);
   }
 
   if (auto simplified = right_argument_->Simplify()) {
-    right_argument_ = *simplified;
+    right_argument_ = std::move(*simplified);
   }
 
   if (left_argument_->GetType() == right_argument_->GetType() &&
       left_argument_->GetType() == constants::Expressions::NUMBER) {
-    return std::make_shared<Number>(GetNumericResult({}));
+    return std::make_unique<Number>(GetNumericResult({}));
   }
 
   if (left_argument_->GetType() == constants::Expressions::NUMBER &&
       utils::Helper::IsEqual(left_argument_->GetNumericResult({}), 0)) {
-    return std::make_shared<Number>(0);
+    return std::make_unique<Number>(0);
   }
 
   if (right_argument_->GetType() == constants::Expressions::NUMBER &&
       utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 0)) {
-    return std::make_shared<Number>(0);
+    return std::make_unique<Number>(0);
   }
 
   if (left_argument_->GetType() == constants::Expressions::NUMBER &&
       utils::Helper::IsEqual(left_argument_->GetNumericResult({}), 1)) {
-    return right_argument_;
+    return std::move(right_argument_);
   }
 
   if (right_argument_->GetType() == constants::Expressions::NUMBER &&
       utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 1)) {
-    return left_argument_;
+    return std::move(left_argument_);
   }
 
   return std::nullopt;
@@ -73,6 +74,10 @@ std::optional<std::shared_ptr<Expression>> Multiplication::Simplify() {
 
 bool Multiplication::IsContainVariable() {
   return left_argument_->IsContainVariable() || right_argument_->IsContainVariable();
+}
+
+std::unique_ptr<Expression> Multiplication::Clone() {
+  return std::make_unique<Multiplication>(left_argument_->Clone(), right_argument_->Clone());
 }
 
 }  // namespace math

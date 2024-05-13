@@ -10,18 +10,18 @@ namespace math {
 
 class BinaryOperation : public Expression {
  public:
-  BinaryOperation(std::shared_ptr<Expression> left, std::shared_ptr<Expression> right)
+  BinaryOperation(std::unique_ptr<Expression> left, std::unique_ptr<Expression> right)
       : left_argument_(std::move(left)), right_argument_(std::move(right)) {
   }
 
-  virtual std::shared_ptr<Expression> GetLeftArgument();
-  virtual std::shared_ptr<Expression> GetRightArgument();
+  virtual std::unique_ptr<Expression> ReleaseLeftArgument();
+  virtual std::unique_ptr<Expression> ReleaseRightArgument();
 
   virtual ~BinaryOperation() = default;
 
  protected:
-  std::shared_ptr<Expression> left_argument_;
-  std::shared_ptr<Expression> right_argument_;
+  std::unique_ptr<Expression> left_argument_;
+  std::unique_ptr<Expression> right_argument_;
 };
 
 }  // namespace math
