@@ -1,12 +1,11 @@
-#include <catch2/catch_test_macros.hpp>
-#include <catch2/matchers/catch_matchers.hpp>
-#include <catch2/matchers/catch_matchers_floating_point.hpp>
+#define CATCH_CONFIG_MAIN
+#include "catch.hpp"
 
-#include "constants_storage.h"
-#include "math/algebra/expressions/operands/number.h"
-#include "math/algebra/expressions/operands/number.h"  // check include guards
-#include "math/algebra/expressions/operands/variable.h"
-#include "math/algebra/expressions/operands/variable.h"  // check include guards
+#include "math/abstract-syntax-tree/operands/number.h"
+#include "math/abstract-syntax-tree/operands/number.h"  // check include guards
+#include "math/abstract-syntax-tree/operands/variable.h"
+#include "math/abstract-syntax-tree/operands/variable.h"  // check include guards
+#include "math/constants_storage.h"
 
 TEST_CASE("3", "Number") {
   math::Number number(3);
@@ -24,7 +23,7 @@ TEST_CASE("3", "Number") {
 }
 
 TEST_CASE("Polymorphic 3", "Number") {
-  std::unique_ptr<math::Expression> number = std::make_unique<math::Number>(3);
+  std::unique_ptr<math::TreeNode> number = std::make_unique<math::Number>(3);
 
   auto rpn = number->GetRPN({});
   auto infix = number->GetInfix(0, {});
@@ -123,7 +122,7 @@ TEST_CASE("x", "Variable") {
 }
 
 TEST_CASE("Polymorphic y", "Variable") {
-  std::unique_ptr<math::Expression> var = std::make_unique<math::Variable>('y');
+  std::unique_ptr<math::TreeNode> var = std::make_unique<math::Variable>('y');
 
   auto rpn = var->GetRPN({});
   auto infix = var->GetInfix(0, {});

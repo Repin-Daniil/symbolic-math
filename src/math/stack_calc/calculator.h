@@ -12,8 +12,8 @@
 #include <utility>
 #include <vector>
 
-#include "constants_storage.h"
-#include "utils/helper/helper.h"
+#include "math/constants_storage.h"
+#include "math/utils/helper/helper.h"
 
 namespace math {
 

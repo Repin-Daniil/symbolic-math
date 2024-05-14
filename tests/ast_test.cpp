@@ -1,3 +1,4 @@
+#define CATCH_CONFIG_MAIN
 #include "utils/abstract-syntax-tree/ast.h"
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers.hpp>
