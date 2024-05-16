@@ -6,6 +6,7 @@
 #include <string_view>
 
 #include "math/constants_storage.h"
+#include "math/number.h"
 
 namespace utils {
 
@@ -14,7 +15,7 @@ class Helper {
   static std::optional<int> GetPriority(std::string_view operation);
   static bool ComparePriorities(std::string_view lhs, std::string_view rhs);
 
-  static bool IsEqual(double lhs, double rhs);
+  static bool IsEqual(math::Number lhs, math::Number rhs);
   static bool IsOperator(std::string_view input) noexcept;
   static bool IsOperandPart(char symbol) noexcept;
   static bool IsDecimalDelimiter(char symbol) noexcept;

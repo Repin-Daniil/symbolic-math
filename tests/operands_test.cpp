@@ -1,14 +1,14 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
-#include "math/abstract-syntax-tree/operands/number.h"
-#include "math/abstract-syntax-tree/operands/number.h"  // check include guards
-#include "math/abstract-syntax-tree/operands/variable.h"
-#include "math/abstract-syntax-tree/operands/variable.h"  // check include guards
+#include "math/abstract-syntax-tree/operands/number_node.h"
+#include "math/abstract-syntax-tree/operands/number_node.h"  // check include guards
+#include "math/abstract-syntax-tree/operands/variable_node.h"
+#include "math/abstract-syntax-tree/operands/variable_node.h"  // check include guards
 #include "math/constants_storage.h"
 
-TEST_CASE("3", "Number") {
-  math::Number number(3);
+TEST_CASE("3", "NumberNode") {
+  math::NumberNode number(3);
 
   auto rpn = number.GetRPN({});
   auto infix = number.GetInfix(0, {});
@@ -22,8 +22,8 @@ TEST_CASE("3", "Number") {
   REQUIRE(diff->GetInfix(0, {}) == "0");
 }
 
-TEST_CASE("Polymorphic 3", "Number") {
-  std::unique_ptr<math::TreeNode> number = std::make_unique<math::Number>(3);
+TEST_CASE("Polymorphic 3", "NumberNode") {
+  std::unique_ptr<math::TreeNode> number = std::make_unique<math::NumberNode>(3);
 
   auto rpn = number->GetRPN({});
   auto infix = number->GetInfix(0, {});
@@ -37,8 +37,8 @@ TEST_CASE("Polymorphic 3", "Number") {
   REQUIRE(diff->GetInfix(0, {}) == "0");
 }
 
-TEST_CASE("3.14", "Number") {
-  math::Number number(3.14);
+TEST_CASE("3.14", "NumberNode") {
+  math::NumberNode number(3.14);
 
   auto rpn = number.GetRPN({});
   auto infix = number.GetInfix(0, {});
@@ -52,8 +52,8 @@ TEST_CASE("3.14", "Number") {
   REQUIRE(diff->GetInfix(0, {}) == "0");
 }
 
-TEST_CASE("-3.140", "Number") {
-  math::Number number(-3.140);
+TEST_CASE("-3.140", "NumberNode") {
+  math::NumberNode number(-3.140);
 
   auto rpn = number.GetRPN({});
   auto infix = number.GetInfix(0, {});
@@ -65,8 +65,8 @@ TEST_CASE("-3.140", "Number") {
   REQUIRE(diff->GetInfix(0, {}) == "0");
 }
 
-TEST_CASE("5.0034", "Number") {
-  math::Number number(5.0034);
+TEST_CASE("5.0034", "NumberNode") {
+  math::NumberNode number(5.0034);
 
   auto rpn = number.GetRPN({});
   auto infix = number.GetInfix(0, {});
@@ -78,8 +78,8 @@ TEST_CASE("5.0034", "Number") {
   REQUIRE(diff->GetInfix(0, {}) == "0");
 }
 
-TEST_CASE("-5.0034", "Number") {
-  math::Number number(-5.0034);
+TEST_CASE("-5.0034", "NumberNode") {
+  math::NumberNode number(-5.0034);
 
   auto rpn = number.GetRPN({});
   auto infix = number.GetInfix(0, {});
@@ -91,8 +91,8 @@ TEST_CASE("-5.0034", "Number") {
   REQUIRE(diff->GetInfix(0, {}) == "0");
 }
 
-TEST_CASE("5.0110", "Number") {
-  math::Number number(5.0110);
+TEST_CASE("5.0110", "NumberNode") {
+  math::NumberNode number(5.0110);
 
   auto rpn = number.GetRPN({});
   auto infix = number.GetInfix(0, {});

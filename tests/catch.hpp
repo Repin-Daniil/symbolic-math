@@ -2165,7 +2165,7 @@ template <typename T>
 struct StringMaker<std::optional<T>> {
   static std::string convert(const std::optional<T>& optional) {
     ReusableStringStream rss;
-    if (optional.has_value()) {
+    if (optional.has_value_()) {
       rss << ::Catch::Detail::stringify(*optional);
     } else {
       rss << "{ }";
@@ -4797,7 +4797,7 @@ using IConfigPtr = std::shared_ptr<IConfig const>;
 
 namespace Catch {
 
-// This is a simple implementation of C++11 Uniform Random Number
+// This is a simple implementation of C++11 Uniform Random NumberNode
 // Generator. It does not provide all operators, because Catch2
 // does not use it, but it should behave as expected inside stdlib's
 // distributions.

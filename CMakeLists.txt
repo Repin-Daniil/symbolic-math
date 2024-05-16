@@ -6,18 +6,18 @@ set(CMAKE_CXX_STANDARD 20)
 include_directories(src)
 
 add_library(MATH STATIC
-        src/math.h
+        src/symcpp.h
 
-        src/math/abstract-syntax-tree/expression.h
+        src/math/abstract-syntax-tree/node.h
         src/math/abstract-syntax-tree/operations/unary_operation.h
         src/math/abstract-syntax-tree/operations/unary_operation.cpp
         src/math/abstract-syntax-tree/operations/binary_operation.h
         src/math/abstract-syntax-tree/operations/binary_operation.cpp
 
-        src/math/abstract-syntax-tree/operands/number.h
-        src/math/abstract-syntax-tree/operands/number.cpp
-        src/math/abstract-syntax-tree/operands/variable.h
-        src/math/abstract-syntax-tree/operands/variable.cpp
+        src/math/abstract-syntax-tree/operands/number_node.h
+        src/math/abstract-syntax-tree/operands/number_node.cpp
+        src/math/abstract-syntax-tree/operands/variable_node.h
+        src/math/abstract-syntax-tree/operands/variable_node.cpp
 
         src/math/abstract-syntax-tree/operations/binary/addition.h
         src/math/abstract-syntax-tree/operations/binary/addition.cpp
@@ -45,6 +45,13 @@ add_library(MATH STATIC
 
         src/math/constants_storage.h
 
+        src/math/expression.h
+        src/math/expression.cpp
+        src/math/symbol.h
+        src/math/symbol.cpp
+        src/math/number.h
+        src/math/number.cpp
+
         src/math/utils/converter/converter.h
         src/math/utils/converter/converter.cpp
 
@@ -63,9 +70,9 @@ add_executable(calculator tools/main_calc.cpp
         samples/app/application.h
         samples/app/application.cpp)
 
-#add_executable(lib tools/main_lib.cpp)
+add_executable(lib_test tools/main_lib.cpp)
 
-#target_link_libraries(lib PRIVATE MATH)
+target_link_libraries(lib_test PRIVATE MATH)
 target_link_libraries(calculator PRIVATE MATH)
 
 # Tests

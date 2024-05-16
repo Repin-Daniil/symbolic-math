@@ -8,7 +8,7 @@
 #include <utility>
 
 #include "exponentiation.h"
-#include "math/abstract-syntax-tree/operands/number.h"
+#include "math/abstract-syntax-tree/operands/number_node.h"
 #include "math/abstract-syntax-tree/operations/binary_operation.h"
 #include "math/utils/helper/helper.h"
 #include "multiplication.h"
@@ -23,9 +23,10 @@ class Division final : public BinaryOperation {
   }
 
   constants::Expressions GetType() override;
-  std::string GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) override;
-  std::string GetRPN(const std::unordered_map<char, double>& variable_to_value) override;
-  double GetNumericResult(const std::unordered_map<char, double>& variable_to_value) override;
+  std::string GetInfix(int previous_priority,
+                       const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) override;
+  std::string GetRPN(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) override;
+  Number GetNumericResult(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) override;
   std::unique_ptr<TreeNode> GetDerivative() override;
   std::unique_ptr<TreeNode> Clone() override;
   bool IsContainVariable() override;
@@ -33,7 +34,7 @@ class Division final : public BinaryOperation {
   std::optional<std::unique_ptr<TreeNode>> Simplify() override;
 
  private:
-  std::optional<double> CheckDivider(const std::unordered_map<char, double>& variable_to_value);
+  std::optional<Number> CheckDivider(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value);
 
  private:
   int priority_ = constants::operations_to_priority.at(constants::Operations::DIVISION);

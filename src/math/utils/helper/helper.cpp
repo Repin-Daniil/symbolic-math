@@ -1,4 +1,5 @@
 #include "helper.h"
+#include "math/number.h"
 
 namespace utils {
 
@@ -69,8 +70,8 @@ bool Helper::IsBinaryOperation(constants::Operations operation) noexcept {
          operation == constants::Operations::EXPONENTIATION;
 }
 
-bool Helper::IsEqual(double lhs, double rhs) {
-  return std::abs(rhs - lhs) < std::numeric_limits<double>::epsilon();
+bool Helper::IsEqual(math::Number lhs, math::Number rhs) {
+  return std::abs(rhs.GetValue() - lhs.GetValue()) < std::numeric_limits<double>::epsilon();
 }
 
 }  // namespace utils

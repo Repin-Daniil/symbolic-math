@@ -2,7 +2,8 @@
 
 namespace math {
 
-std::string Cos::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
+std::string CosNode::GetInfix(int previous_priority,
+                              const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
   std::stringstream stream;
   stream << constants::Labels::kCos << constants::Labels::kOpenParen << argument_->GetInfix(0, variable_to_value)
          << constants::Labels::kEndParen;
@@ -10,26 +11,26 @@ std::string Cos::GetInfix(int previous_priority, const std::unordered_map<char, 
   return stream.str();
 }
 
-std::string Cos::GetRPN(const std::unordered_map<char, double>& variable_to_value) {
+std::string CosNode::GetRPN(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
   std::stringstream stream;
   stream << argument_->GetRPN(variable_to_value) << " " << constants::Labels::kCos;
   return stream.str();
 }
 
-std::unique_ptr<TreeNode> Cos::GetDerivative() {
+std::unique_ptr<TreeNode> CosNode::GetDerivative() {
   return std::make_unique<UnaryMinus>(
-      std::make_unique<Multiplication>(std::make_unique<Sin>(argument_->Clone()), argument_->GetDerivative()));
+      std::make_unique<Multiplication>(std::make_unique<SinNode>(argument_->Clone()), argument_->GetDerivative()));
 }
 
-double Cos::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
-  return std::cos(argument_->GetNumericResult(variable_to_value));
+Number CosNode::GetNumericResult(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
+  return std::cos(argument_->GetNumericResult(variable_to_value).GetValue());  // FIXME Функция CosNode
 }
 
-constants::Expressions Cos::GetType() {
+constants::Expressions CosNode::GetType() {
   return constants::Expressions::COS;
 }
 
-std::optional<std::unique_ptr<TreeNode>> Cos::Simplify() {
+std::optional<std::unique_ptr<TreeNode>> CosNode::Simplify() {
   if (auto simplified = argument_->Simplify()) {
     argument_ = std::move(*simplified);
   }
@@ -37,12 +38,12 @@ std::optional<std::unique_ptr<TreeNode>> Cos::Simplify() {
   return std::nullopt;
 }
 
-bool Cos::IsContainVariable() {
+bool CosNode::IsContainVariable() {
   return argument_->IsContainVariable();
 }
 
-std::unique_ptr<TreeNode> Cos::Clone() {
-  return std::make_unique<Cos>(argument_->Clone());
+std::unique_ptr<TreeNode> CosNode::Clone() {
+  return std::make_unique<CosNode>(argument_->Clone());
 }
 
 }  // namespace math

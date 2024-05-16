@@ -6,7 +6,8 @@ std::unique_ptr<TreeNode> Subtraction::GetDerivative() {
   return std::make_unique<Subtraction>(left_argument_->GetDerivative(), right_argument_->GetDerivative());
 }
 
-std::string Subtraction::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
+std::string Subtraction::GetInfix(int previous_priority,
+                                  const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
   bool brackets_required = previous_priority >= priority_;
   std::stringstream stream;
   stream << (brackets_required ? constants::Labels::kOpenParen : "")
@@ -17,14 +18,14 @@ std::string Subtraction::GetInfix(int previous_priority, const std::unordered_ma
   return stream.str();
 }
 
-std::string Subtraction::GetRPN(const std::unordered_map<char, double>& variable_to_value) {
+std::string Subtraction::GetRPN(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
   std::stringstream stream;
   stream << left_argument_->GetRPN(variable_to_value) << " " << right_argument_->GetRPN(variable_to_value) << " "
          << constants::Labels::kMinus;
   return stream.str();
 }
 
-double Subtraction::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
+Number Subtraction::GetNumericResult(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
   return left_argument_->GetNumericResult(variable_to_value) - right_argument_->GetNumericResult(variable_to_value);
 }
 
@@ -42,12 +43,12 @@ std::optional<std::unique_ptr<TreeNode>> Subtraction::Simplify() {
   }
 
   if (left_argument_->GetRPN({}) == right_argument_->GetRPN({})) {
-    return std::make_unique<Number>(0);
+    return std::make_unique<NumberNode>(0);
   }
 
   if (left_argument_->GetType() == right_argument_->GetType() &&
       left_argument_->GetType() == constants::Expressions::NUMBER) {
-    return std::make_unique<Number>(left_argument_->GetNumericResult({}) - right_argument_->GetNumericResult({}));
+    return std::make_unique<NumberNode>(left_argument_->GetNumericResult({}) - right_argument_->GetNumericResult({}));
   }
 
   if (left_argument_->GetType() == constants::Expressions::NUMBER &&

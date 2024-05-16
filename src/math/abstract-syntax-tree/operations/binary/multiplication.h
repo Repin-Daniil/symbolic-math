@@ -7,7 +7,7 @@
 #include <utility>
 
 #include "addition.h"
-#include "math/abstract-syntax-tree/operands/number.h"
+#include "math/abstract-syntax-tree/operands/number_node.h"
 #include "math/abstract-syntax-tree/operations/binary_operation.h"
 #include "math/utils/helper/helper.h"
 
@@ -19,10 +19,11 @@ class Multiplication final : public BinaryOperation {
       : BinaryOperation(std::move(left), std::move(right)) {
   }
 
-  std::string GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) override;
-  std::string GetRPN(const std::unordered_map<char, double>& variable_to_value) override;
+  std::string GetInfix(int previous_priority,
+                       const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) override;
+  std::string GetRPN(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) override;
   std::unique_ptr<TreeNode> GetDerivative() override;
-  double GetNumericResult(const std::unordered_map<char, double>& variable_to_value) override;
+  Number GetNumericResult(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) override;
   constants::Expressions GetType() override;
   std::optional<std::unique_ptr<TreeNode>> Simplify() override;
   bool IsContainVariable() override;

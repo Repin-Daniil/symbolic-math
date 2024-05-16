@@ -1,8 +1,8 @@
 // #define CATCH_CONFIG_MAIN
 // #include "catch.hpp"
 
-#include "math/abstract-syntax-tree/operands/number.h"
-#include "math/abstract-syntax-tree/operands/variable.h"
+#include "math/abstract-syntax-tree/operands/number_node.h"
+#include "math/abstract-syntax-tree/operands/variable_node.h"
 
 #include "math/abstract-syntax-tree/operations/binary/addition.h"
 #include "math/abstract-syntax-tree/operations/binary/addition.h"  // check include guards
@@ -17,8 +17,8 @@
 
 //
 // TEST_CASE("2 + 5", "Addition") {
-//  auto left_operand = std::make_unique<math::Number>(2);
-//  auto right_operand = std::make_unique<math::Number>(5);
+//  auto left_operand = std::make_unique<math::NumberNode>(2);
+//  auto right_operand = std::make_unique<math::NumberNode>(5);
 //
 //  auto addition =
 //      utils::AbstractSyntaxTree(std::make_unique<math::Addition>(std::move(left_operand), std::move(right_operand)));
@@ -34,7 +34,7 @@
 //}
 //
 // TEST_CASE("2 + x", "Addition") {
-//  auto left_operand = std::make_unique<math::Number>(2);
+//  auto left_operand = std::make_unique<math::NumberNode>(2);
 //  auto right_operand = std::make_unique<math::Variable>('x');
 //
 //  auto addition =
@@ -51,9 +51,10 @@
 //}
 //
 // TEST_CASE("2 + (1.5 + x)", "Addition") {
-//  auto left_operand = std::make_unique<math::Number>(2);
+//  auto left_operand = std::make_unique<math::NumberNode>(2);
 //  auto right_operand =
-//      std::make_unique<math::Addition>(std::make_unique<math::Number>(1.5), std::make_unique<math::Variable>('x'));
+//      std::make_unique<math::Addition>(std::make_unique<math::NumberNode>(1.5),
+//      std::make_unique<math::Variable>('x'));
 //
 //  auto addition =
 //      utils::AbstractSyntaxTree(std::make_unique<math::Addition>(std::move(left_operand), std::move(right_operand)));
@@ -69,8 +70,8 @@
 //}
 //
 // TEST_CASE("2 - 5.1", "Substraction") {
-//  auto left_operand = std::make_unique<math::Number>(2);
-//  auto right_operand = std::make_unique<math::Number>(5.1);
+//  auto left_operand = std::make_unique<math::NumberNode>(2);
+//  auto right_operand = std::make_unique<math::NumberNode>(5.1);
 //
 //  auto substraction =
 //      utils::AbstractSyntaxTree(std::make_unique<math::Subtraction>(std::move(left_operand),
@@ -88,7 +89,7 @@
 //
 // TEST_CASE("x - 2", "Substraction") {
 //  auto left_operand = std::make_unique<math::Variable>('x');
-//  auto right_operand = std::make_unique<math::Number>(2);
+//  auto right_operand = std::make_unique<math::NumberNode>(2);
 //
 //  auto substraction =
 //      utils::AbstractSyntaxTree(std::make_unique<math::Subtraction>(std::move(left_operand),
@@ -105,9 +106,10 @@
 //}
 //
 // TEST_CASE("2 - (1.5 + x)", "Substraction") {
-//  auto left_operand = std::make_unique<math::Number>(2);
+//  auto left_operand = std::make_unique<math::NumberNode>(2);
 //  auto right_operand =
-//      std::make_unique<math::Addition>(std::make_unique<math::Number>(1.5), std::make_unique<math::Variable>('x'));
+//      std::make_unique<math::Addition>(std::make_unique<math::NumberNode>(1.5),
+//      std::make_unique<math::Variable>('x'));
 //
 //  auto substraction =
 //      utils::AbstractSyntaxTree(std::make_unique<math::Subtraction>(std::move(left_operand),
@@ -124,8 +126,8 @@
 //}
 //
 // TEST_CASE("2 * 5.1", "Multiplication") {
-//  auto left_operand = std::make_unique<math::Number>(2);
-//  auto right_operand = std::make_unique<math::Number>(5.1);
+//  auto left_operand = std::make_unique<math::NumberNode>(2);
+//  auto right_operand = std::make_unique<math::NumberNode>(5.1);
 //
 //  auto multiplication = utils::AbstractSyntaxTree(
 //      std::make_unique<math::Multiplication>(std::move(left_operand), std::move(right_operand)));
@@ -141,7 +143,7 @@
 //}
 //
 // TEST_CASE("2 * x", "Multiplication") {
-//  auto left_operand = std::make_unique<math::Number>(2);
+//  auto left_operand = std::make_unique<math::NumberNode>(2);
 //  auto right_operand = std::make_unique<math::Variable>('x');
 //
 //  auto multiplication = utils::AbstractSyntaxTree(
@@ -158,9 +160,9 @@
 //}
 //
 // TEST_CASE("2 * (x + 1)", "Multiplication") {
-//  auto left_operand = std::make_unique<math::Number>(2);
+//  auto left_operand = std::make_unique<math::NumberNode>(2);
 //  auto right_operand =
-//      std::make_unique<math::Addition>(std::make_unique<math::Variable>('x'), std::make_unique<math::Number>(1));
+//      std::make_unique<math::Addition>(std::make_unique<math::Variable>('x'), std::make_unique<math::NumberNode>(1));
 //
 //  auto multiplication = utils::AbstractSyntaxTree(
 //      std::make_unique<math::Multiplication>(std::move(left_operand), std::move(right_operand)));
@@ -176,8 +178,8 @@
 //}
 //
 // TEST_CASE("2 / 5.1", "Division") {
-//  auto left_operand = std::make_unique<math::Number>(2);
-//  auto right_operand = std::make_unique<math::Number>(5.1);
+//  auto left_operand = std::make_unique<math::NumberNode>(2);
+//  auto right_operand = std::make_unique<math::NumberNode>(5.1);
 //
 //  auto division =
 //      utils::AbstractSyntaxTree(std::make_unique<math::Division>(std::move(left_operand), std::move(right_operand)));
@@ -194,8 +196,8 @@
 //
 // TEST_CASE("(2 + x) / 5.1", "Division") {
 //  auto left_operand =
-//      std::make_unique<math::Addition>(std::make_unique<math::Number>(2), std::make_unique<math::Variable>('x'));
-//  auto right_operand = std::make_unique<math::Number>(5.1);
+//      std::make_unique<math::Addition>(std::make_unique<math::NumberNode>(2), std::make_unique<math::Variable>('x'));
+//  auto right_operand = std::make_unique<math::NumberNode>(5.1);
 //
 //  auto division =
 //      utils::AbstractSyntaxTree(std::make_unique<math::Division>(std::move(left_operand), std::move(right_operand)));
@@ -211,7 +213,7 @@
 //}
 //
 // TEST_CASE("2 ^ x", "Exponentiation") {
-//  auto left_operand = std::make_unique<math::Number>(2);
+//  auto left_operand = std::make_unique<math::NumberNode>(2);
 //  auto right_operand = std::make_unique<math::Variable>('x');
 //
 //  auto result = utils::AbstractSyntaxTree(utils::AbstractSyntaxTree(
@@ -229,7 +231,7 @@
 //
 // TEST_CASE("x ^ 2", "Exponentiation") {
 //  auto left_operand = std::make_unique<math::Variable>('x');
-//  auto right_operand = std::make_unique<math::Number>(2);
+//  auto right_operand = std::make_unique<math::NumberNode>(2);
 //
 //  auto result = utils::AbstractSyntaxTree(
 //      std::make_unique<math::Exponentiation>(std::move(left_operand), std::move(right_operand)));
@@ -247,7 +249,7 @@
 // TEST_CASE("x ^ (2 + 4)", "Exponentiation") {
 //  auto left_operand = std::make_unique<math::Variable>('x');
 //  auto right_operand =
-//      std::make_unique<math::Addition>(std::make_unique<math::Number>(2), std::make_unique<math::Number>(4));
+//      std::make_unique<math::Addition>(std::make_unique<math::NumberNode>(2), std::make_unique<math::NumberNode>(4));
 //
 //  auto result = utils::AbstractSyntaxTree(
 //      std::make_unique<math::Exponentiation>(std::move(left_operand), std::move(right_operand)));

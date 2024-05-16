@@ -1,9 +1,9 @@
 #pragma once
 
-#include "math/abstract-syntax-tree/expression.h"
+#include "math/abstract-syntax-tree/node.h"
 
-#include "math/abstract-syntax-tree/operands/number.h"
-#include "math/abstract-syntax-tree/operands/variable.h"
+#include "math/abstract-syntax-tree/operands/number_node.h"
+#include "math/abstract-syntax-tree/operands/variable_node.h"
 
 #include "math/abstract-syntax-tree/operations/unary/cos.h"
 #include "math/abstract-syntax-tree/operations/unary/logarithm.h"

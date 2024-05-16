@@ -2,52 +2,54 @@
 
 namespace math {
 
-std::string Logarithm::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
+std::string LogarithmNode::GetInfix(int previous_priority,
+                                    const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
   std::stringstream stream;
   stream << constants::Labels::kLogarithm << constants::Labels::kOpenParen << argument_->GetInfix(0, variable_to_value)
          << constants::Labels::kEndParen;
   return stream.str();
 }
 
-std::string Logarithm::GetRPN(const std::unordered_map<char, double>& variable_to_value) {
+std::string LogarithmNode::GetRPN(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
   std::stringstream stream;
   stream << argument_->GetRPN(variable_to_value) << " " << constants::Labels::kLogarithm;
   return stream.str();
 }
 
-std::unique_ptr<TreeNode> Logarithm::GetDerivative() {
+std::unique_ptr<TreeNode> LogarithmNode::GetDerivative() {
   CheckArgument({});
 
   return std::make_unique<Division>(argument_->GetDerivative(), argument_->Clone());
 }
 
-double Logarithm::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
+Number LogarithmNode::GetNumericResult(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
   auto arg = CheckArgument(variable_to_value);
 
-  return std::log(*arg);
+  return std::log(arg->GetValue());
 }
 
-constants::Expressions Logarithm::GetType() {
+constants::Expressions LogarithmNode::GetType() {
   return constants::Expressions::LOGARITHM;
 }
 
-std::optional<std::unique_ptr<TreeNode>> Logarithm::Simplify() {
+std::optional<std::unique_ptr<TreeNode>> LogarithmNode::Simplify() {
   if (auto simplified = argument_->Simplify()) {
     argument_ = std::move(*simplified);
   } else if (argument_->GetType() == constants::Expressions::NUMBER &&
              utils::Helper::IsEqual(argument_->GetNumericResult({}), std::numbers::e)) {
-    return std::make_unique<Number>(1);
+    return std::make_unique<NumberNode>(1);
   }
 
   return std::nullopt;
 }
 
-bool Logarithm::IsContainVariable() {
+bool LogarithmNode::IsContainVariable() {
   return argument_->IsContainVariable();
 }
 
-std::optional<double> Logarithm::CheckArgument(const std::unordered_map<char, double>& variable_to_value = {}) {
-  std::optional<double> result;
+std::optional<Number> LogarithmNode::CheckArgument(
+    const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value = {}) {
+  std::optional<Number> result;
 
   if (!argument_->IsContainVariable()) {
     result = argument_->GetNumericResult({});
@@ -57,15 +59,16 @@ std::optional<double> Logarithm::CheckArgument(const std::unordered_map<char, do
     result = argument_->GetNumericResult(variable_to_value);
   }
 
-  if (result && (*result < 0 || std::abs(*result - 0) < std::numeric_limits<double>::epsilon())) {
+  // TODO Заменить std::abs на свой Abs
+  if (result && (*result < 0 || std::abs(result->GetValue() - 0) < std::numeric_limits<double>::epsilon())) {
     throw std::runtime_error(constants::ExceptionMessage::kWrongLogarithm.data());
   }
 
   return result;
 }
 
-std::unique_ptr<TreeNode> Logarithm::Clone() {
-  return std::make_unique<Logarithm>(argument_->Clone());
+std::unique_ptr<TreeNode> LogarithmNode::Clone() {
+  return std::make_unique<LogarithmNode>(argument_->Clone());
 }
 
 }  // namespace math

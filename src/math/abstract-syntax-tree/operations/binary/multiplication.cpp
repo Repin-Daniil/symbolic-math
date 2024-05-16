@@ -2,7 +2,8 @@
 
 namespace math {
 
-std::string Multiplication::GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) {
+std::string Multiplication::GetInfix(int previous_priority,
+                                     const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
   bool brackets_required = previous_priority > priority_;
 
   std::stringstream stream;
@@ -14,7 +15,7 @@ std::string Multiplication::GetInfix(int previous_priority, const std::unordered
   return stream.str();
 }
 
-std::string Multiplication::GetRPN(const std::unordered_map<char, double>& variable_to_value) {
+std::string Multiplication::GetRPN(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
   std::stringstream stream;
   stream << left_argument_->GetRPN(variable_to_value) + " " + right_argument_->GetRPN(variable_to_value) << " "
          << constants::Labels::kMultiplication;
@@ -27,7 +28,7 @@ std::unique_ptr<TreeNode> Multiplication::GetDerivative() {
       std::make_unique<Multiplication>(left_argument_->GetDerivative(), right_argument_->Clone()));
 }
 
-double Multiplication::GetNumericResult(const std::unordered_map<char, double>& variable_to_value) {
+Number Multiplication::GetNumericResult(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
   return left_argument_->GetNumericResult(variable_to_value) * right_argument_->GetNumericResult(variable_to_value);
 }
 
@@ -46,17 +47,17 @@ std::optional<std::unique_ptr<TreeNode>> Multiplication::Simplify() {
 
   if (left_argument_->GetType() == right_argument_->GetType() &&
       left_argument_->GetType() == constants::Expressions::NUMBER) {
-    return std::make_unique<Number>(GetNumericResult({}));
+    return std::make_unique<NumberNode>(GetNumericResult({}));
   }
 
   if (left_argument_->GetType() == constants::Expressions::NUMBER &&
       utils::Helper::IsEqual(left_argument_->GetNumericResult({}), 0)) {
-    return std::make_unique<Number>(0);
+    return std::make_unique<NumberNode>(0);
   }
 
   if (right_argument_->GetType() == constants::Expressions::NUMBER &&
       utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 0)) {
-    return std::make_unique<Number>(0);
+    return std::make_unique<NumberNode>(0);
   }
 
   if (left_argument_->GetType() == constants::Expressions::NUMBER &&

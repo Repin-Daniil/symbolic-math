@@ -4,7 +4,7 @@
 #include <optional>
 #include <utility>
 
-#include "math/abstract-syntax-tree/expression.h"
+#include "math/abstract-syntax-tree/node.h"
 
 namespace math {
 

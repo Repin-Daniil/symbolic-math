@@ -22,10 +22,11 @@ class Exponentiation final : public BinaryOperation {
   }
 
   constants::Expressions GetType() override;
-  std::string GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) override;
-  std::string GetRPN(const std::unordered_map<char, double>& variable_to_value) override;
+  std::string GetInfix(int previous_priority,
+                       const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) override;
+  std::string GetRPN(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) override;
   std::unique_ptr<TreeNode> GetDerivative() override;
-  double GetNumericResult(const std::unordered_map<char, double>& variable_to_value) override;
+  Number GetNumericResult(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) override;
   std::optional<std::unique_ptr<TreeNode>> Simplify() override;
   bool IsContainVariable() override;
   std::unique_ptr<TreeNode> Clone() override;

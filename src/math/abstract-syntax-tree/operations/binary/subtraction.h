@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include <utility>
 
-#include "math/abstract-syntax-tree/operands/number.h"
+#include "math/abstract-syntax-tree/operands/number_node.h"
 #include "math/abstract-syntax-tree/operations/binary_operation.h"
 #include "math/abstract-syntax-tree/operations/unary/unary_minus.h"
 #include "math/constants_storage.h"
@@ -20,11 +20,12 @@ class Subtraction final : public BinaryOperation {
       : BinaryOperation(std::move(left), std::move(right)) {
   }
 
-  std::string GetInfix(int previous_priority, const std::unordered_map<char, double>& variable_to_value) override;
-  std::string GetRPN(const std::unordered_map<char, double>& variable_to_value) override;
+  std::string GetInfix(int previous_priority,
+                       const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) override;
+  std::string GetRPN(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) override;
   std::unique_ptr<TreeNode> GetDerivative() override;
   constants::Expressions GetType() override;
-  double GetNumericResult(const std::unordered_map<char, double>& variable_to_value) override;
+  Number GetNumericResult(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) override;
   std::optional<std::unique_ptr<TreeNode>> Simplify() override;
   bool IsContainVariable() override;
   std::unique_ptr<TreeNode> Clone() override;

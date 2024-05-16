@@ -109,7 +109,7 @@ struct ExceptionMessage {
   constexpr static std::string_view kEmptyExpression = "Empty expression!"sv;
   constexpr static std::string_view kZeroDivision = "Zero division!"sv;
   constexpr static std::string_view kNegativeRoot = "Negative square root"sv;
-  constexpr static std::string_view kWrongTangent = "Error. Tangent of pi/2"sv;
+  constexpr static std::string_view kWrongTangent = "Error. TangentNode of pi/2"sv;
   constexpr static std::string_view kWrongLogarithm = "Natural logarithm argument must be positive"sv;
   constexpr static std::string_view kNoOperands = "No operands entered!"sv;
   constexpr static std::string_view kWrongFormat = "Unknown operator or variable: "sv;

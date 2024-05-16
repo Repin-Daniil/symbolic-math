@@ -33,7 +33,7 @@ std::unique_ptr<math::TreeNode> TreeBuilder::BuildAST(std::string_view rpn_expre
 
 void TreeBuilder::AddOperand(std::string_view token) {
   if (auto operand = utils::Helper::ParseOperand(token)) {
-    nodes_.push(std::make_unique<math::Number>(*operand));
+    nodes_.push(std::make_unique<math::NumberNode>(*operand));
   } else if (token.size() == 1) {
     nodes_.push(std::make_unique<math::Variable>(token[0]));
   } else {
@@ -48,15 +48,15 @@ void TreeBuilder::AddOperation(constants::Operations operation) {
     if (operation == constants::Operations::UNARY_MINUS) {
       operation_node = std::make_unique<math::UnaryMinus>(GetOperand());
     } else if (operation == constants::Operations::SQRT) {
-      operation_node = std::make_unique<math::SquareRoot>(GetOperand());
+      operation_node = std::make_unique<math::SquareRootNode>(GetOperand());
     } else if (operation == constants::Operations::SIN) {
-      operation_node = std::make_unique<math::Sin>(GetOperand());
+      operation_node = std::make_unique<math::SinNode>(GetOperand());
     } else if (operation == constants::Operations::COS) {
-      operation_node = std::make_unique<math::Cos>(GetOperand());
+      operation_node = std::make_unique<math::CosNode>(GetOperand());
     } else if (operation == constants::Operations::TANGENT) {
-      operation_node = std::make_unique<math::Tangent>(GetOperand());
+      operation_node = std::make_unique<math::TangentNode>(GetOperand());
     } else if (operation == constants::Operations::NATURAL_LOGARITHM) {
-      operation_node = std::make_unique<math::Logarithm>(GetOperand());
+      operation_node = std::make_unique<math::LogarithmNode>(GetOperand());
     }
   } else if (utils::Helper::IsBinaryOperation(operation)) {
     if (nodes_.size() < 2) {
