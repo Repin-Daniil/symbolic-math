@@ -2,36 +2,33 @@
 
 namespace math {
 
-std::string Exponentiation::GetInfix(int previous_priority,
-                                     const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
+std::string Exponentiation::GetInfix(int previous_priority) {
   bool brackets_required = previous_priority >= priority_;
 
   std::stringstream stream;
-  stream << (brackets_required ? constants::Labels::kOpenParen : "")
-         << left_argument_->GetInfix(priority_, variable_to_value) << " " << constants::Labels::kExponentiation << " "
-         << right_argument_->GetInfix(priority_, variable_to_value)
+  stream << (brackets_required ? constants::Labels::kOpenParen : "") << left_argument_->GetInfix(priority_) << " "
+         << constants::Labels::kExponentiation << " " << right_argument_->GetInfix(priority_)
          << (brackets_required ? constants::Labels::kEndParen : "");
 
   return stream.str();
 }
 
-std::string Exponentiation::GetRPN(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
+std::string Exponentiation::GetRPN() {
   std::stringstream stream;
-  stream << left_argument_->GetRPN(variable_to_value) << " " << right_argument_->GetRPN(variable_to_value) << " "
-         << constants::Labels::kExponentiation;
+  stream << left_argument_->GetRPN() << " " << right_argument_->GetRPN() << " " << constants::Labels::kExponentiation;
   return stream.str();
 }
 
-std::unique_ptr<TreeNode> Exponentiation::GetDerivative() {
-  if (left_argument_->IsContainVariable() && !right_argument_->IsContainVariable()) {
-    auto first = std::make_unique<Multiplication>(right_argument_->Clone(), left_argument_->GetDerivative());
+std::unique_ptr<TreeNode> Exponentiation::GetDerivative(const Symbol& d) {
+  if (left_argument_->IsContainVariable(d) && !right_argument_->IsContainVariable(d)) {
+    auto first = std::make_unique<Multiplication>(right_argument_->Clone(), left_argument_->GetDerivative(d));
     auto second = std::make_unique<Exponentiation>(
         left_argument_->Clone(),
         std::make_unique<Subtraction>(right_argument_->Clone(), std::make_unique<NumberNode>(1)));
 
     return std::make_unique<Multiplication>(std::move(first), std::move(second));
-  } else if (!left_argument_->IsContainVariable() && right_argument_->IsContainVariable()) {
-    auto first = std::make_unique<Multiplication>(right_argument_->GetDerivative(),
+  } else if (!left_argument_->IsContainVariable(d) && right_argument_->IsContainVariable(d)) {
+    auto first = std::make_unique<Multiplication>(right_argument_->GetDerivative(d),
                                                   std::make_unique<LogarithmNode>(left_argument_->Clone()));
     auto second = std::make_unique<Exponentiation>(left_argument_->Clone(), right_argument_->Clone());
 
@@ -39,68 +36,67 @@ std::unique_ptr<TreeNode> Exponentiation::GetDerivative() {
   } else {
     auto first = std::make_unique<Exponentiation>(left_argument_->Clone(), right_argument_->Clone());
     auto second = std::make_unique<Addition>(
-        std::make_unique<Multiplication>(right_argument_->GetDerivative(),
+        std::make_unique<Multiplication>(right_argument_->GetDerivative(d),
                                          std::make_unique<LogarithmNode>(left_argument_->Clone())),
         std::make_unique<Division>(
-            std::make_unique<Multiplication>(right_argument_->Clone(), left_argument_->GetDerivative()),
+            std::make_unique<Multiplication>(right_argument_->Clone(), left_argument_->GetDerivative(d)),
             left_argument_->Clone()));
 
     return std::make_unique<Multiplication>(std::move(first), std::move(second));
   }
 }
 
-Number Exponentiation::GetNumericResult(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
-  return std::pow(left_argument_->GetNumericResult(variable_to_value).GetValue(),
-                  right_argument_->GetNumericResult(variable_to_value).GetValue());  // FIXME Функция Pow
-}
-
 constants::Expressions Exponentiation::GetType() {
   return constants::Expressions::EXPONENTIATION;
 }
 
-std::optional<std::unique_ptr<TreeNode>> Exponentiation::Simplify() {
+std::unique_ptr<TreeNode> Exponentiation::Simplify() {
   if (auto simplified = left_argument_->Simplify()) {
-    left_argument_ = std::move(*simplified);
+    left_argument_ = std::move(simplified);
   }
 
   if (auto simplified = right_argument_->Simplify()) {
-    right_argument_ = std::move(*simplified);
-  }
-
-  if (left_argument_->GetType() == right_argument_->GetType() &&
-      left_argument_->GetType() == constants::Expressions::NUMBER) {
-    return std::make_unique<NumberNode>(GetNumericResult({}));
+    right_argument_ = std::move(simplified);
   }
 
   if (left_argument_->GetType() == constants::Expressions::NUMBER &&
-      utils::Helper::IsEqual(left_argument_->GetNumericResult({}), 0)) {
+      utils::Helper::IsEqual(*GetNumber(left_argument_), 0)) {
     return std::make_unique<NumberNode>(0);
   }
 
   if (right_argument_->GetType() == constants::Expressions::NUMBER &&
-      utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 0)) {
+      utils::Helper::IsEqual(*GetNumber(right_argument_), 0)) {
     return std::make_unique<NumberNode>(1);
   }
 
   if (left_argument_->GetType() == constants::Expressions::NUMBER &&
-      utils::Helper::IsEqual(left_argument_->GetNumericResult({}), 1)) {
+      utils::Helper::IsEqual(*GetNumber(left_argument_), 1)) {
     return std::make_unique<NumberNode>(1);
   }
 
   if (right_argument_->GetType() == constants::Expressions::NUMBER &&
-      utils::Helper::IsEqual(right_argument_->GetNumericResult({}), 1)) {
+      utils::Helper::IsEqual(*GetNumber(right_argument_), 1)) {
     return std::move(left_argument_);
   }
 
-  return std::nullopt;
-}
-
-bool Exponentiation::IsContainVariable() {
-  return left_argument_->IsContainVariable() || right_argument_->IsContainVariable();
+  return nullptr;
 }
 
 std::unique_ptr<TreeNode> Exponentiation::Clone() {
   return std::make_unique<Exponentiation>(left_argument_->Clone(), right_argument_->Clone());
+}
+
+std::unique_ptr<TreeNode> Exponentiation::Evaluate() {
+  auto left_result = left_argument_->Evaluate();
+  auto right_result = right_argument_->Evaluate();
+
+  if (auto left = GetNumber(left_result)) {
+    if (auto right = GetNumber(right_result)) {
+      return std::make_unique<NumberNode>(Pow(*left, *right));
+    }
+  }
+
+  return std::make_unique<Exponentiation>(std::move(left_result), std::move(right_result));
 }
 
 }  // namespace math

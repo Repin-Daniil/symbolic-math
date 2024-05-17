@@ -1,7 +1,4 @@
 #include "number.h"
-#include <stdexcept>
-#include <valarray>
-#include "constants_storage.h"
 
 namespace math {
 
@@ -175,7 +172,6 @@ std::ostream& operator<<(std::ostream& os, const Number& number) {
 }
 
 std::string Number::GetString() const noexcept {
-  // FIXME Почему раньше тут стоял abs?
   auto str = std::to_string(value_);
   int64_t dot_position = str.find(constants::Labels::kDecimalPoint);
 

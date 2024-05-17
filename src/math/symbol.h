@@ -3,6 +3,7 @@
 #include <memory>
 #include <ostream>
 #include <string>
+#include <utility>
 #include "number.h"
 
 namespace math {

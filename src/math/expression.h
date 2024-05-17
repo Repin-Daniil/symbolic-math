@@ -2,14 +2,14 @@
 
 #include <memory>
 #include <ostream>
+#include <string>
+#include <unordered_map>
 #include "math/abstract-syntax-tree/ast.h"
 
 namespace math {
 
 /**
  * @brief Держит указатель на AST, конструируется от Number, Symbol unique_ptr<TreeNode>
- * @todo Подстановка вместо переменных целых выражений. result = expr.subs({x: 2, y: pi/2})
- * @fixme Проверять везде, что дерево действительно есть. Нас ведь могли помувать и там nullptr стоит. Привет, сегфолт!
  */
 class Expression {
  public:
@@ -21,8 +21,9 @@ class Expression {
   Expression(const Expression& other);
   Expression(Expression&& other) noexcept;
 
-  std::string GetInfix(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) const;
-  std::string GetRPN(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) const;
+  std::string GetInfix() const;
+  std::string GetRPN() const;
+
   //  std::string GetLatex(); //TODO
 
   Expression& operator=(Expression other);
@@ -34,10 +35,13 @@ class Expression {
 
   friend std::ostream& operator<<(std::ostream& os, const Expression& expression);
 
-  std::unique_ptr<TreeNode> Release();
+  Expression GetDerivative(const Symbol& d) const;
+  Expression Evaluate() const;
+  Expression Substitute(std::unordered_map<Symbol, Expression, SymbolHash> variable_to_value) const;
+  void Simplify();
 
- private:
-  // TODO Метод Substitute
+  std::unique_ptr<TreeNode> Release();
+  std::unique_ptr<TreeNode> GetCopy() const;
 
  private:
   std::unique_ptr<TreeNode> root_;
@@ -58,12 +62,13 @@ Expression Tan(Expression argument);
 Expression Sqrt(Expression argument);
 Expression Pow(Expression base, Expression power);
 
-std::string Infix(const Expression& expression, const std::unordered_map<Symbol, Number, SymbolHash>&
-                                                    variable_to_value);  // TODO Подставлять Expression, а не Number
-std::string RPN(const Expression& expression, const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value);
-// std::string Latex(const Expression& expression, const std::unordered_map<Symbol, Number, SymbolHash>&
-// variable_to_value);
-Expression Evaluate(const Expression& expression,
-                    const std::unordered_map<Symbol, Expression, SymbolHash>& variable_to_value);
+std::string Infix(const Expression& expression);
+std::string RPN(const Expression& expression);
+// std::string Latex(const Expression& expression);
+
+Expression Diff(const Expression& expression, Symbol d);
+Expression Evaluate(const Expression& expression);
+Expression Substitute(const Expression& expression,
+                      std::unordered_map<Symbol, Expression, SymbolHash> variable_to_value);
 
 }  // namespace math

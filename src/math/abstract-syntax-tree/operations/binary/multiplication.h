@@ -19,14 +19,15 @@ class Multiplication final : public BinaryOperation {
       : BinaryOperation(std::move(left), std::move(right)) {
   }
 
-  std::string GetInfix(int previous_priority,
-                       const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) override;
-  std::string GetRPN(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) override;
-  std::unique_ptr<TreeNode> GetDerivative() override;
-  Number GetNumericResult(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) override;
   constants::Expressions GetType() override;
-  std::optional<std::unique_ptr<TreeNode>> Simplify() override;
-  bool IsContainVariable() override;
+
+  std::string GetInfix(int previous_priority) override;
+  std::string GetRPN() override;
+
+  std::unique_ptr<TreeNode> Evaluate() override;
+  std::unique_ptr<TreeNode> GetDerivative(const Symbol& d) override;
+
+  std::unique_ptr<TreeNode> Simplify() override;
   std::unique_ptr<TreeNode> Clone() override;
 
  private:

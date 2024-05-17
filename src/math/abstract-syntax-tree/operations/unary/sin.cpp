@@ -2,46 +2,47 @@
 
 namespace math {
 
-std::string SinNode::GetInfix(int previous_priority,
-                              const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
+std::string SinNode::GetInfix(int previous_priority) {
   std::stringstream stream;
-  stream << constants::Labels::kSin << constants::Labels::kOpenParen << argument_->GetInfix(0, variable_to_value)
+  stream << constants::Labels::kSin << constants::Labels::kOpenParen << argument_->GetInfix(0)
          << constants::Labels::kEndParen;
   return stream.str();
 }
 
-std::string SinNode::GetRPN(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
+std::string SinNode::GetRPN() {
   std::stringstream stream;
-  stream << argument_->GetRPN(variable_to_value) << " " << constants::Labels::kSin;
+  stream << argument_->GetRPN() << " " << constants::Labels::kSin;
   return stream.str();
 }
 
-std::unique_ptr<TreeNode> SinNode::GetDerivative() {
-  return std::make_unique<Multiplication>(std::make_unique<CosNode>(argument_->Clone()), argument_->GetDerivative());
-}
-
-Number SinNode::GetNumericResult(const std::unordered_map<Symbol, Number, SymbolHash>& variable_to_value) {
-  return std::sin(argument_->GetNumericResult(variable_to_value).GetValue());  // FIXME Функция SinNode
+std::unique_ptr<TreeNode> SinNode::GetDerivative(const Symbol& d) {
+  return std::make_unique<Multiplication>(std::make_unique<CosNode>(argument_->Clone()), argument_->GetDerivative(d));
 }
 
 constants::Expressions SinNode::GetType() {
   return constants::Expressions::SIN;
 }
 
-std::optional<std::unique_ptr<TreeNode>> SinNode::Simplify() {
+std::unique_ptr<TreeNode> SinNode::Simplify() {
   if (auto simplified = argument_->Simplify()) {
-    argument_ = std::move(*simplified);
+    argument_ = std::move(simplified);
   }
 
-  return std::nullopt;
-}
-
-bool SinNode::IsContainVariable() {
-  return argument_->IsContainVariable();
+  return nullptr;
 }
 
 std::unique_ptr<TreeNode> SinNode::Clone() {
   return std::make_unique<SinNode>(argument_->Clone());
+}
+
+std::unique_ptr<TreeNode> SinNode::Evaluate() {
+  auto arg_result = argument_->Evaluate();
+
+  if (auto result = GetNumber(arg_result)) {
+    return std::make_unique<NumberNode>(Sin(*result));
+  }
+
+  return std::make_unique<SinNode>(std::move(arg_result));
 }
 
 }  // namespace math

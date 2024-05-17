@@ -1,8 +1,14 @@
 #pragma once
 
-#include <numbers>
+#include <algorithm>
+#include <cstdint>
+#include <limits>
 #include <ostream>
+#include <stdexcept>
 #include <string>
+#include <valarray>
+#include "constants_storage.h"
+
 namespace math {
 
 class Number {
