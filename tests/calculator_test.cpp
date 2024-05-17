@@ -1,11 +1,10 @@
+#define CATCH_CONFIG_MAIN
 #include <limits>
 
-#include <catch2/catch_test_macros.hpp>
-#include <catch2/matchers/catch_matchers.hpp>
-#include <catch2/matchers/catch_matchers_floating_point.hpp>
+#include "catch.hpp"
 
-#include "math/calc/calculator.h"
-#include "math/calc/calculator.h"  // check include guards
+#include "math/stack_calc/calculator.h"
+#include "math/stack_calc/calculator.h"  // check include guards
 
 TEST_CASE("3", "RPN") {
   math::Calculator calc;

@@ -1,8 +1,8 @@
-#include <catch2/catch_test_macros.hpp>
-#include <catch2/matchers/catch_matchers.hpp>
+#define CATCH_CONFIG_MAIN
+#include "catch.hpp"
 
-#include "utils/converter/converter.h"
-#include "utils/converter/converter.h"  // check include guards
+#include "math/utils/converter/converter.h"
+#include "math/utils/converter/converter.h"  // check include guards
 
 using utils::Converter;
 

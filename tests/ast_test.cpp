@@ -1,3 +1,4 @@
+#define CATCH_CONFIG_MAIN
 #include "utils/abstract-syntax-tree/ast.h"
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers.hpp>
@@ -10,14 +11,14 @@
 #include "utils/converter/converter.h"
 
 TEST_CASE("Simple shared_ptr constructor test", "AST") {
-  auto left_operand = std::make_shared<math::Number>(2);
+  auto left_operand = std::make_unique<math::Number>(2);
   auto right_operand =
-      std::make_shared<math::Addition>(std::make_shared<math::Variable>('x'), std::make_shared<math::Number>(1));
+      std::make_unique<math::Addition>(std::make_unique<math::Variable>('x'), std::make_unique<math::Number>(1));
 
-  std::shared_ptr<math::Expression> root = std::make_shared<math::Multiplication>(left_operand, right_operand);
+  std::unique_ptr<math::Expression> root =
+      std::make_unique<math::Multiplication>(std::move(left_operand), std::move(right_operand));
 
-  utils::AbstractSyntaxTree ast(root);
-  CHECK(ast.GetRoot() == root);
+  utils::AbstractSyntaxTree ast(std::move(root));
   CHECK(ast.GetInfixExpression({}) == "2 * (x + 1)");
   CHECK(ast.GetRPNExpression({}) == "2 x 1 + *");
   CHECK(ast.GetNumericResult({{'x', 12}}) == 26);

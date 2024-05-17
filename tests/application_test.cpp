@@ -1,9 +1,9 @@
-#include <catch2/catch_test_macros.hpp>
-#include <catch2/matchers/catch_matchers.hpp>
-#include <catch2/matchers/catch_matchers_floating_point.hpp>
+#define CATCH_CONFIG_MAIN
 
-#include "app/application.h"
-#include "app/application.h"  // check include guards
+#include "catch.hpp"
+
+#include "../samples/app/application.h"
+#include "../samples/app/application.h"  // check include guards
 
 TEST_CASE("Simple Test", "RPN") {
   app::Application application;
