@@ -3,11 +3,11 @@
 
 #include "catch.hpp"
 
-#include "math/stack_calc/calculator.h"
-#include "math/stack_calc/calculator.h"  // check include guards
+#include "symcpp/stack_calc/calculator.h"
+#include "symcpp/stack_calc/calculator.h"  // check include guards
 
 TEST_CASE("3", "RPN") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "3";
 
   auto ans = calc.Calculate(expression);
@@ -16,7 +16,7 @@ TEST_CASE("3", "RPN") {
 }
 
 TEST_CASE("3.15", "RPN") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "3.15";
 
   auto ans = calc.Calculate(expression);
@@ -25,7 +25,7 @@ TEST_CASE("3.15", "RPN") {
 }
 
 TEST_CASE("3.", "RPN") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "3.";
 
   auto ans = calc.Calculate(expression);
@@ -34,7 +34,7 @@ TEST_CASE("3.", "RPN") {
 }
 
 TEST_CASE("3,", "RPN") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "3,";
 
   auto ans = calc.Calculate(expression);
@@ -43,7 +43,7 @@ TEST_CASE("3,", "RPN") {
 }
 
 TEST_CASE("3 4", "RPN") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "3 4";
 
   auto ans = calc.Calculate(expression);
@@ -52,7 +52,7 @@ TEST_CASE("3 4", "RPN") {
 }
 
 TEST_CASE("3 ~", "RPN") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "3 ~";
 
   auto ans = calc.Calculate(expression);
@@ -61,7 +61,7 @@ TEST_CASE("3 ~", "RPN") {
 }
 
 TEST_CASE("3 -", "RPN") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "3 -";
 
   auto ans = calc.Calculate(expression);
@@ -70,7 +70,7 @@ TEST_CASE("3 -", "RPN") {
 }
 
 TEST_CASE("3 +", "RPN") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "3 +";
 
   auto ans = calc.Calculate(expression);
@@ -79,7 +79,7 @@ TEST_CASE("3 +", "RPN") {
 }
 
 TEST_CASE("3 + +", "RPN") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "3 + +";
 
   auto ans = calc.Calculate(expression);
@@ -88,7 +88,7 @@ TEST_CASE("3 + +", "RPN") {
 }
 
 TEST_CASE("3 ~ ~", "RPN") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "3 ~ ~";
 
   auto ans = calc.Calculate(expression);
@@ -97,7 +97,7 @@ TEST_CASE("3 ~ ~", "RPN") {
 }
 
 TEST_CASE("3 - -", "RPN") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "3 - -";
 
   auto ans = calc.Calculate(expression);
@@ -106,7 +106,7 @@ TEST_CASE("3 - -", "RPN") {
 }
 
 TEST_CASE("3 ~ -", "RPN") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "3 ~ -";
 
   auto ans = calc.Calculate(expression);
@@ -115,7 +115,7 @@ TEST_CASE("3 ~ -", "RPN") {
 }
 
 TEST_CASE("pi", "RPN") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "pi";
 
   auto ans = calc.Calculate(expression);
@@ -124,7 +124,7 @@ TEST_CASE("pi", "RPN") {
 }
 
 TEST_CASE("e", "RPN") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "e";
 
   auto ans = calc.Calculate(expression);
@@ -133,7 +133,7 @@ TEST_CASE("e", "RPN") {
 }
 
 TEST_CASE("3 4 +", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "3 4 +";
 
   auto ans = calc.Calculate(expression);
@@ -142,7 +142,7 @@ TEST_CASE("3 4 +", "[RPN]") {
 }
 
 TEST_CASE("3.5 4.25 +", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "3.5 4.25 +";
 
   auto ans = calc.Calculate(expression);
@@ -151,7 +151,7 @@ TEST_CASE("3.5 4.25 +", "[RPN]") {
 }
 
 TEST_CASE("1 2 + 4 * 3 +", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "1 2 + 4 * 3 +";
 
   auto ans = calc.Calculate(expression);
@@ -160,7 +160,7 @@ TEST_CASE("1 2 + 4 * 3 +", "[RPN]") {
 }
 
 TEST_CASE("7 2 3 * −", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "7 2 3 * -";
 
   auto ans = calc.Calculate(expression);
@@ -169,7 +169,7 @@ TEST_CASE("7 2 3 * −", "[RPN]") {
 }
 
 TEST_CASE("8 9 + 1 7 - *", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "8 9 + 1 7 - *";
 
   auto ans = calc.Calculate(expression);
@@ -178,7 +178,7 @@ TEST_CASE("8 9 + 1 7 - *", "[RPN]") {
 }
 
 TEST_CASE("1 2 /", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "1 2 /";
 
   auto ans = calc.Calculate(expression);
@@ -187,7 +187,7 @@ TEST_CASE("1 2 /", "[RPN]") {
 }
 
 TEST_CASE("1 2 *", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "1 2 *";
 
   auto ans = calc.Calculate(expression);
@@ -196,7 +196,7 @@ TEST_CASE("1 2 *", "[RPN]") {
 }
 
 TEST_CASE("1 2 +", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "1 2 +";
 
   auto ans = calc.Calculate(expression);
@@ -205,7 +205,7 @@ TEST_CASE("1 2 +", "[RPN]") {
 }
 
 TEST_CASE("1 2 -", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "1 2 -";
 
   auto ans = calc.Calculate(expression);
@@ -214,7 +214,7 @@ TEST_CASE("1 2 -", "[RPN]") {
 }
 
 TEST_CASE("1.5 2 /", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "1.5 2 /";
 
   auto ans = calc.Calculate(expression);
@@ -223,7 +223,7 @@ TEST_CASE("1.5 2 /", "[RPN]") {
 }
 
 TEST_CASE("1.5 1.5 *", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "1.5 1.5 *";
 
   auto ans = calc.Calculate(expression);
@@ -232,7 +232,7 @@ TEST_CASE("1.5 1.5 *", "[RPN]") {
 }
 
 TEST_CASE("1.5 0.75 -", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "1.5 0.75 /";
 
   auto ans = calc.Calculate(expression);
@@ -241,7 +241,7 @@ TEST_CASE("1.5 0.75 -", "[RPN]") {
 }
 
 TEST_CASE("2 3 ^", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "2 3 ^";
 
   auto ans = calc.Calculate(expression);
@@ -250,7 +250,7 @@ TEST_CASE("2 3 ^", "[RPN]") {
 }
 
 TEST_CASE("1.5 2 ^", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "1.5 2 ^";
 
   auto ans = calc.Calculate(expression);
@@ -259,7 +259,7 @@ TEST_CASE("1.5 2 ^", "[RPN]") {
 }
 
 TEST_CASE("2 0 ^", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "2 0 ^";
 
   auto ans = calc.Calculate(expression);
@@ -268,7 +268,7 @@ TEST_CASE("2 0 ^", "[RPN]") {
 }
 
 TEST_CASE("4 0.5 ^", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "4 0.5 ^";
 
   auto ans = calc.Calculate(expression);
@@ -277,7 +277,7 @@ TEST_CASE("4 0.5 ^", "[RPN]") {
 }
 
 TEST_CASE("2 0 1 - ^", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "2 0 1 - ^";
 
   auto ans = calc.Calculate(expression);
@@ -286,7 +286,7 @@ TEST_CASE("2 0 1 - ^", "[RPN]") {
 }
 
 TEST_CASE("4 sqrt", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "4 sqrt";
 
   auto ans = calc.Calculate(expression);
@@ -295,7 +295,7 @@ TEST_CASE("4 sqrt", "[RPN]") {
 }
 
 TEST_CASE("2.25 sqrt", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "2.25 sqrt";
 
   auto ans = calc.Calculate(expression);
@@ -304,7 +304,7 @@ TEST_CASE("2.25 sqrt", "[RPN]") {
 }
 
 TEST_CASE("0 sqrt", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "0 sqrt";
 
   auto ans = calc.Calculate(expression);
@@ -313,7 +313,7 @@ TEST_CASE("0 sqrt", "[RPN]") {
 }
 
 TEST_CASE("0 sin", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "0 sin";
 
   auto ans = calc.Calculate(expression);
@@ -322,7 +322,7 @@ TEST_CASE("0 sin", "[RPN]") {
 }
 
 TEST_CASE("pi sin", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "pi sin";
 
   auto ans = calc.Calculate(expression);
@@ -331,7 +331,7 @@ TEST_CASE("pi sin", "[RPN]") {
 }
 
 TEST_CASE("pi cos", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "pi cos";
 
   auto ans = calc.Calculate(expression);
@@ -340,7 +340,7 @@ TEST_CASE("pi cos", "[RPN]") {
 }
 
 TEST_CASE("0 cos", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "0 cos";
 
   auto ans = calc.Calculate(expression);
@@ -349,7 +349,7 @@ TEST_CASE("0 cos", "[RPN]") {
 }
 
 TEST_CASE("pi 4 / tg", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "pi 4 / tg";
 
   auto ans = calc.Calculate(expression);
@@ -358,7 +358,7 @@ TEST_CASE("pi 4 / tg", "[RPN]") {
 }
 
 TEST_CASE("pi tg", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "pi tg";
 
   auto ans = calc.Calculate(expression);
@@ -367,7 +367,7 @@ TEST_CASE("pi tg", "[RPN]") {
 }
 
 TEST_CASE("pi tan", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "pi tan";
 
   auto ans = calc.Calculate(expression);
@@ -376,7 +376,7 @@ TEST_CASE("pi tan", "[RPN]") {
 }
 
 TEST_CASE("0 tg", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "0 tg";
 
   auto ans = calc.Calculate(expression);
@@ -385,7 +385,7 @@ TEST_CASE("0 tg", "[RPN]") {
 }
 
 TEST_CASE("1 ln", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "1 ln";
 
   auto ans = calc.Calculate(expression);
@@ -394,7 +394,7 @@ TEST_CASE("1 ln", "[RPN]") {
 }
 
 TEST_CASE("2.71 ln", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "2.71 ln";
 
   auto ans = calc.Calculate(expression);
@@ -403,7 +403,7 @@ TEST_CASE("2.71 ln", "[RPN]") {
 }
 
 TEST_CASE("x ln, x = e", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "x ln";
   calc.AddVariable('x', std::numbers::e);
 
@@ -413,7 +413,7 @@ TEST_CASE("x ln, x = e", "[RPN]") {
 }
 
 TEST_CASE("a b ^, a = 2, b = 3", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "a b ^";
   calc.AddVariable('a', 2.);
   calc.AddVariable('b', 3.);
@@ -424,7 +424,7 @@ TEST_CASE("a b ^, a = 2, b = 3", "[RPN]") {
 }
 
 TEST_CASE("2 3 ^, a = 4, b = 3", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "2 3 ^";
   calc.AddVariable('a', 4.);
   calc.AddVariable('b', 3.);
@@ -435,7 +435,7 @@ TEST_CASE("2 3 ^, a = 4, b = 3", "[RPN]") {
 }
 
 TEST_CASE("CheckCalcMemory", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression_1 = "1 2 +";
   std::string expression_2 = "1 -";
 
@@ -446,7 +446,7 @@ TEST_CASE("CheckCalcMemory", "[RPN]") {
 }
 
 TEST_CASE("ZeroAddition", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression_1 = "1 1 -";
   std::string expression_2 = "0 +";
 
@@ -457,7 +457,7 @@ TEST_CASE("ZeroAddition", "[RPN]") {
 }
 
 TEST_CASE("ResetTest", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression_1 = "1 5 -";
   std::string expression_2 = "1 2 +";
 
@@ -471,57 +471,58 @@ TEST_CASE("ResetTest", "[RPN]") {
 }
 
 TEST_CASE("EmptyString", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression;
 
-  CHECK_THROWS_WITH(calc.Calculate(expression), constants::ExceptionMessage::kEmptyExpression.data());
+  CHECK_THROWS_WITH(calc.Calculate(expression), symcpp::constants::ExceptionMessage::kEmptyExpression.data());
 }
 
 TEST_CASE("NoOperandsEntered", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "+";
 
-  CHECK_THROWS_WITH(calc.Calculate(expression), constants::ExceptionMessage::kNoOperands.data());
+  CHECK_THROWS_WITH(calc.Calculate(expression), symcpp::constants::ExceptionMessage::kNoOperands.data());
 }
 
 TEST_CASE("OnlyOneOperandEntered", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "1 *";
 
-  CHECK_THROWS_WITH(calc.Calculate(expression), constants::ExceptionMessage::kNoOperands.data());
+  CHECK_THROWS_WITH(calc.Calculate(expression), symcpp::constants::ExceptionMessage::kNoOperands.data());
 }
 
 TEST_CASE("WrongOperandFormat", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "bca abc +";
 
-  CHECK_THROWS_WITH(calc.Calculate(expression), std::string(constants::ExceptionMessage::kWrongFormat.data()) + "bca");
+  CHECK_THROWS_WITH(calc.Calculate(expression),
+                    std::string(symcpp::constants::ExceptionMessage::kWrongFormat.data()) + "bca");
 }
 
 TEST_CASE("ZeroDivision", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "1 0 /";
 
-  CHECK_THROWS_WITH(calc.Calculate(expression), constants::ExceptionMessage::kZeroDivision.data());
+  CHECK_THROWS_WITH(calc.Calculate(expression), symcpp::constants::ExceptionMessage::kZeroDivision.data());
 }
 
 TEST_CASE("ZeroInLogarithm", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "0 ln";
 
-  CHECK_THROWS_WITH(calc.Calculate(expression), constants::ExceptionMessage::kWrongLogarithm.data());
+  CHECK_THROWS_WITH(calc.Calculate(expression), symcpp::constants::ExceptionMessage::kWrongLogarithm.data());
 }
 
 TEST_CASE("TangensPi/2", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "pi 2 / tg";
 
-  CHECK_THROWS_WITH(calc.Calculate(expression), constants::ExceptionMessage::kWrongTangent.data());
+  CHECK_THROWS_WITH(calc.Calculate(expression), symcpp::constants::ExceptionMessage::kWrongTangent.data());
 }
 
 TEST_CASE("NegativeSQRT", "[RPN]") {
-  math::Calculator calc;
+  symcpp::math::Calculator calc;
   std::string expression = "1 ~ sqrt";
 
-  CHECK_THROWS_WITH(calc.Calculate(expression), constants::ExceptionMessage::kNegativeRoot.data());
+  CHECK_THROWS_WITH(calc.Calculate(expression), symcpp::constants::ExceptionMessage::kNegativeRoot.data());
 }

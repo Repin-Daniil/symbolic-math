@@ -1,8 +1,10 @@
 #include <iostream>
 
-#include "../samples/app/application.h"
+#include "../samples/stack_calculator/app/application.h"
 
 int main() {
+  using namespace symcpp;
+
   try {
     app::Application app;
 

@@ -1,14 +1,14 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
-#include "math/abstract-syntax-tree/operands/number_node.h"
-#include "math/abstract-syntax-tree/operands/number_node.h"  // check include guards
-#include "math/abstract-syntax-tree/operands/variable_node.h"
-#include "math/abstract-syntax-tree/operands/variable_node.h"  // check include guards
-#include "math/constants_storage.h"
+#include "symcpp/abstract-syntax-tree/operands/number_node.h"
+#include "symcpp/abstract-syntax-tree/operands/number_node.h"  // check include guards
+#include "symcpp/abstract-syntax-tree/operands/variable_node.h"
+#include "symcpp/abstract-syntax-tree/operands/variable_node.h"  // check include guards
+#include "symcpp/constants_storage.h"
 
 TEST_CASE("3", "NumberNode") {
-  math::NumberNode number(3);
+  symcpp::math::NumberNode number(3);
 
   auto rpn = number.GetRPN();
   auto infix = number.GetInfix(0);
@@ -23,7 +23,7 @@ TEST_CASE("3", "NumberNode") {
 }
 
 TEST_CASE("Polymorphic 3", "NumberNode") {
-  std::unique_ptr<math::TreeNode> number = std::make_unique<math::NumberNode>(3);
+  std::unique_ptr<symcpp::math::TreeNode> number = std::make_unique<symcpp::math::NumberNode>(3);
 
   auto rpn = number->GetRPN();
   auto infix = number->GetInfix(0);
@@ -38,7 +38,7 @@ TEST_CASE("Polymorphic 3", "NumberNode") {
 }
 
 TEST_CASE("3.14", "NumberNode") {
-  math::NumberNode number(3.14);
+  symcpp::math::NumberNode number(3.14);
 
   auto rpn = number.GetRPN();
   auto infix = number.GetInfix(0);
@@ -53,7 +53,7 @@ TEST_CASE("3.14", "NumberNode") {
 }
 
 TEST_CASE("-3.140", "NumberNode") {
-  math::NumberNode number(-3.140);
+  symcpp::math::NumberNode number(-3.140);
 
   auto rpn = number.GetRPN();
   auto infix = number.GetInfix(0);
@@ -66,7 +66,7 @@ TEST_CASE("-3.140", "NumberNode") {
 }
 
 TEST_CASE("5.0034", "NumberNode") {
-  math::NumberNode number(5.0034);
+  symcpp::math::NumberNode number(5.0034);
 
   auto rpn = number.GetRPN();
   auto infix = number.GetInfix(0);
@@ -79,7 +79,7 @@ TEST_CASE("5.0034", "NumberNode") {
 }
 
 TEST_CASE("-5.0034", "NumberNode") {
-  math::NumberNode number(-5.0034);
+  symcpp::math::NumberNode number(-5.0034);
 
   auto rpn = number.GetRPN();
   auto infix = number.GetInfix(0);
@@ -92,7 +92,7 @@ TEST_CASE("-5.0034", "NumberNode") {
 }
 
 TEST_CASE("5.0110", "NumberNode") {
-  math::NumberNode number(5.0110);
+  symcpp::math::NumberNode number(5.0110);
 
   auto rpn = number.GetRPN();
   auto infix = number.GetInfix(0);
@@ -107,8 +107,8 @@ TEST_CASE("5.0110", "NumberNode") {
 }
 
 TEST_CASE("x", "Variable") {
-  math::Symbol x('x');
-  math::Variable var(x);
+  symcpp::Symbol x('x');
+  symcpp::math::Variable var(x);
   x = 3;
 
   auto rpn = var.GetRPN();
@@ -124,7 +124,7 @@ TEST_CASE("x", "Variable") {
 }
 
 TEST_CASE("Polymorphic y", "Variable") {
-  std::unique_ptr<math::TreeNode> var = std::make_unique<math::Variable>('y');
+  std::unique_ptr<symcpp::math::TreeNode> var = std::make_unique<symcpp::math::Variable>('y');
 
   auto rpn = var->GetRPN();
   auto infix = var->GetInfix(0);
@@ -139,7 +139,7 @@ TEST_CASE("Polymorphic y", "Variable") {
 }
 
 TEST_CASE("Unknown variable exception", "Variable") {
-  math::Variable var('z');
+  symcpp::math::Variable var('z');
 
   auto rpn = var.GetRPN();
   auto infix = var.GetInfix(0);

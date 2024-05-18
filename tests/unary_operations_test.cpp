@@ -1,27 +1,27 @@
 // #define CATCH_CONFIG_MAIN
 // #include "catch.hpp"
 
-#include "math/abstract-syntax-tree/operands/number_node.h"
-#include "math/abstract-syntax-tree/operands/variable_node.h"
+#include "symcpp/abstract-syntax-tree/operands/number_node.h"
+#include "symcpp/abstract-syntax-tree/operands/variable_node.h"
 
-#include "math/abstract-syntax-tree/operations/unary/cos.h"
-#include "math/abstract-syntax-tree/operations/unary/cos.h"  // check include guards
-#include "math/abstract-syntax-tree/operations/unary/logarithm.h"
-#include "math/abstract-syntax-tree/operations/unary/logarithm.h"  // check include guards
-#include "math/abstract-syntax-tree/operations/unary/sin.h"
-#include "math/abstract-syntax-tree/operations/unary/sin.h"  // check include guards
-#include "math/abstract-syntax-tree/operations/unary/sqrt.h"
-#include "math/abstract-syntax-tree/operations/unary/sqrt.h"  // check include guards
-#include "math/abstract-syntax-tree/operations/unary/tangent.h"
-#include "math/abstract-syntax-tree/operations/unary/tangent.h"  // check include guards
-#include "math/abstract-syntax-tree/operations/unary/unary_minus.h"
-#include "math/abstract-syntax-tree/operations/unary/unary_minus.h"  // check include guards
+#include "symcpp/abstract-syntax-tree/operations/unary/cos.h"
+#include "symcpp/abstract-syntax-tree/operations/unary/cos.h"  // check include guards
+#include "symcpp/abstract-syntax-tree/operations/unary/logarithm.h"
+#include "symcpp/abstract-syntax-tree/operations/unary/logarithm.h"  // check include guards
+#include "symcpp/abstract-syntax-tree/operations/unary/sin.h"
+#include "symcpp/abstract-syntax-tree/operations/unary/sin.h"  // check include guards
+#include "symcpp/abstract-syntax-tree/operations/unary/sqrt.h"
+#include "symcpp/abstract-syntax-tree/operations/unary/sqrt.h"  // check include guards
+#include "symcpp/abstract-syntax-tree/operations/unary/tangent.h"
+#include "symcpp/abstract-syntax-tree/operations/unary/tangent.h"  // check include guards
+#include "symcpp/abstract-syntax-tree/operations/unary/unary_minus.h"
+#include "symcpp/abstract-syntax-tree/operations/unary/unary_minus.h"  // check include guards
 
 //
 // TEST_CASE("-5", "UnaryMinus") {
-//  auto operand = std::make_unique<math::NumberNode>(5);
+//  auto operand = std::make_unique<symcpp::NumberNode>(5);
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::UnaryMinus>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::UnaryMinus>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "-5");
@@ -34,9 +34,9 @@
 //}
 //
 // TEST_CASE("-x {3}", "UnaryMinus") {
-//  auto operand = std::make_unique<math::Variable>('x');
+//  auto operand = std::make_unique<symcpp::Variable>('x');
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::UnaryMinus>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::UnaryMinus>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({{'x', -3}}) == "-(-3)");
@@ -49,9 +49,9 @@
 //}
 //
 // TEST_CASE("-x", "UnaryMinus") {
-//  auto operand = std::make_unique<math::Variable>('x');
+//  auto operand = std::make_unique<symcpp::Variable>('x');
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::UnaryMinus>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::UnaryMinus>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "-x");
@@ -64,10 +64,10 @@
 //}
 //
 // TEST_CASE("-(-x))", "UnaryMinus") {
-//  auto operand = std::make_unique<math::Variable>('x');
+//  auto operand = std::make_unique<symcpp::Variable>('x');
 //
 //  auto result = utils::AbstractSyntaxTree(
-//      std::make_unique<math::UnaryMinus>(std::make_unique<math::UnaryMinus>(std::move(operand))));
+//      std::make_unique<symcpp::UnaryMinus>(std::make_unique<symcpp::UnaryMinus>(std::move(operand))));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "x");
@@ -80,9 +80,9 @@
 //}
 //
 // TEST_CASE("-(-3))", "UnaryMinus") {
-//  auto operand = std::make_unique<math::NumberNode>(-3);
+//  auto operand = std::make_unique<symcpp::NumberNode>(-3);
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::UnaryMinus>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::UnaryMinus>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "3");
@@ -95,10 +95,10 @@
 //}
 //
 // TEST_CASE("-(x + 1)", "UnaryMinus") {
-//  auto operand = std::make_unique<math::Variable>('x');
+//  auto operand = std::make_unique<symcpp::Variable>('x');
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::UnaryMinus>(
-//      std::make_unique<math::Addition>(std::move(operand), std::make_unique<math::NumberNode>(1))));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::UnaryMinus>(
+//      std::make_unique<symcpp::Addition>(std::move(operand), std::make_unique<symcpp::NumberNode>(1))));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "-(x + 1)");
@@ -111,9 +111,9 @@
 //}
 //
 // TEST_CASE("tan(1)", "TangentNode") {
-//  auto operand = std::make_unique<math::NumberNode>(1);
+//  auto operand = std::make_unique<symcpp::NumberNode>(1);
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::TangentNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::TangentNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "tan(1)");
@@ -126,9 +126,9 @@
 //}
 //
 // TEST_CASE("tan(x)", "TangentNode") {
-//  auto operand = std::make_unique<math::Variable>('x');
+//  auto operand = std::make_unique<symcpp::Variable>('x');
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::TangentNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::TangentNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "tan(x)");
@@ -143,10 +143,10 @@
 //
 // TEST_CASE("tan(x + 25.3)", "TangentNode") {
 //  auto operand =
-//      std::make_unique<math::Addition>(std::make_unique<math::Variable>('x'),
-//      std::make_unique<math::NumberNode>(25.3));
+//      std::make_unique<symcpp::Addition>(std::make_unique<symcpp::Variable>('x'),
+//      std::make_unique<symcpp::NumberNode>(25.3));
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::TangentNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::TangentNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "tan(x + 25.3)");
@@ -160,10 +160,10 @@
 //}
 //
 // TEST_CASE("tan(x) + 12", "TangentNode") {
-//  auto operand = std::make_unique<math::Variable>('x');
+//  auto operand = std::make_unique<symcpp::Variable>('x');
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Addition>(
-//      std::make_unique<math::TangentNode>(std::move(operand)), std::make_unique<math::NumberNode>(12)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::Addition>(
+//      std::make_unique<symcpp::TangentNode>(std::move(operand)), std::make_unique<symcpp::NumberNode>(12)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "tan(x) + 12");
@@ -177,9 +177,9 @@
 //}
 //
 // TEST_CASE("sin(1)", "SinNode") {
-//  auto operand = std::make_unique<math::NumberNode>(1);
+//  auto operand = std::make_unique<symcpp::NumberNode>(1);
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::SinNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::SinNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "sin(1)");
@@ -192,9 +192,9 @@
 //}
 //
 // TEST_CASE("sin(x)", "SinNode") {
-//  auto operand = std::make_unique<math::Variable>('x');
+//  auto operand = std::make_unique<symcpp::Variable>('x');
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::SinNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::SinNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "sin(x)");
@@ -208,10 +208,10 @@
 //
 // TEST_CASE("sin(x + 25.3)", "SinNode") {
 //  auto operand =
-//      std::make_unique<math::Addition>(std::make_unique<math::Variable>('x'),
-//      std::make_unique<math::NumberNode>(25.3));
+//      std::make_unique<symcpp::Addition>(std::make_unique<symcpp::Variable>('x'),
+//      std::make_unique<symcpp::NumberNode>(25.3));
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::SinNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::SinNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "sin(x + 25.3)");
@@ -224,10 +224,10 @@
 //}
 //
 // TEST_CASE("sin(x) + 12", "SinNode") {
-//  auto operand = std::make_unique<math::Variable>('x');
+//  auto operand = std::make_unique<symcpp::Variable>('x');
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Addition>(
-//      std::make_unique<math::SinNode>(std::move(operand)), std::make_unique<math::NumberNode>(12)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::Addition>(
+//      std::make_unique<symcpp::SinNode>(std::move(operand)), std::make_unique<symcpp::NumberNode>(12)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "sin(x) + 12");
@@ -240,9 +240,9 @@
 //}
 //
 // TEST_CASE("cos(1)", "CosNode") {
-//  auto operand = std::make_unique<math::NumberNode>(1);
+//  auto operand = std::make_unique<symcpp::NumberNode>(1);
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::CosNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::CosNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "cos(1)");
@@ -255,9 +255,9 @@
 //}
 //
 // TEST_CASE("cos(x)", "CosNode") {
-//  auto operand = std::make_unique<math::Variable>('x');
+//  auto operand = std::make_unique<symcpp::Variable>('x');
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::CosNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::CosNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "cos(x)");
@@ -271,10 +271,10 @@
 //
 // TEST_CASE("cos(x + 25.3)", "CosNode") {
 //  auto operand =
-//      std::make_unique<math::Addition>(std::make_unique<math::Variable>('x'),
-//      std::make_unique<math::NumberNode>(25.3));
+//      std::make_unique<symcpp::Addition>(std::make_unique<symcpp::Variable>('x'),
+//      std::make_unique<symcpp::NumberNode>(25.3));
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::CosNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::CosNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "cos(x + 25.3)");
@@ -287,10 +287,10 @@
 //}
 //
 // TEST_CASE("cos(x) + 12", "CosNode") {
-//  auto operand = std::make_unique<math::Variable>('x');
+//  auto operand = std::make_unique<symcpp::Variable>('x');
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Addition>(
-//      std::make_unique<math::CosNode>(std::move(operand)), std::make_unique<math::NumberNode>(12)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::Addition>(
+//      std::make_unique<symcpp::CosNode>(std::move(operand)), std::make_unique<symcpp::NumberNode>(12)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "cos(x) + 12");
@@ -303,9 +303,9 @@
 //}
 //
 // TEST_CASE("ln(1)", "LogarithmNode") {
-//  auto operand = std::make_unique<math::NumberNode>(1);
+//  auto operand = std::make_unique<symcpp::NumberNode>(1);
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::LogarithmNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::LogarithmNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "ln(1)");
@@ -318,9 +318,9 @@
 //}
 //
 // TEST_CASE("ln(x)", "LogarithmNode") {
-//  auto operand = std::make_unique<math::Variable>('x');
+//  auto operand = std::make_unique<symcpp::Variable>('x');
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::LogarithmNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::LogarithmNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "ln(x)");
@@ -334,10 +334,10 @@
 //
 // TEST_CASE("ln(x + 25.3)", "LogarithmNode") {
 //  auto operand =
-//      std::make_unique<math::Addition>(std::make_unique<math::Variable>('x'),
-//      std::make_unique<math::NumberNode>(25.3));
+//      std::make_unique<symcpp::Addition>(std::make_unique<symcpp::Variable>('x'),
+//      std::make_unique<symcpp::NumberNode>(25.3));
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::LogarithmNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::LogarithmNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "ln(x + 25.3)");
@@ -350,10 +350,10 @@
 //}
 //
 // TEST_CASE("ln(x) + 12", "LogarithmNode") {
-//  auto operand = std::make_unique<math::Variable>('x');
+//  auto operand = std::make_unique<symcpp::Variable>('x');
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Addition>(
-//      std::make_unique<math::LogarithmNode>(std::move(operand)), std::make_unique<math::NumberNode>(12)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::Addition>(
+//      std::make_unique<symcpp::LogarithmNode>(std::move(operand)), std::make_unique<symcpp::NumberNode>(12)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "ln(x) + 12");
@@ -366,9 +366,9 @@
 //}
 //
 // TEST_CASE("sqrt(1)", "SquareRootNode") {
-//  auto operand = std::make_unique<math::NumberNode>(1);
+//  auto operand = std::make_unique<symcpp::NumberNode>(1);
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::SquareRootNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::SquareRootNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "1");
@@ -381,9 +381,9 @@
 //}
 //
 // TEST_CASE("sqrt(4)", "SquareRootNode") {
-//  auto operand = std::make_unique<math::NumberNode>(4);
+//  auto operand = std::make_unique<symcpp::NumberNode>(4);
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::SquareRootNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::SquareRootNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "sqrt(4)");
@@ -396,9 +396,9 @@
 //}
 //
 // TEST_CASE("sqrt(x)", "SquareRootNode") {
-//  auto operand = std::make_unique<math::Variable>('x');
+//  auto operand = std::make_unique<symcpp::Variable>('x');
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::SquareRootNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::SquareRootNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "sqrt(x)");
@@ -412,10 +412,10 @@
 //
 // TEST_CASE("sqrt(x + 25.3)", "SquareRootNode") {
 //  auto operand =
-//      std::make_unique<math::Addition>(std::make_unique<math::Variable>('x'),
-//      std::make_unique<math::NumberNode>(25.3));
+//      std::make_unique<symcpp::Addition>(std::make_unique<symcpp::Variable>('x'),
+//      std::make_unique<symcpp::NumberNode>(25.3));
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::SquareRootNode>(std::move(operand)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::SquareRootNode>(std::move(operand)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "sqrt(x + 25.3)");
@@ -428,10 +428,10 @@
 //}
 //
 // TEST_CASE("sqrt(x) + 12", "SquareRootNode") {
-//  auto operand = std::make_unique<math::Variable>('x');
+//  auto operand = std::make_unique<symcpp::Variable>('x');
 //
-//  auto result = utils::AbstractSyntaxTree(std::make_unique<math::Addition>(
-//      std::make_unique<math::SquareRootNode>(std::move(operand)), std::make_unique<math::NumberNode>(12)));
+//  auto result = utils::AbstractSyntaxTree(std::make_unique<symcpp::Addition>(
+//      std::make_unique<symcpp::SquareRootNode>(std::move(operand)), std::make_unique<symcpp::NumberNode>(12)));
 //  auto derivative = result.GetDerivative();
 //
 //  CHECK(result.GetInfixExpression({}) == "sqrt(x) + 12");

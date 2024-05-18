@@ -2,8 +2,9 @@
 #include "symcpp.h"
 
 int main() {
-  using namespace math;
+  using namespace symcpp;
   using namespace std::literals;
+
   //  std::string_view stv("k");
   //  std::string str("s");
   //  {
@@ -39,25 +40,42 @@ int main() {
   //  auto result = SinNode(x + pi);
   //
   //  Equation eq(Pow(x, 2) - 12*x, 5);
-  //  TODO Expression нужно конструировать и от строки, чтобы вызывался ast_builder
+  // TODO Expression нужно конструировать и от строки, чтобы вызывался ast_builder
   // TODO Latex();
-  // TODO Нужны predefined константы
+  // TODO Разобрать кашу с пространствами имен
+  // TODO Разобраться с хедерами либы
 
-  //  {
-  //    // Демонстрация подстановки на шаредах
-  //    Symbol x = 'x';
-  //    const Symbol pi("pi", 3.14);  // а это константа
-  //
-  //    auto exp = x * 1 + Sin(pi * std::numbers::e);
-  //    //      std::cout << exp << std::endl;
-  //    x = 3;
-  //    std::cout << exp << std::endl;
-  //    x = 16;
-  //    std::cout << exp << std::endl;
-  //
-  //    x.Reset();
-  //    std::cout << exp << std::endl;
-  //  }
+  {
+    //    // Демонстрация подстановки на шаредах
+    Symbol x('x'), y('y');
+    Number num = 17;
+    auto exp = x * 13 + Sin(pi * y);
+    std::cout << exp << std::endl;
+    x = 3;
+    std::cout << exp << std::endl;
+    y = num / 2;
+    std::cout << exp << std::endl;
+
+    Number result = exp;
+    std::cout << result << std::endl;
+    auto derivative_of_num = Diff(result, x);
+    std::cout << derivative_of_num << std::endl;
+
+    auto derivative_of_func_x = Diff(exp, x);
+    std::cout << derivative_of_func_x << std::endl;
+
+    auto derivative_of_func_y = Diff(exp, y);
+    std::cout << derivative_of_func_y << std::endl;
+    Number result_2 = Evaluate(exp, {{x, 14}, {y, 17}});
+    std::cout << result_2 << std::endl;
+
+    x.Reset();
+    std::cout << exp << std::endl;
+    y.Reset();
+    std::cout << exp << std::endl;
+
+    std::cout << RPN(Log(exp)) << std::endl;
+  }
   //
   //  {
   //    // Операторы вывода
@@ -190,7 +208,6 @@ int main() {
 
   //  {
   //    // TODO Перегрузить оператор ввода для Symbol
-  //    // TODO Сделать конструирование Number от Expression, чтобы сам Evaluate вызывал
   //    Symbol x('x');
   //
   //    auto func = 12 * Sin(Log(x) * x) - Pow(x, Tan(x));
@@ -219,9 +236,28 @@ int main() {
   //  }
 
   {
-    Symbol x('x');
-    Number a = -2;
+    Symbol x('x'), y('y');
 
-    std::cout << x + a << std::endl;
+    auto Do = pi * (x + y / 2);
+    std::cout << "sin(" << Do << ") = " << Sin(Do) << std::endl;
+
+    auto Re = Substitute(Do, {{y, 1}});
+    std::cout << "sin(" << Re << ") = " << Sin(Re) << std::endl;
+
+    auto Mi = Re.Substitute({{x, 11}});
+    std::cout << "sin(" << Mi << ") = " << Sin(Mi) << std::endl;
+
+    Number Fa = Mi;
+    std::cout << "sin(" << Fa << ") = " << Sin(Fa) << std::endl;
+  }
+
+  {
+    Symbol x('x'), y('y'), z('z');
+
+    auto Do = pi * (x + y / 2);
+    std::cout << "sin(" << Do << ") = " << Sin(Do) << std::endl;
+
+    Number Fa = Evaluate(Do, {{x, 11}, {y, 1}});
+    std::cout << "sin(" << Fa << ") = " << Sin(Fa) << std::endl;
   }
 }

@@ -1,10 +1,10 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
-#include "math/utils/converter/converter.h"
-#include "math/utils/converter/converter.h"  // check include guards
+#include "symcpp/utils/converter/converter.h"
+#include "symcpp/utils/converter/converter.h"  // check include guards
 
-using utils::Converter;
+using symcpp::utils::Converter;
 
 TEST_CASE("3", "Converter") {
   std::string expression = "3";
@@ -585,17 +585,20 @@ TEST_CASE("sqrt(4^2)^2", "Converter") {
 TEST_CASE("((a)", "Converter") {
   std::string expression = "((a)";
 
-  CHECK_THROWS_WITH(Converter::ConvertInfixToRPN(expression), constants::ExceptionMessage::kUnbalancedBracket.data());
+  CHECK_THROWS_WITH(Converter::ConvertInfixToRPN(expression),
+                    symcpp::constants::ExceptionMessage::kUnbalancedBracket.data());
 }
 
 TEST_CASE("(a + b))*c", "Converter") {
   std::string expression = "(a + b))*c";
 
-  CHECK_THROWS_WITH(Converter::ConvertInfixToRPN(expression), constants::ExceptionMessage::kUnbalancedBracket.data());
+  CHECK_THROWS_WITH(Converter::ConvertInfixToRPN(expression),
+                    symcpp::constants::ExceptionMessage::kUnbalancedBracket.data());
 }
 
 TEST_CASE(")*c", "Converter") {
   std::string expression = ")*c";
 
-  CHECK_THROWS_WITH(Converter::ConvertInfixToRPN(expression), constants::ExceptionMessage::kUnbalancedBracket.data());
+  CHECK_THROWS_WITH(Converter::ConvertInfixToRPN(expression),
+                    symcpp::constants::ExceptionMessage::kUnbalancedBracket.data());
 }
