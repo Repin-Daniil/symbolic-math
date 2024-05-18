@@ -9,23 +9,22 @@ Symbol x('x'), y('y');
 Symbol& z(x);  // alias for x
 Number num = 17;
 
-auto exp = x * 13 + Sin(pi * e);  // exp = x * 13 + sin(pi * y)
+auto exp = Pow(x, 2) * 13 + Sin(pi * y);  // exp = x ^ 2 * 13 + sin(pi * y)
 
-x = 3;        // exp = 3 * 13 + sin(pi * y)
-y = num / 2;  // exp = 3 * 13 + sin(pi * 8.5)
+x = 3;        // exp = 3 ^ 2 * 13 + sin(pi * y)
+y = num / 2;  // exp = 3 ^ 2 * 13 + sin(pi * 8.5)
 
-Number result = exp;  // result = 40
+Number result = exp;  // result = 118
 
-auto derivative_of_num = Diff(result, x);  // = 0
-auto derivative_of_func_x = Diff(exp, x);  // = 13
-auto derivative_of_func_y = Diff(exp, y);  // = cos(pi * 8.5) * pi
+x.Reset();  // exp = x ^ 2 * 13 + sin(pi * 8.5)
+y.Reset();  // exp = x ^ 2 * 13 + sin(pi * y)
 
-Number result_2 = Evaluate(exp, {{x, 14}, {y, 17}});  // = 182
+auto derivative_of_func_x = Diff(exp, x);  // f`x(x,y) = 2 * x * 13
+auto derivative_of_func_y = Diff(exp, y);  // f`y(x,y) = cos(pi * y) * pi
 
-x.Reset();  // exp = x * 13 + sin(pi * 8.5)
-y.Reset();  // exp = x * 13 + sin(pi * y)
+Number result_2 = Evaluate(exp, {{x, 14}, {y, 17}});  // result_2 = 7.843064
 
-RPN(Log(exp))  // x 13 * pi y * sin + ln (reverse polish notation)
+RPN(exp + Log(Pow(x, y)))  // x 2 ^ 13 * pi y * sin + x y ^ ln + (reverse polish notation)
 ```
 
 ## Сборка библиотеки
