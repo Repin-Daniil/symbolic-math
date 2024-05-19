@@ -1,4 +1,5 @@
 #include "exponentiation.h"
+#include "symcpp.h"
 
 namespace symcpp::math {
 
@@ -79,6 +80,13 @@ std::unique_ptr<TreeNode> Exponentiation::Simplify() {
     return std::move(left_argument_);
   }
 
+  if (right_argument_->GetType() == constants::Expressions::LOGARITHM &&
+      ((left_argument_->GetType() == constants::Expressions::NUMBER &&
+        utils::Helper::IsEqual(Number(left_argument_->Evaluate()), std::numbers::e)) ||
+       (left_argument_->GetType() == constants::Expressions::CONSTANT && left_argument_->IsContainVariable('e')))) {
+    return dynamic_cast<UnaryOperation*>(right_argument_.get())->ReleaseArgument();
+  }
+
   return nullptr;
 }
 
@@ -92,7 +100,7 @@ std::unique_ptr<TreeNode> Exponentiation::Evaluate() {
 
   if (auto left = GetNumber(left_result)) {
     if (auto right = GetNumber(right_result)) {
-      return std::make_unique<NumberNode>(Pow(*left, *right));
+      return std::make_unique<NumberNode>(std::pow(left->GetValue(), right->GetValue()));
     }
   }
 

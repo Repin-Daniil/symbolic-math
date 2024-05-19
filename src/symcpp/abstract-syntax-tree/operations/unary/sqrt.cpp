@@ -56,7 +56,7 @@ std::unique_ptr<TreeNode> SquareRootNode::Evaluate() {
       throw std::runtime_error(constants::ExceptionMessage::kNegativeRoot.data());
     }
 
-    return std::make_unique<NumberNode>(Sqrt(*result));
+    return std::make_unique<NumberNode>(std::sqrt(result->GetValue()));
   }
 
   return std::make_unique<SquareRootNode>(std::move(arg_result));

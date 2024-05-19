@@ -137,43 +137,6 @@ Number operator+(const Number& number) {
   return number;
 }
 
-Number Log(const Number& argument) {
-  if (argument < 0 || std::abs(argument.GetValue() - 0) < std::numeric_limits<double>::epsilon()) {
-    throw std::runtime_error(constants::ExceptionMessage::kWrongLogarithm.data());
-  }
-
-  return std::log(argument.GetValue());
-}
-
-Number Sin(const Number& argument) {
-  return std::sin(argument.GetValue());
-}
-
-Number Cos(const Number& argument) {
-  return std::cos(argument.GetValue());
-}
-
-Number Tan(const Number& argument) {
-  if (std::abs(std::numbers::pi / 2.0 - std::fmod(argument.GetValue(), std::numbers::pi)) <
-      std::numeric_limits<double>::epsilon()) {
-    throw std::runtime_error(constants::ExceptionMessage::kWrongTangent.data());
-  }
-
-  return std::tan(argument.GetValue());
-}
-
-Number Sqrt(const Number& argument) {
-  if (argument < 0) {
-    throw std::runtime_error(constants::ExceptionMessage::kNegativeRoot.data());
-  }
-
-  return std::sqrt(argument.GetValue());
-}
-
-Number Pow(const Number& base, const Number& power) {
-  return std::pow(base.GetValue(), power.GetValue());
-}
-
 double Number::GetValue() const noexcept {
   return value_;
 }

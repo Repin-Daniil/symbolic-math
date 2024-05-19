@@ -39,7 +39,7 @@ std::unique_ptr<TreeNode> SinNode::Evaluate() {
   auto arg_result = argument_->Evaluate();
 
   if (auto result = GetNumber(arg_result)) {
-    return std::make_unique<NumberNode>(Sin(*result));
+    return std::make_unique<NumberNode>(std::sin(result->GetValue()));
   }
 
   return std::make_unique<SinNode>(std::move(arg_result));

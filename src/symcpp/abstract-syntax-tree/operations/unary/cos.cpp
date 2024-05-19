@@ -41,7 +41,7 @@ std::unique_ptr<TreeNode> CosNode::Evaluate() {
   auto arg_result = argument_->Evaluate();
 
   if (auto result = GetNumber(arg_result)) {
-    return std::make_unique<NumberNode>(Cos(*result));
+    return std::make_unique<NumberNode>(std::cos(result->GetValue()));
   }
 
   return std::make_unique<CosNode>(std::move(arg_result));

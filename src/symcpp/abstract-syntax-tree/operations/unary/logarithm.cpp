@@ -49,7 +49,7 @@ std::unique_ptr<TreeNode> LogarithmNode::Evaluate() {
       throw std::runtime_error(constants::ExceptionMessage::kWrongLogarithm.data());
     }
 
-    return std::make_unique<NumberNode>(Log(*result));
+    return std::make_unique<NumberNode>(std::log(result->GetValue()));
   }
 
   return std::make_unique<LogarithmNode>(std::move(arg_result));

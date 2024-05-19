@@ -54,12 +54,12 @@ bool operator<=(const Number& lhs, const Number& rhs);
 
 Number operator-(const Number& number);
 Number operator+(const Number& number);
-
-Number Log(const Number& argument);
-Number Sin(const Number& argument);
-Number Cos(const Number& argument);
-Number Tan(const Number& argument);
-Number Sqrt(const Number& argument);
-Number Pow(const Number& base, const Number& power);
+//
+// Number Log(const Number& argument);
+// Number Sin(const Number& argument);
+// Number Cos(const Number& argument);
+// Number Tan(const Number& argument);
+// Number Sqrt(const Number& argument);
+// Number Pow(const Number& base, const Number& power);
 
 }  // namespace symcpp

@@ -47,7 +47,7 @@ std::unique_ptr<TreeNode> TangentNode::Evaluate() {
       throw std::runtime_error(constants::ExceptionMessage::kWrongTangent.data());
     }
 
-    return std::make_unique<NumberNode>(Tan(*result));
+    return std::make_unique<NumberNode>(std::tan(result->GetValue()));
   }
 
   return std::make_unique<TangentNode>(std::move(arg_result));
