@@ -28,8 +28,9 @@ std::unique_ptr<TreeNode> LogarithmNode::Simplify() {
     argument_ = std::move(simplified);
   }
 
-  if (argument_->GetType() == constants::Expressions::NUMBER &&
-      utils::Helper::IsEqual(*GetNumber(argument_), std::numbers::e)) {
+  if ((argument_->GetType() == constants::Expressions::NUMBER &&
+       utils::Helper::IsEqual(*GetNumber(argument_), std::numbers::e)) ||
+      (argument_->GetType() == constants::Expressions::CONSTANT && argument_->IsContainVariable('e'))) {
     return std::make_unique<NumberNode>(1);
   }
 

@@ -75,11 +75,13 @@ add_executable(calculator tools/main_calc.cpp
 add_executable(lib_test tools/main_lib.cpp)
 add_executable(simple samples/simple/simple.cpp)
 add_executable(tangent_builder samples/tangent_builder/tangent_builder.cpp)
+add_executable(interactive_calc samples/interactive/interactive.cpp)
 
 target_link_libraries(lib_test PRIVATE SYMCPP)
 target_link_libraries(calculator PRIVATE SYMCPP)
 target_link_libraries(simple PRIVATE SYMCPP)
 target_link_libraries(tangent_builder PRIVATE SYMCPP)
+target_link_libraries(interactive_calc PRIVATE SYMCPP)
 
 # Tests
 enable_testing()

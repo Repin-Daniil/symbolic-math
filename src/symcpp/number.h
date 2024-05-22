@@ -34,6 +34,7 @@ class Number {
   Number& operator--();
   Number operator--(int);
   friend std::ostream& operator<<(std::ostream& os, const Number& number);
+  friend std::istream& operator>>(std::istream& in, Number& symbol);
 
  private:
   double value_;

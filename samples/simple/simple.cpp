@@ -9,7 +9,11 @@ int main() {
 
   Symbol x('x'), y('y');
   Number num = 17;
-  auto exp = Pow(x, 2) * 13 + Sin(pi * y);
+
+  Expression exp("x + ln(y^2)", {x, y});
+  std::cout << "exp = " << exp << std::endl;
+
+  exp = Pow(x, 2) * 13 + Sin(pi * y);
   std::cout << "exp = " << exp << std::endl;
   x = 3;
   std::cout << "exp = " << exp << std::endl;
@@ -21,6 +25,7 @@ int main() {
 
   x.Reset();
   std::cout << "exp = " << exp << std::endl;
+  std::cout << "exp = " << Infix(exp) << std::endl;
   y.Reset();
   std::cout << "exp = " << exp << std::endl;
 

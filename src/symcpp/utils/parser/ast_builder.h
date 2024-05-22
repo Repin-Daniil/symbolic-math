@@ -21,16 +21,16 @@ namespace symcpp::utils {
 
 class TreeBuilder {
  public:
-  std::unique_ptr<math::TreeNode> BuildAST(std::string_view rpn_expression);
+  static std::unique_ptr<math::TreeNode> BuildAST(std::string_view rpn_expression, const std::vector<Symbol>& symbols);
 
  private:
-  void AddOperation(constants::Operations operation);
-  void AddOperand(std::string_view token);
-  std::unique_ptr<math::TreeNode> GetOperand();
-  void Reset();
+  static void AddOperation(constants::Operations operation);
+  static void AddOperand(std::string_view token, const std::vector<Symbol>& symbols);
+  static std::unique_ptr<math::TreeNode> GetOperand();
+  static void Reset();
 
  private:
-  std::stack<std::unique_ptr<math::TreeNode>> nodes_;
+  inline static std::stack<std::unique_ptr<math::TreeNode>> nodes_;
 };
 
 }  // namespace symcpp::utils

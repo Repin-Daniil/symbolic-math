@@ -145,6 +145,12 @@ std::ostream& operator<<(std::ostream& os, const Number& number) {
   return os;
 }
 
+std::istream& operator>>(std::istream& in, Number& number) {
+  in >> number.value_;
+
+  return in;
+}
+
 std::string Number::GetString() const noexcept {
   auto str = std::to_string(value_);
   int64_t dot_position = str.find(constants::Labels::kDecimalPoint);

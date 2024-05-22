@@ -95,4 +95,11 @@ void Symbol::Reset() {
   value_->first = false;
 }
 
+std::istream& operator>>(std::istream& in, Symbol& symbol) {
+  in >> symbol.value_->second;
+  symbol.value_->first = true;
+
+  return in;
+}
+
 }  // namespace symcpp

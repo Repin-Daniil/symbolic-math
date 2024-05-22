@@ -2,7 +2,8 @@
 
 namespace symcpp::utils {
 
-std::unique_ptr<math::TreeNode> TreeBuilder::BuildAST(std::string_view rpn_expression) {
+std::unique_ptr<math::TreeNode> TreeBuilder::BuildAST(std::string_view rpn_expression,
+                                                      const std::vector<Symbol>& symbols) {
   Reset();
 
   if (rpn_expression.empty()) {
@@ -24,18 +25,23 @@ std::unique_ptr<math::TreeNode> TreeBuilder::BuildAST(std::string_view rpn_expre
         throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data() + input);
       }
     } else {
-      AddOperand(input);
+      AddOperand(input, symbols);
     }
   }
 
   return GetOperand();
 }
 
-void TreeBuilder::AddOperand(std::string_view token) {
+void TreeBuilder::AddOperand(std::string_view token, const std::vector<Symbol>& symbols) {
   if (auto operand = utils::Helper::ParseOperand(token)) {
     nodes_.push(std::make_unique<math::NumberNode>(*operand));
   } else if (token.size() == 1) {
-    nodes_.push(std::make_unique<math::Variable>(token[0]));
+    for (auto& symbol : symbols) {
+      if (symbol == token[0]) {
+        nodes_.push(std::make_unique<math::Variable>(symbol));
+        return;
+      }
+    }
   } else {
     throw std::invalid_argument(constants::ExceptionMessage::kWrongFormat.data() + std::string(token.data()));
   }

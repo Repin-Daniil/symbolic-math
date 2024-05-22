@@ -1,9 +1,15 @@
 #include "expression.h"
+#include "symcpp/utils/parser/ast_builder.h"
 
 namespace symcpp {
 
 Expression::Expression(std::unique_ptr<math::TreeNode> tree) : root_(std::move(tree)) {
   //  std::cout << "Get Root! " << std::endl;
+  Simplify();
+}
+
+Expression::Expression(std::string infix_expression, const std::vector<Symbol>& symbols) {
+  root_ = utils::TreeBuilder::BuildAST(utils::Converter::ConvertInfixToRPN(std::move(infix_expression)), symbols);
   Simplify();
 }
 

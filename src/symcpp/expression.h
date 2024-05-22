@@ -6,9 +6,11 @@
 #include <string>
 #include <unordered_map>
 #include <utility>
+#include <vector>
 
 #include "symcpp/abstract-syntax-tree/ast.h"
 #include "symcpp/abstract-syntax-tree/operands/constant_node.h"
+#include "symcpp/utils/converter/converter.h"
 
 namespace symcpp {
 
@@ -22,6 +24,7 @@ class Expression {
   Expression(const Number& number);                  // NOLINT
   Expression(Symbol& number);                        // NOLINT
   Expression(const Symbol& number);                  // NOLINT
+  Expression(std::string infix_expression, const std::vector<Symbol>& symbols);
 
   Expression(const Expression& other);
   Expression(Expression&& other) noexcept;

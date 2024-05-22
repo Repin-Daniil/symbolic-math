@@ -18,9 +18,9 @@ namespace symcpp {
 class Symbol {
  public:
   Symbol(char symbol);              // NOLINT
-  Symbol(const char* symbol);       // NOLINT
-  Symbol(std::string symbol);       // NOLINT
-  Symbol(std::string_view symbol);  // NOLINT
+  explicit Symbol(const char* symbol);       // NOLINT
+  explicit Symbol(std::string symbol);       // NOLINT
+  explicit Symbol(std::string_view symbol);  // NOLINT
 
   Symbol(char symbol, double value);
   Symbol(char symbol, const Number& value);
@@ -42,11 +42,11 @@ class Symbol {
   bool operator!=(const Symbol& rhs) const;
   friend std::ostream& operator<<(std::ostream& os, Symbol& symbol);
   friend std::ostream& operator<<(std::ostream& os, const Symbol& symbol);
+  friend std::istream& operator>>(std::istream& in, Symbol& symbol);
 
  private:
   std::string symbol_;
-  std::shared_ptr<std::pair<bool, Number>> value_;  // Общее значение для всех Symbol с таким обозначением,
-  // Чтобы понимать, в value_ лежит значащее, или это пока только просто буфер
+  std::shared_ptr<std::pair<bool, Number>> value_;
 };
 
 struct SymbolHash {

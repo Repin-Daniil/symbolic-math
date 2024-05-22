@@ -44,38 +44,38 @@ int main() {
   // TODO Latex();
   // TODO Разобрать кашу с пространствами имен
   // TODO Разобраться с хедерами либы
-
-  {
-    //    // Демонстрация подстановки на шаредах
-    Symbol x('x'), y('y');
-    Number num = 17;
-    auto exp = x * 13 + Sin(pi * y);
-    std::cout << exp << std::endl;
-    x = 3;
-    std::cout << exp << std::endl;
-    y = num / 2;
-    std::cout << exp << std::endl;
-
-    Number result = exp;
-    std::cout << result << std::endl;
-    auto derivative_of_num = Diff(result, x);
-    std::cout << derivative_of_num << std::endl;
-
-    auto derivative_of_func_x = Diff(exp, x);
-    std::cout << derivative_of_func_x << std::endl;
-
-    auto derivative_of_func_y = Diff(exp, y);
-    std::cout << derivative_of_func_y << std::endl;
-    Number result_2 = Evaluate(exp, {{x, 14}, {y, 17}});
-    std::cout << result_2 << std::endl;
-
-    x.Reset();
-    std::cout << exp << std::endl;
-    y.Reset();
-    std::cout << exp << std::endl;
-
-    std::cout << RPN(Log(exp)) << std::endl;
-  }
+  //
+  //  {
+  //    //    // Демонстрация подстановки на шаредах
+  //    Symbol x('x'), y('y');
+  //    Number num = 17;
+  //    auto exp = x * 13 + Sin(pi * y);
+  //    std::cout << exp << std::endl;
+  //    x = 3;
+  //    std::cout << exp << std::endl;
+  //    y = num / 2;
+  //    std::cout << exp << std::endl;
+  //
+  //    Number result = exp;
+  //    std::cout << result << std::endl;
+  //    auto derivative_of_num = Diff(result, x);
+  //    std::cout << derivative_of_num << std::endl;
+  //
+  //    auto derivative_of_func_x = Diff(exp, x);
+  //    std::cout << derivative_of_func_x << std::endl;
+  //
+  //    auto derivative_of_func_y = Diff(exp, y);
+  //    std::cout << derivative_of_func_y << std::endl;
+  //    Number result_2 = Evaluate(exp, {{x, 14}, {y, 17}});
+  //    std::cout << result_2 << std::endl;
+  //
+  //    x.Reset();
+  //    std::cout << exp << std::endl;
+  //    y.Reset();
+  //    std::cout << exp << std::endl;
+  //
+  //    std::cout << RPN(Log(exp)) << std::endl;
+  //  }
   //
   //  {
   //    // Операторы вывода
@@ -234,30 +234,39 @@ int main() {
   //      std::cout << "g(x) = " << tangent << std::endl;
   //    }
   //  }
+  //
+  //  {
+  //    Symbol x('x'), y('y');
+  //
+  //    auto Do = pi * (x + y / 2);
+  //    std::cout << "sin(" << Do << ") = " << Sin(Do) << std::endl;
+  //
+  //    auto Re = Substitute(Do, {{y, 1}});
+  //    std::cout << "sin(" << Re << ") = " << Sin(Re) << std::endl;
+  //
+  //    auto Mi = Re.Substitute({{x, 11}});
+  //    std::cout << "sin(" << Mi << ") = " << Sin(Mi) << std::endl;
+  //
+  //    Number Fa = Mi;
+  //    std::cout << "sin(" << Fa << ") = " << Sin(Fa) << std::endl;
+  //  }
+  //
+  //  {
+  //    Symbol x('x'), y('y'), z('z');
+  //
+  //    auto Do = pi * (x + y / 2);
+  //    std::cout << "sin(" << Do << ") = " << Sin(Do) << std::endl;
+  //
+  //    Number Fa = Evaluate(Do, {{x, 11}, {y, 1}});
+  //    std::cout << "sin(" << Fa << ") = " << Sin(Fa) << std::endl;
+  //  }
 
   {
-    Symbol x('x'), y('y');
+    Symbol x("x");
+    Expression exp("23 + x + ln(e) + 0 + 1 * sin(pi)", {x});
 
-    auto Do = pi * (x + y / 2);
-    std::cout << "sin(" << Do << ") = " << Sin(Do) << std::endl;
-
-    auto Re = Substitute(Do, {{y, 1}});
-    std::cout << "sin(" << Re << ") = " << Sin(Re) << std::endl;
-
-    auto Mi = Re.Substitute({{x, 11}});
-    std::cout << "sin(" << Mi << ") = " << Sin(Mi) << std::endl;
-
-    Number Fa = Mi;
-    std::cout << "sin(" << Fa << ") = " << Sin(Fa) << std::endl;
+    std::cout << exp << std::endl;
   }
 
-  {
-    Symbol x('x'), y('y'), z('z');
 
-    auto Do = pi * (x + y / 2);
-    std::cout << "sin(" << Do << ") = " << Sin(Do) << std::endl;
-
-    Number Fa = Evaluate(Do, {{x, 11}, {y, 1}});
-    std::cout << "sin(" << Fa << ") = " << Sin(Fa) << std::endl;
-  }
 }
