@@ -45,6 +45,7 @@ cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 cmake --build . --target simple
 cmake --build . --target tangent_builder
+cmake --build . --target interactive_calc
 ```
 
 ## Running the Examples
@@ -52,4 +53,5 @@ cmake --build . --target tangent_builder
 ```shell
 ./build/simple
 ./build/tangent_builder
+./build/interactive_calc
 ```
