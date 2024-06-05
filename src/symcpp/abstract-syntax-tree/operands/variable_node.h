@@ -21,6 +21,7 @@ class Variable final : public TreeNode {
   bool IsContainVariable(const Symbol& variable) override;
   constants::Expressions GetType() override;
 
+  std::string GetLatex(int previous_priority) override;
   std::string GetInfix(int previous_priority) override;
   std::string GetRPN() override;
 

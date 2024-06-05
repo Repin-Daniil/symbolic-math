@@ -11,7 +11,19 @@ std::string Addition::GetInfix(int previous_priority) {
 
   std::stringstream stream;
   stream << (brackets_required ? constants::Labels::kOpenParen : "") << left_argument_->GetInfix(priority_) << " "
-         << constants::Labels::kPlus << " " << right_argument_->GetInfix(priority_) << (brackets_required ? ")" : "");
+         << constants::Labels::kPlus << " " << right_argument_->GetInfix(priority_)
+         << (brackets_required ? constants::Labels::kEndParen : "");
+
+  return stream.str();
+}
+
+std::string Addition::GetLatex(int previous_priority) {
+  bool brackets_required = previous_priority > priority_;
+
+  std::stringstream stream;
+  stream << (brackets_required ? constants::Labels::kLatexOpenParen : "") << left_argument_->GetLatex(priority_) << " "
+         << constants::Labels::kPlus << " " << right_argument_->GetLatex(priority_)
+         << (brackets_required ? constants::Labels::kLatexEndParen : "");
 
   return stream.str();
 }

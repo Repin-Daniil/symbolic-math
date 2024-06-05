@@ -4,6 +4,17 @@ namespace symcpp::math {
 
 using namespace std::literals;
 
+std::string NumberNode::GetLatex(int previous_priority) {
+  bool brackets_required =
+      previous_priority == constants::operations_to_priority.at(constants::Operations::SUBTRACTION);
+  std::stringstream stream;
+
+  stream << (brackets_required && (value_ < 0) ? constants::Labels::kOpenParen : "") << value_
+         << (brackets_required && (value_ < 0) ? constants::Labels::kEndParen : "");
+
+  return stream.str();
+}
+
 std::string NumberNode::GetInfix(int previous_priority) {
   bool brackets_required =
       previous_priority == constants::operations_to_priority.at(constants::Operations::SUBTRACTION);

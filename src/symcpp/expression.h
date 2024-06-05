@@ -29,10 +29,9 @@ class Expression {
   Expression(const Expression& other);
   Expression(Expression&& other) noexcept;
 
+  std::string GetLatex() const;
   std::string GetInfix() const;
   std::string GetRPN() const;
-
-  //  std::string GetLatex(); //TODO
 
   Expression& operator=(Expression other);
 
@@ -72,7 +71,7 @@ Expression Pow(Expression base, Expression power);
 
 std::string Infix(const Expression& expression);
 std::string RPN(const Expression& expression);
-// std::string Latex(const Expression& expression);
+std::string Latex(const Expression& expression);
 
 Expression Diff(const Expression& expression, Symbol d);
 Expression Evaluate(const Expression& expression);

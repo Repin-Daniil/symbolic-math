@@ -40,10 +40,6 @@ int main() {
   //  auto result = SinNode(x + pi);
   //
   //  Equation eq(Pow(x, 2) - 12*x, 5);
-  // TODO Expression нужно конструировать и от строки, чтобы вызывался ast_builder
-  // TODO Latex();
-  // TODO Разобрать кашу с пространствами имен
-  // TODO Разобраться с хедерами либы
   //
   //  {
   //    //    // Демонстрация подстановки на шаредах
@@ -207,7 +203,6 @@ int main() {
   //  }
 
   //  {
-  //    // TODO Перегрузить оператор ввода для Symbol
   //    Symbol x('x');
   //
   //    auto func = 12 * Sin(Log(x) * x) - Pow(x, Tan(x));
@@ -260,13 +255,12 @@ int main() {
   //    Number Fa = Evaluate(Do, {{x, 11}, {y, 1}});
   //    std::cout << "sin(" << Fa << ") = " << Sin(Fa) << std::endl;
   //  }
-
-  {
-    Symbol x("x");
-    Expression exp("23 + x + ln(e) + 0 + 1 * sin(pi)", {x});
-
-    std::cout << exp << std::endl;
-  }
-
-
+  //
+  //  {
+  //    Symbol x("x");
+  //    Symbol y("y");
+  //    Expression exp("-x + ln(sqrt(e)/(pi - 2*x)) + 0 + 1 * sin(pi/y^12)", {x, y});
+  //
+  //    std::cout << Latex(exp) << std::endl;
+  //  }
 }

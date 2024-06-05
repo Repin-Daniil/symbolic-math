@@ -57,6 +57,13 @@ struct Labels {
   constexpr static std::string_view kOpenParen = "("sv;
   constexpr static std::string_view kEndParen = ")"sv;
 
+  constexpr static std::string_view kLatexOpenParen = R"(\left()";
+  constexpr static std::string_view kLatexEndParen = R"(\right))";
+  constexpr static std::string_view kLatexOpenCurlyBrace = "{"sv;
+  constexpr static std::string_view kLatexEndCurlyBrace = "}"sv;
+  constexpr static std::string_view kLatexFraction = R"(\frac)";
+  constexpr static std::string_view kLatexSlash = R"(\)";
+
   constexpr static std::string_view kPi = "pi"sv;
   constexpr static std::string_view kE = "e"sv;
 

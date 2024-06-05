@@ -6,6 +6,10 @@ std::unique_ptr<TreeNode> Constant::GetDerivative(const Symbol& d) {
   return std::make_unique<NumberNode>(0);
 }
 
+std::string Constant::GetLatex(int previous_priority) {
+  return symbol_.GetString();
+}
+
 std::string Constant::GetInfix(int previous_priority) {
   return symbol_.GetString();
 }

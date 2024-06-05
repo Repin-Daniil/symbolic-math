@@ -2,6 +2,13 @@
 
 namespace symcpp::math {
 
+std::string SquareRootNode::GetLatex(int previous_priority) {
+  std::stringstream stream;
+  stream << constants::Labels::kLatexSlash << constants::Labels::kSquareRoot << constants::Labels::kLatexOpenCurlyBrace
+         << argument_->GetLatex(0) << constants::Labels::kLatexEndCurlyBrace;
+  return stream.str();
+}
+
 std::string SquareRootNode::GetInfix(int previous_priority) {
   std::stringstream stream;
   stream << constants::Labels::kSquareRoot << constants::Labels::kOpenParen << argument_->GetInfix(0)

@@ -39,4 +39,5 @@ int main() {
   std::cout << "result_2 = " << result_2 << std::endl;
 
   std::cout << "RPN = " << RPN(exp + Log(Pow(x, y))) << std::endl;
+  std::cout << "LaTeX = " << Latex(exp + Log(Pow(x, y))) << std::endl;
 }

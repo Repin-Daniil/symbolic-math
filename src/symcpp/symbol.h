@@ -17,7 +17,7 @@ namespace symcpp {
  */
 class Symbol {
  public:
-  Symbol(char symbol);              // NOLINT
+  Symbol(char symbol);                       // NOLINT
   explicit Symbol(const char* symbol);       // NOLINT
   explicit Symbol(std::string symbol);       // NOLINT
   explicit Symbol(std::string_view symbol);  // NOLINT

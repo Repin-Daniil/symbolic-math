@@ -2,6 +2,13 @@
 
 namespace symcpp::math {
 
+std::string TangentNode::GetLatex(int previous_priority) {
+  std::stringstream stream;
+  stream << constants::Labels::kLatexSlash << constants::Labels::kTan << constants::Labels::kLatexOpenParen
+         << argument_->GetLatex(0) << constants::Labels::kLatexEndParen;
+  return stream.str();
+}
+
 std::string TangentNode::GetInfix(int previous_priority) {
   std::stringstream stream;
   stream << constants::Labels::kTan << constants::Labels::kOpenParen << argument_->GetInfix(0)

@@ -2,6 +2,13 @@
 
 namespace symcpp::math {
 
+std::string LogarithmNode::GetLatex(int previous_priority) {
+  std::stringstream stream;
+  stream << constants::Labels::kLatexSlash << constants::Labels::kLogarithm << constants::Labels::kLatexOpenParen
+         << argument_->GetLatex(0) << constants::Labels::kLatexEndParen;
+  return stream.str();
+}
+
 std::string LogarithmNode::GetInfix(int previous_priority) {
   std::stringstream stream;
   stream << constants::Labels::kLogarithm << constants::Labels::kOpenParen << argument_->GetInfix(0)

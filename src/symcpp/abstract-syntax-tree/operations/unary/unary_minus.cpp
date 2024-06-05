@@ -2,6 +2,17 @@
 
 namespace symcpp::math {
 
+std::string UnaryMinus::GetLatex(int previous_priority) {
+  bool brackets_required =
+      previous_priority == constants::operations_to_priority.at(constants::Operations::SUBTRACTION);
+  std::stringstream stream;
+  stream << (brackets_required ? constants::Labels::kLatexOpenParen : "") << constants::Labels::kMinus
+         << argument_->GetLatex(constants::operations_to_priority.at(constants::Operations::SUBTRACTION))
+         << std::string(brackets_required ? constants::Labels::kLatexEndParen : "");
+
+  return stream.str();
+}
+
 std::string UnaryMinus::GetInfix(int previous_priority) {
   bool brackets_required =
       previous_priority == constants::operations_to_priority.at(constants::Operations::SUBTRACTION);

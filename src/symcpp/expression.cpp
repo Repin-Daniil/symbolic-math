@@ -47,6 +47,14 @@ std::string Expression::GetInfix() const {
   return {};
 }
 
+std::string Expression::GetLatex() const {
+  if (root_) {
+    return root_->GetLatex(0);
+  }
+
+  return {};
+}
+
 std::string Expression::GetRPN() const {
   if (root_) {
     return root_->GetRPN();
@@ -301,9 +309,9 @@ std::string Infix(const Expression& expression) {
   return expression.GetInfix();
 }
 
-// std::string Latex(const Expression& expression) {
-//   return std::string();
-// }
+std::string Latex(const Expression& expression) {
+  return expression.GetLatex();
+}
 
 Expression Diff(const Expression& expression, Symbol d) {
   return expression.GetDerivative(d);

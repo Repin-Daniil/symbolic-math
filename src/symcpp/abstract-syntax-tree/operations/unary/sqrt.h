@@ -21,6 +21,7 @@ class SquareRootNode final : public UnaryOperation {
 
   constants::Expressions GetType() override;
 
+  std::string GetLatex(int previous_priority) override;
   std::string GetInfix(int previous_priority) override;
   std::string GetRPN() override;
 

@@ -23,6 +23,7 @@ class NumberNode final : public TreeNode {
   constants::Expressions GetType() override;
   bool IsContainVariable(const Symbol& variable) override;
 
+  std::string GetLatex(int previous_priority) override;
   std::string GetInfix(int previous_priority) override;
   std::string GetRPN() override;
 

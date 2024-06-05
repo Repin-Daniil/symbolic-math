@@ -13,6 +13,17 @@ std::string Multiplication::GetInfix(int previous_priority) {
   return stream.str();
 }
 
+std::string Multiplication::GetLatex(int previous_priority) {
+  bool brackets_required = previous_priority > priority_;
+
+  std::stringstream stream;
+  stream << (brackets_required ? constants::Labels::kLatexOpenParen : "") << left_argument_->GetLatex(priority_) << " "
+         << constants::Labels::kMultiplication << " " << right_argument_->GetLatex(priority_)
+         << (brackets_required ? constants::Labels::kLatexEndParen : "");
+
+  return stream.str();
+}
+
 std::string Multiplication::GetRPN() {
   std::stringstream stream;
   stream << left_argument_->GetRPN() + " " + right_argument_->GetRPN() << " " << constants::Labels::kMultiplication;

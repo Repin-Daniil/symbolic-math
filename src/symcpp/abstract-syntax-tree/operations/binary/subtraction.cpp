@@ -6,6 +6,16 @@ std::unique_ptr<TreeNode> Subtraction::GetDerivative(const Symbol& d) {
   return std::make_unique<Subtraction>(left_argument_->GetDerivative(d), right_argument_->GetDerivative(d));
 }
 
+std::string Subtraction::GetLatex(int previous_priority) {
+  bool brackets_required = previous_priority >= priority_;
+  std::stringstream stream;
+  stream << (brackets_required ? constants::Labels::kLatexOpenParen : "") << left_argument_->GetLatex(priority_) << " "
+         << constants::Labels::kMinus << " " << right_argument_->GetLatex(priority_)
+         << (brackets_required ? constants::Labels::kLatexEndParen : "");
+
+  return stream.str();
+}
+
 std::string Subtraction::GetInfix(int previous_priority) {
   bool brackets_required = previous_priority >= priority_;
   std::stringstream stream;

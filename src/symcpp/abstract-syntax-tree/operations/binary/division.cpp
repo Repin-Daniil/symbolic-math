@@ -11,6 +11,17 @@ std::string Division::GetInfix(int previous_priority) {
   return stream.str();
 }
 
+std::string Division::GetLatex(int previous_priority) {
+  bool brackets_required = previous_priority >= priority_;
+  std::stringstream stream;
+  stream << (brackets_required ? constants::Labels::kLatexOpenParen : "") << constants::Labels::kLatexFraction
+         << constants::Labels::kLatexOpenCurlyBrace << left_argument_->GetLatex(priority_)
+         << constants::Labels::kLatexEndCurlyBrace << constants::Labels::kLatexOpenCurlyBrace
+         << right_argument_->GetLatex(priority_) << constants::Labels::kLatexEndCurlyBrace
+         << (brackets_required ? constants::Labels::kLatexEndParen : "");
+  return stream.str();
+}
+
 std::string Division::GetRPN() {
   std::stringstream stream;
   stream << left_argument_->GetRPN() << " " << right_argument_->GetRPN() << " " << constants::Labels::kDivision;

@@ -16,6 +16,7 @@ class TreeNode {
   virtual bool IsContainVariable(const Symbol& variable) = 0;
   virtual constants::Expressions GetType() = 0;
 
+  virtual std::string GetLatex(int previous_priority) = 0;
   virtual std::string GetInfix(int previous_priority) = 0;
   virtual std::string GetRPN() = 0;
 

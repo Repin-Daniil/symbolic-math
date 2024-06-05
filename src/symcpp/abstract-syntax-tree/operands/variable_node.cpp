@@ -10,6 +10,10 @@ std::unique_ptr<TreeNode> Variable::GetDerivative(const Symbol& d) {
   return std::make_unique<NumberNode>(0);
 }
 
+std::string Variable::GetLatex(int previous_priority) {
+  return symbol_.GetString();
+}
+
 std::string Variable::GetInfix(int previous_priority) {
   return symbol_.GetString();
 }
