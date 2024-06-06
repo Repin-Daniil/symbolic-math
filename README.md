@@ -46,16 +46,33 @@ cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 cmake --build . --target simple
 cmake --build . --target tangent_builder
+cmake --build . --target interactive_calc
 ```
 
 ## Running the Examples
 
+#### Example from README
 ```shell
 ./build/simple
+```
+
+#### Tangent Builder
+
+```shell
 ./build/tangent_builder
 ```
 
-## Diagrams
+#### Usage in interactive mode
+
+```shell
+./build/interactive_calc
+```
+
+## Docs
+
+##### Description
+
+[SymCpp - library for symbolic mathematical calculations.pdf](doc/SymCpp%20-%20library%20for%20symbolic%20mathematical%20calculations.pdf)
 
 ##### Class Diagram
 
