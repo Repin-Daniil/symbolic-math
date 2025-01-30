@@ -50,15 +50,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Cache CMake
-        uses: actions/cache@v3
-        with:
-          path: |
-            build
-            ~/.cmake
-          key: ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-cmake-
+      # - name: Cache CMake
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: |
+      #       build
+      #       ~/.cmake
+      #     key: ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-cmake-
 
       - name: Set reusable strings
         id: strings
