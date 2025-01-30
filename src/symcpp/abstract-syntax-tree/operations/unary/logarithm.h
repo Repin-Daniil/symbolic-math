@@ -3,6 +3,7 @@
 #include <cmath>
 #include <limits>
 #include <memory>
+#include <numbers>
 #include <optional>
 #include <string>
 #include <unordered_map>

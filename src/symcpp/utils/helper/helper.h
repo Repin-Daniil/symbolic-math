@@ -1,6 +1,7 @@
 #pragma once
 
 #include <limits>
+#include <numbers>
 #include <optional>
 #include <string>
 #include <string_view>
