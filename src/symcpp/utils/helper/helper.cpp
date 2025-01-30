@@ -10,7 +10,7 @@ std::optional<double> Helper::ParseOperand(std::string_view input) noexcept {
     return std::numbers::e;
   } else {
     try {
-      return std::stod(input.begin(), nullptr);
+      return std::stod(input.data(), nullptr);
     } catch (...) {
       return std::nullopt;
     }
