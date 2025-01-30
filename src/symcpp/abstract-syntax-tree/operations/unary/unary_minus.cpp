@@ -1,5 +1,10 @@
 #include "unary_minus.h"
 
+#include <string>
+#include <memory>
+#include <limits>
+#include <utility>
+
 namespace symcpp::math {
 
 std::string UnaryMinus::GetLatex(int previous_priority) {

@@ -1,5 +1,9 @@
 #include "division.h"
 
+#include <memory>
+#include <string>
+#include <utility>
+
 namespace symcpp::math {
 
 std::string Division::GetInfix(int previous_priority) {

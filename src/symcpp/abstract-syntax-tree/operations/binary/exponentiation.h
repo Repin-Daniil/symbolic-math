@@ -8,11 +8,8 @@
 #include <utility>
 
 #include "addition.h"
-#include "division.h"
-#include "multiplication.h"
+
 #include "symcpp/abstract-syntax-tree/operations/binary_operation.h"
-#include "symcpp/abstract-syntax-tree/operations/unary/logarithm.h"
-#include "symcpp/utils/helper/helper.h"
 
 namespace symcpp::math {
 

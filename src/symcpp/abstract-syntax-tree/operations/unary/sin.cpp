@@ -1,5 +1,9 @@
 #include "sin.h"
 
+#include <string>
+#include <memory>
+#include <utility>
+
 namespace symcpp::math {
 
 std::string SinNode::GetLatex(int previous_priority) {

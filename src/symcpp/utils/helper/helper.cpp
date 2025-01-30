@@ -1,4 +1,6 @@
 #include "helper.h"
+
+#include <limits>
 #include "symcpp/number.h"
 
 namespace symcpp::utils {

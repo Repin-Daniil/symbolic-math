@@ -1,4 +1,10 @@
 #include "exponentiation.h"
+
+#include <memory>
+#include <string>
+#include <utility>
+
+#include "symcpp/abstract-syntax-tree/operations/unary/logarithm.h"
 #include "symcpp.h"
 
 namespace symcpp::math {

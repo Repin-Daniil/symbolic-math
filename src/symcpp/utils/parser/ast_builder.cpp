@@ -1,5 +1,11 @@
 #include "ast_builder.h"
 
+#include <string>
+#include <vector>
+#include <stack>
+#include <memory>
+#include <utility>
+
 namespace symcpp::utils {
 
 std::unique_ptr<math::TreeNode> TreeBuilder::BuildAST(std::string_view rpn_expression,

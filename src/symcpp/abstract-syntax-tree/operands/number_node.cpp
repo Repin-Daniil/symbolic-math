@@ -1,5 +1,9 @@
 #include "number_node.h"
 
+#include <string>
+#include <memory>
+#include <unordered_map>
+
 namespace symcpp::math {
 
 using namespace std::literals;

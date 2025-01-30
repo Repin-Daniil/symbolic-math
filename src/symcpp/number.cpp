@@ -1,4 +1,8 @@
 #include "number.h"
+
+#include <algorithm>
+#include <string>
+
 #include "expression.h"
 
 namespace symcpp {
@@ -153,13 +157,13 @@ std::istream& operator>>(std::istream& in, Number& number) {
 
 std::string Number::GetString() const noexcept {
   auto str = std::to_string(value_);
-  int64_t dot_position = str.find(constants::Labels::kDecimalPoint);
+  int64_t dot_position = str.find(constants::Labels::kDecimalPoint);  // FIXME platform-defined: narrowing conversion
 
   if (dot_position == std::string::npos) {
     return str;
   }
 
-  int64_t last_non_zero = str.size() - 1;
+  int64_t last_non_zero = str.size() - 1;  // FIXME platform-defined: narrowing conversion
 
   while (str[last_non_zero] == constants::Labels::kZero) {
     last_non_zero--;

@@ -1,5 +1,9 @@
 #include "cos.h"
 
+#include <string>
+#include <memory>
+#include <utility>
+
 namespace symcpp::math {
 
 std::string CosNode::GetLatex(int previous_priority) {

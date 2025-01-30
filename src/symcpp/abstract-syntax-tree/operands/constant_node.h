@@ -3,10 +3,7 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
-#include <utility>
-#include <variant>
 
-#include "number_node.h"
 #include "symcpp/abstract-syntax-tree/node.h"
 #include "symcpp/constants_storage.h"
 #include "symcpp/symbol.h"

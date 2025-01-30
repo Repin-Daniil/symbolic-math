@@ -1,5 +1,10 @@
 #include "tangent.h"
 
+#include <limits>
+#include <memory>
+#include <string>
+#include <utility>
+
 namespace symcpp::math {
 
 std::string TangentNode::GetLatex(int previous_priority) {

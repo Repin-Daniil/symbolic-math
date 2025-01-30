@@ -1,5 +1,9 @@
 #include "subtraction.h"
 
+#include <memory>
+#include <string>
+#include <utility>
+
 namespace symcpp::math {
 
 std::unique_ptr<TreeNode> Subtraction::GetDerivative(const Symbol& d) {

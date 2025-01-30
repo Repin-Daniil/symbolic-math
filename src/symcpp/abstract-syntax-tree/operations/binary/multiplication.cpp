@@ -1,5 +1,9 @@
 #include "multiplication.h"
 
+#include <string>
+#include <memory>
+#include <utility>
+
 namespace symcpp::math {
 
 std::string Multiplication::GetInfix(int previous_priority) {

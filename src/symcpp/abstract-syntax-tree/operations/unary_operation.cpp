@@ -1,5 +1,9 @@
 #include "unary_operation.h"
 
+#include <unordered_map>
+#include <memory>
+#include <utility>
+
 namespace symcpp::math {
 
 std::unique_ptr<TreeNode> UnaryOperation::ReleaseArgument() {

@@ -2,3 +2,4 @@ build-debug
 build-release
 build
 .idea
+src/CPPLINT.cfg

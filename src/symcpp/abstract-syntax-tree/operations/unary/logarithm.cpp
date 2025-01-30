@@ -1,5 +1,11 @@
 #include "logarithm.h"
 
+#include <algorithm>
+#include <limits>
+#include <memory>
+#include <string>
+#include <utility>
+
 namespace symcpp::math {
 
 std::string LogarithmNode::GetLatex(int previous_priority) {

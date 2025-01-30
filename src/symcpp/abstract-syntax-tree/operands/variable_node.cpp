@@ -1,5 +1,9 @@
 #include "variable_node.h"
 
+#include <string>
+#include <memory>
+#include <unordered_map>
+
 namespace symcpp::math {
 
 std::unique_ptr<TreeNode> Variable::GetDerivative(const Symbol& d) {

@@ -1,12 +1,20 @@
 name: CI
 
-on: [ push, pull_request ]
-
-env:
-  BUILD_TYPE: Release
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
-  cpplint:
+  format-check:
+    #    runs-on: ubuntu-latest
+    #    steps:
+    #    - uses: actions/checkout@v3
+    #    - name: Install clang-format
+    #      run: sudo apt-get install -y clang-format
+    #    - name: Check code format
+    #      run: clang-format --dry-run --Werror **/*.cpp **/*.h
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -16,31 +24,58 @@ jobs:
       - name: Lint C++ files
         run: |
           cd src
-          echo "filter=-legal/copyright, -readability/todo, -build/namespaces_literals, -build/include_subdir, -build/namespaces, -runtime/references
+          echo "filter=-legal/copyright, -readability/todo, -build/namespaces_literals, -build/include_subdir, -whitespace/indent_namespace, -build/namespaces, -runtime/references
                 linelength=120" > CPPLINT.cfg
           cpplint --recursive .
 
-  test:
-    needs: cpplint
-    runs-on: ubuntu-latest
+  build:
+    needs: format-check
+    name: ${{ matrix.platform.name }} ${{ matrix.config.name }}
+    runs-on: ${{ matrix.platform.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [ Release, Debug ]
+        platform:
+          - { name: Windows VS2019, os: windows-2019 }
+          - { name: Windows VS2022, os: windows-2022 }
+          - { name: Linux GCC,      os: ubuntu-latest }
+          - { name: Linux Clang,    os: ubuntu-latest, flags: -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ }
+          - { name: macOS,          os: macos-latest }
+        config:
+          - { name: Shared, flags: -DBUILD_SHARED_LIBS=TRUE }
+          - { name: Static, flags: -DBUILD_SHARED_LIBS=FALSE }
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Install dependencies
+      - name: Cache CMake
+        uses: actions/cache@v3
+        with:
+          path: |
+            build
+            ~/.cmake
+          key: ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-cmake-
+
+      - name: Set reusable strings
+        id: strings
+        shell: bash
         run: |
-          mkdir build
-          cd build
-          pip3 install conan==1.*
-          conan install .. --build=missing -s build_type=${{env.BUILD_TYPE}} -s compiler.libcxx=libstdc++11
+          echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
       - name: Configure CMake
-        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        run: >
+          cmake -B ${{ steps.strings.outputs.build-output-dir }}
+          ${{ matrix.platform.flags }} ${{ matrix.config.flags }}
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          -S ${{ github.workspace }}
 
       - name: Build
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+        run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
 
       - name: Test
-        working-directory: ${{github.workspace}}/build
-        run: ctest -C ${{env.BUILD_TYPE}} --extra-verbose
+        working-directory: ${{ steps.strings.outputs.build-output-dir }}
+        run: ctest --build-config ${{ matrix.build_type }}

@@ -1,5 +1,9 @@
 #include "sqrt.h"
 
+#include <string>
+#include <memory>
+#include <utility>
+
 namespace symcpp::math {
 
 std::string SquareRootNode::GetLatex(int previous_priority) {

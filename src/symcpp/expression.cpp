@@ -1,4 +1,11 @@
 #include "expression.h"
+
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
 #include "symcpp/utils/parser/ast_builder.h"
 
 namespace symcpp {

@@ -1,5 +1,11 @@
 #include "constant_node.h"
 
+#include <memory>
+#include <string>
+#include <unordered_map>
+
+#include "number_node.h"
+
 namespace symcpp::math {
 
 std::unique_ptr<TreeNode> Constant::GetDerivative(const Symbol& d) {

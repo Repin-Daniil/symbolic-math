@@ -1,5 +1,8 @@
 #include "converter.h"
 
+#include <stack>
+#include <string>
+
 namespace symcpp::utils {
 
 std::string Converter::ConvertInfixToRPN(std::string_view infix_expression) {
@@ -101,7 +104,7 @@ bool Converter::IsEndOfOperand(std::size_t i, std::string_view infix_expression)
 }
 
 bool Converter::IsUnary(std::size_t i, std::string_view infix_expression) {
-  int j = i - 1;
+  int j = i - 1;  // FIXME platform-defined: narrowing conversion std::size_t to int
 
   while (j >= 0 && infix_expression[j] == ' ') {
     --j;

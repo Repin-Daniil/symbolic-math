@@ -1,5 +1,9 @@
 #include "calculator.h"
 
+#include <stack>
+#include <string>
+#include <utility>
+
 namespace symcpp::math {
 
 double Calculator::Calculate(std::string_view rpn_expression) {

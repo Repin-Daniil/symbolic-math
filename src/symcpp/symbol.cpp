@@ -1,5 +1,7 @@
 #include "symbol.h"
 
+#include <memory>
+#include <string>
 #include <utility>
 
 namespace symcpp {
@@ -74,8 +76,11 @@ Symbol& Symbol::operator=(double new_value) {
 }
 
 Symbol& Symbol::operator=(const Symbol& other) {
-  value_->first = other.value_->first;
-  value_->second = other.value_->second;
+  if (this != &other) {
+    value_->first = other.value_->first;
+    value_->second = other.value_->second;
+  }
+
   return *this;
 }
 
