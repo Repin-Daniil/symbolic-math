@@ -1,5 +1,6 @@
 build-debug
 build-release
+build-coverage
 build
 .idea
 src/CPPLINT.cfg

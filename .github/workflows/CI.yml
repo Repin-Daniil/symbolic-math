@@ -23,7 +23,7 @@ jobs:
         run: pip3 install cpplint
       - name: Lint C++ files
         run: |
-          cd src
+          cd symcpp
           echo "filter=-legal/copyright, -readability/todo, -build/namespaces_literals, -build/include_subdir, -whitespace/indent_namespace, -build/include_order,  -build/namespaces, -runtime/references
                 linelength=120" > CPPLINT.cfg
           cpplint --recursive .
