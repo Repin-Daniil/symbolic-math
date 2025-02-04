@@ -61,4 +61,4 @@ class LogStream {
 #define LOG_WARNING() LOG(WARNING)
 #define LOG_ERROR() LOG(ERROR)
 #define LOG_CRITICAL() LOG(CRITICAL)
-}  // namespace symcpp::utils
+}  // namespace symcpp::utils::log

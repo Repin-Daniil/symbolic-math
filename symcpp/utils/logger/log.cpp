@@ -1,5 +1,8 @@
 #include "log.hpp"
 
+#include <iostream>
+#include <utility>
+
 namespace symcpp::utils::log {
 
 namespace {
