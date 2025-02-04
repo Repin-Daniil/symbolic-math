@@ -11,7 +11,7 @@
 
 namespace symcpp::utils::log {
 
-enum LogLevel {
+enum class LogLevel {
   TRACE,
   DEBUG,
   INFO,
