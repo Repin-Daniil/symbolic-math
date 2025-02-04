@@ -94,6 +94,7 @@ LogStream::~LogStream() {
     }
   } catch (...) {
     log_mutex_.unlock();
+    std::cout << "Exception occured while logging" << std::endl;
   }
 
   if (GetThreadSyncEnabled()) {
