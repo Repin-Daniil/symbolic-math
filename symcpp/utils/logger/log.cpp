@@ -1,6 +1,8 @@
 #include "log.hpp"
 
+#include <atomic>
 #include <iostream>
+#include <mutex>
 #include <utility>
 
 namespace symcpp::utils::log {
