@@ -65,6 +65,8 @@ add_library(SYMCPP STATIC
 
         symcpp/core/engine/stack_calc/calculator.h
         symcpp/core/engine/stack_calc/calculator.cpp
+        symcpp/utils/logger/logger.h
+        symcpp/utils/logger/logger.cpp
 )
 
 add_executable(simple samples/simple/simple.cpp)

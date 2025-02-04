@@ -1,5 +1,6 @@
 #include <iostream>
 #include "symcpp.h"
+#include "utils/logger/logger.h"
 
 using namespace symcpp;
 using namespace std::literals;
@@ -14,6 +15,12 @@ int main() {
   auto dx = Diff(cosine, ::x);
   std::cout << dx << '\n';
 
+  LOG_DEBUG() << "I dnot koe";
+  LOG_INFO() << "I dnot koe";
+  LOG_TRACE() << "I dnot koe";
+  LOG_WARNING() << "I dnot koe";
+  LOG_CRITICAL() << "I dnot koe";
+  LOG_ERROR() << "error";
   //
   // std::array<Expression,8> in;
   // std::unordered_map<std::string, Expression> expressions;

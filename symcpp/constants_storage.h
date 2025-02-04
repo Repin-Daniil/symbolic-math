@@ -124,4 +124,14 @@ struct ExceptionMessage {
   constexpr static std::string_view kUnbalancedBracket = "Wrong expression: Unbalanced bracket sequence"sv;
 };
 
+struct BashColors {
+  constexpr static const char* RESET = "\033[0m";
+  constexpr static const char* RED = "\033[31m";
+  constexpr static const char* YELLOW = "\033[33m";
+  constexpr static const char* BLUE = "\033[34m";
+  constexpr static const char* CYAN = "\033[36m";
+  constexpr static const char* GREEN = "\033[32m";
+  constexpr static const char* MAGENTA = "\033[35m";
+};
+
 }  // namespace symcpp::constants

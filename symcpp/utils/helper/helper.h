@@ -11,6 +11,7 @@
 
 namespace symcpp::utils {
 
+// FIXME Удалить - Utils Class антипаттерн
 class Helper {
  public:
   static std::optional<int> GetPriority(std::string_view operation);
