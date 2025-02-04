@@ -13,8 +13,7 @@ std::string Exponentiation::GetInfix(int previous_priority) {
   bool brackets_required = previous_priority >= priority_;
 
   std::stringstream stream;
-  stream << (brackets_required ? constants::Labels::kOpenParen : "") << left_argument_->GetInfix(priority_) << " "
-         << constants::Labels::kExponentiation << " " << right_argument_->GetInfix(priority_)
+  stream << (brackets_required ? constants::Labels::kOpenParen : "") << left_argument_->GetInfix(priority_) << constants::Labels::kExponentiation << right_argument_->GetInfix(priority_)
          << (brackets_required ? constants::Labels::kEndParen : "");
 
   return stream.str();

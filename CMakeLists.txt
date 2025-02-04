@@ -68,10 +68,12 @@ add_library(SYMCPP STATIC
 )
 
 add_executable(simple samples/simple/simple.cpp)
+add_executable(basic samples/basic/basic.cpp)
 add_executable(tangent_builder samples/tangent_builder/tangent_builder.cpp)
 add_executable(interactive_calc samples/interactive/interactive.cpp)
 
 target_link_libraries(simple PRIVATE SYMCPP)
+target_link_libraries(basic PRIVATE SYMCPP)
 target_link_libraries(tangent_builder PRIVATE SYMCPP)
 target_link_libraries(interactive_calc PRIVATE SYMCPP)
 
@@ -81,6 +83,7 @@ enable_testing()
 add_executable(rpn_test tests/math/stack_machine.cpp tests/catch.hpp)
 add_executable(converter_test tests/utils/converter_test.cpp tests/catch.hpp)
 #add_executable(derivative_test tests/math/derivative.cpp tests/catch.hpp)
+add_executable(math_test tests/math/basic_test.cpp tests/catch.hpp)
 #add_executable(simplification_test tests/math/simplification.cpp tests/catch.hpp)
 #add_executable(api_test tests/api/expression_test.cpp
 #        tests/api/symbol_test.cpp
@@ -89,12 +92,14 @@ add_executable(converter_test tests/utils/converter_test.cpp tests/catch.hpp)
 
 target_link_libraries(rpn_test PRIVATE SYMCPP)
 target_link_libraries(converter_test PRIVATE SYMCPP)
+target_link_libraries(math_test PRIVATE SYMCPP)
 #target_link_libraries(derivative_test PRIVATE SYMCPP)
 #target_link_libraries(simplification_test PRIVATE SYMCPP)
 #target_link_libraries(api_test PRIVATE SYMCPP)
 
 add_test(NAME RPN_TEST COMMAND rpn_test)
 add_test(NAME CONVERTER_TEST COMMAND converter_test)
+add_test(NAME MATH_TEST COMMAND math_test)
 #add_test(NAME DERIVATIVE_TEST COMMAND derivative_test)
 #add_test(NAME SIMPLIFICATION_TEST COMMAND simplification_test)
 #add_test(NAME API_TEST COMMAND api_test)

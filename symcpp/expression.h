@@ -20,6 +20,7 @@ namespace symcpp {
  */
 class Expression {
  public:
+  // FIXME Дефолтный конструктор должен рабоотать нормально, чтобы не разыменовать нулевой указатель
   Expression(std::unique_ptr<math::TreeNode> tree);  // NOLINT
   Expression(double number);                         // NOLINT
   Expression(const Number& number);                  // NOLINT
