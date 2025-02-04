@@ -94,7 +94,6 @@ LogStream::~LogStream() {
     }
   } catch (...) {
     log_mutex_.unlock();
-    throw;
   }
 
   if (GetThreadSyncEnabled()) {
