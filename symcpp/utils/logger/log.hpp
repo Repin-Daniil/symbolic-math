@@ -9,14 +9,24 @@
 
 #include "constants_storage.h"
 
-namespace symcpp::utils {
+namespace symcpp::utils::log {
 
-enum class LogLevel { TRACE, DEBUG, INFO, WARNING, ERROR, CRITICAL };
+enum class LogLevel { TRACE, DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF };
 
 using LogCallback = std::function<void(LogLevel, std::string_view)>;
 
 LogCallback& GetLogger();
 void SetLogger(LogCallback newLogger);
+
+LogLevel GetLogLevel();
+bool GetLogTimeEnabled();
+bool GetLogLocationEnabled();
+bool GetThreadSyncEnabled();
+
+void SetLogLevel(LogLevel level);
+void SetLogTimeEnabled(bool enabled);
+void SetLogLocationEnabled(bool enabled);
+void SetThreadSyncEnabled(bool enabled);
 
 class LogStream {
   static auto GetTimestamp();
@@ -41,7 +51,10 @@ class LogStream {
   std::source_location location_;
 };
 
-#define LOG(level) symcpp::utils::LogStream(symcpp::utils::LogLevel::level, std::source_location::current())
+#define LOG(level)                                                              \
+  if (symcpp::utils::log::LogLevel::level >= symcpp::utils::log::GetLogLevel()) \
+  symcpp::utils::log::LogStream(symcpp::utils::log::LogLevel::level, std::source_location::current())
+
 #define LOG_TRACE() LOG(TRACE)
 #define LOG_DEBUG() LOG(DEBUG)
 #define LOG_INFO() LOG(INFO)

@@ -65,8 +65,8 @@ add_library(SYMCPP STATIC
 
         symcpp/core/engine/stack_calc/calculator.h
         symcpp/core/engine/stack_calc/calculator.cpp
-        symcpp/utils/logger/logger.h
-        symcpp/utils/logger/logger.cpp
+        symcpp/utils/logger/log.hpp
+        symcpp/utils/logger/log.cpp
 )
 
 add_executable(simple samples/simple/simple.cpp)
@@ -84,6 +84,8 @@ enable_testing()
 
 add_executable(rpn_test tests/math/stack_machine.cpp tests/catch.hpp)
 add_executable(converter_test tests/utils/converter_test.cpp tests/catch.hpp)
+add_executable(logger_test tests/utils/logger_test.cpp tests/catch.hpp)
+
 #add_executable(derivative_test tests/math/derivative.cpp tests/catch.hpp)
 add_executable(math_test tests/math/basic_test.cpp tests/catch.hpp)
 #add_executable(simplification_test tests/math/simplification.cpp tests/catch.hpp)
@@ -94,6 +96,7 @@ add_executable(math_test tests/math/basic_test.cpp tests/catch.hpp)
 
 target_link_libraries(rpn_test PRIVATE SYMCPP)
 target_link_libraries(converter_test PRIVATE SYMCPP)
+target_link_libraries(logger_test PRIVATE SYMCPP)
 target_link_libraries(math_test PRIVATE SYMCPP)
 #target_link_libraries(derivative_test PRIVATE SYMCPP)
 #target_link_libraries(simplification_test PRIVATE SYMCPP)
@@ -101,6 +104,7 @@ target_link_libraries(math_test PRIVATE SYMCPP)
 
 add_test(NAME RPN_TEST COMMAND rpn_test)
 add_test(NAME CONVERTER_TEST COMMAND converter_test)
+add_test(NAME LOGGER_TEST COMMAND logger_test)
 add_test(NAME MATH_TEST COMMAND math_test)
 #add_test(NAME DERIVATIVE_TEST COMMAND derivative_test)
 #add_test(NAME SIMPLIFICATION_TEST COMMAND simplification_test)
