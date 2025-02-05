@@ -1,5 +1,13 @@
 #pragma once
 
+#ifdef ERROR
+#undef ERROR
+#endif
+
+#ifdef DEBUG
+#undef DEBUG
+#endif
+
 #include <chrono>
 #include <functional>
 #include <iomanip>
