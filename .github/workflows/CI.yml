@@ -38,11 +38,11 @@ jobs:
       matrix:
         build_type: [ Release, Debug ]
         platform:
-          - { name: Windows VS2019, os: windows-2019 }
-          - { name: Windows VS2022, os: windows-2022 }
-          - { name: Linux GCC,      os: ubuntu-latest }
-          - { name: Linux Clang,    os: ubuntu-latest, flags: -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ }
-          - { name: macOS,          os: macos-latest }
+          - { name: Windows VS2019, os: windows-2019, flags: -DCMAKE_CXX_STANDARD=20 }
+          - { name: Windows VS2022, os: windows-2022, flags: -DCMAKE_CXX_STANDARD=20 }
+          - { name: Linux GCC,      os: ubuntu-latest, flags: -DCMAKE_CXX_STANDARD=20 }
+          - { name: Linux Clang,    os: ubuntu-latest, flags: -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_CXX_STANDARD=20 }
+          - { name: macOS,          os: macos-latest, flags: -DCMAKE_CXX_STANDARD=20 }
         config:
           - { name: Shared, flags: -DBUILD_SHARED_LIBS=TRUE }
           - { name: Static, flags: -DBUILD_SHARED_LIBS=FALSE }
