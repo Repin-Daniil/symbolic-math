@@ -102,7 +102,7 @@ std::unique_ptr<TreeNode> Exponentiation::Simplify() {
   if (right_argument_->GetType() == constants::Expressions::LOGARITHM &&
       ((left_argument_->GetType() == constants::Expressions::NUMBER &&
         utils::Helper::IsEqual(Number(left_argument_->Evaluate()), std::numbers::e)) ||
-       (left_argument_->GetType() == constants::Expressions::CONSTANT && left_argument_->IsContainVariable('e')))) {
+       (left_argument_->GetType() == constants::Expressions::CONSTANT && left_argument_->IsContainVariable("e")))) {
     return dynamic_cast<UnaryOperation*>(right_argument_.get())->ReleaseArgument();
   }
 

@@ -16,10 +16,11 @@ class UnaryOperation : public TreeNode {
   }
 
   bool IsContainVariable(const Symbol& variable) override;
+  bool IsA(constants::Expressions node_type) override;
+
   virtual std::unique_ptr<TreeNode> ReleaseArgument();
   std::unique_ptr<TreeNode> Substitute(
       const std::unordered_map<Symbol, std::unique_ptr<TreeNode>, SymbolHash>& variable_to_value) override;
-  virtual ~UnaryOperation() = default;
 
  protected:
   virtual std::optional<Number> GetNumber(const std::unique_ptr<TreeNode>& result) const;

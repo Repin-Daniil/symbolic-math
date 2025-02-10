@@ -28,6 +28,10 @@ constants::Expressions Constant::GetType() {
   return constants::Expressions::CONSTANT;
 }
 
+bool Constant::IsA(constants::Expressions node_type) {
+    return node_type == constants::Expressions::OPERAND || GetType() == node_type;
+}
+
 std::unique_ptr<TreeNode> Constant::Simplify() {
   return nullptr;
 }

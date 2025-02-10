@@ -35,7 +35,10 @@ enum class Expressions {
   SIN,
   SQRT,
   TANGENT,
-  UNARY_MINUS
+  UNARY_MINUS,
+  UNARY_OPERATION,
+  BINARY_OPERATION,
+  OPERAND
 };
 
 struct Labels {

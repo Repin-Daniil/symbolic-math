@@ -19,9 +19,11 @@ class NumberNode final : public TreeNode {
   explicit NumberNode(const Number& value) : value_(value) {
   }
 
-  Number GetValue() const;
+  [[nodiscard]] Number GetValue() const;
   constants::Expressions GetType() override;
+
   bool IsContainVariable(const Symbol& variable) override;
+  bool IsA(constants::Expressions node_type) override;
 
   std::string GetLatex(int previous_priority) override;
   std::string GetInfix(int previous_priority) override;

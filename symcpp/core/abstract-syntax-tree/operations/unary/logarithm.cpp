@@ -43,7 +43,7 @@ std::unique_ptr<TreeNode> LogarithmNode::Simplify() {
 
   if ((argument_->GetType() == constants::Expressions::NUMBER &&
        utils::Helper::IsEqual(*GetNumber(argument_), std::numbers::e)) ||
-      (argument_->GetType() == constants::Expressions::CONSTANT && argument_->IsContainVariable('e'))) {
+      (argument_->GetType() == constants::Expressions::CONSTANT && argument_->IsContainVariable("e"))) {
     return std::make_unique<NumberNode>(1);
   }
 

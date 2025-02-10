@@ -43,7 +43,7 @@ void TreeBuilder::AddOperand(std::string_view token, const std::vector<Symbol>& 
     nodes_.push(std::make_unique<math::NumberNode>(*operand));
   } else if (token.size() == 1) {
     for (auto& symbol : symbols) {
-      if (symbol == token[0]) {
+      if (symbol == Symbol{token[0]}) {
         nodes_.push(std::make_unique<math::Variable>(symbol));
         return;
       }

@@ -19,14 +19,14 @@
 
 namespace symcpp::utils::log {
 
-enum class LogLevel : int {
-  TRACE = 0,
-  DEBUG = 1,
-  INFO = 2,
-  WARNING = 3,
-  ERROR = 4,
-  CRITICAL = 5,
-  OFF = 10,
+enum class LogLevel {
+  TRACE,
+  DEBUG,
+  INFO,
+  WARNING,
+  ERROR,
+  CRITICAL,
+  OFF,
 };
 
 using LogCallback = std::function<void(LogLevel, std::string_view)>;

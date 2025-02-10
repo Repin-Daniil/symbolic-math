@@ -13,6 +13,11 @@ std::unique_ptr<TreeNode> UnaryOperation::ReleaseArgument() {
 bool UnaryOperation::IsContainVariable(const Symbol& variable) {
   return argument_->IsContainVariable(variable);
 }
+
+bool UnaryOperation::IsA(constants::Expressions node_type) {
+  return node_type == constants::Expressions::UNARY_OPERATION || GetType() == node_type;
+}
+
 std::unique_ptr<TreeNode> UnaryOperation::Substitute(
     const std::unordered_map<Symbol, std::unique_ptr<TreeNode>, SymbolHash>& variable_to_value) {
   if (auto new_arg = argument_->Substitute(variable_to_value)) {

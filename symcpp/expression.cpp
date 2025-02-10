@@ -11,38 +11,46 @@
 namespace symcpp {
 
 Expression::Expression(std::unique_ptr<math::TreeNode> tree) : root_(std::move(tree)) {
-  //  std::cout << "Get Root! " << std::endl;
+  LOG_TRACE() << "(" << this << ") Create Expression from pointer " << root_;
   Simplify();
 }
 
 Expression::Expression(std::string infix_expression, const std::vector<Symbol>& symbols) {
+  LOG_DEBUG() << "(" << this << ") Create Expression from string: " << infix_expression
+              << "; symbols.size(): " << symbols.size();
+
   root_ = utils::TreeBuilder::BuildAST(utils::Converter::ConvertInfixToRPN(std::move(infix_expression)), symbols);
   Simplify();
 }
 
 Expression::Expression(const Number& number) : root_(std::make_unique<math::NumberNode>(number)) {
+  LOG_TRACE() << "(" << this << ") Create Expression from number: " << number;
 }
 
 Expression::Expression(double number) : root_(std::make_unique<math::NumberNode>(number)) {
+  LOG_TRACE() << "(" << this << ") Create Expression from double: " << number;
 }
 
 Expression::Expression(const Symbol& symbol) : root_(std::make_unique<math::Constant>(symbol)) {
+  LOG_TRACE() << "(" << this << ") Create Expression from const symbol: " << symbol;
 }
 
 Expression::Expression(Symbol& symbol) : root_(std::make_unique<math::Variable>(symbol)) {
+  LOG_TRACE() << "(" << this << ") Create Expression from symbol: " << symbol;
 }
 
 Expression::Expression(Expression&& other) noexcept : root_(std::move(other.root_)) {
-  //  std::cout << "Move Expression!" << std::endl;
+  LOG_TRACE() << "(" << this << ") Move Expression from " << &other;
   Simplify();
 }
 
 Expression::Expression(const Expression& other) : root_((other.root_ ? other.root_->Clone() : nullptr)) {
-  //  std::cout << "Clone Expression!" << std::endl;
+  LOG_TRACE() << "(" << this << ") Clone Expression from " << &other;
   Simplify();
 }
 
 std::unique_ptr<math::TreeNode> Expression::Release() {
+  LOG_TRACE() << "(" << this << ") Release tree from Expression";
   return std::move(root_);
 }
 
@@ -71,13 +79,8 @@ std::string Expression::GetRPN() const {
 }
 
 Expression& Expression::operator=(Expression other) {
-  auto other_ptr = other.Release();
-
-  if (!other_ptr) {
-    throw std::runtime_error(constants::ExceptionMessage::kEmptyExpression.data());
-  }
-
-  root_ = std::move(other_ptr);
+  LOG_TRACE() << "(" << this << ") Move Expression from copy " << &other;
+  root_ = other.Release();
   return *this;
 }
 

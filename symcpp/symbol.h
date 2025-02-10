@@ -5,6 +5,7 @@
 #include <string>
 #include <utility>
 #include "number.h"
+#include "utils/logger/log.hpp"
 
 namespace symcpp {
 
@@ -17,15 +18,21 @@ namespace symcpp {
  */
 class Symbol {
  public:
-  Symbol(char symbol);                       // NOLINT
-  explicit Symbol(const char* symbol);       // NOLINT
-  explicit Symbol(std::string symbol);       // NOLINT
-  explicit Symbol(std::string_view symbol);  // NOLINT
+  explicit Symbol(char symbol);                       // NOLINT
+  Symbol(const char* symbol);       // NOLINT
+  Symbol(std::string symbol);       // NOLINT
+  Symbol(std::string_view symbol);  // NOLINT
 
   Symbol(char symbol, double value);
   Symbol(char symbol, const Number& value);
   Symbol(std::string_view symbol, double value);
   Symbol(std::string_view symbol, const Number& value);
+
+  Symbol(const Symbol& other);
+  Symbol(char symbol, const Symbol& other);
+  Symbol(const char* symbol, const Symbol& other);
+  Symbol(std::string symbol, const Symbol& other);
+  Symbol(std::string_view symbol, const Symbol& other);
 
   std::string GetSymbol() const noexcept;
   std::shared_ptr<std::pair<bool, Number>> GetValue() const noexcept;
@@ -40,7 +47,7 @@ class Symbol {
 
   bool operator==(const Symbol& rhs) const;
   bool operator!=(const Symbol& rhs) const;
-  friend std::ostream& operator<<(std::ostream& os, Symbol& symbol);
+
   friend std::ostream& operator<<(std::ostream& os, const Symbol& symbol);
   friend std::istream& operator>>(std::istream& in, Symbol& symbol);
 

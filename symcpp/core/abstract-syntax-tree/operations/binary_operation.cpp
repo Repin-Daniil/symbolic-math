@@ -18,6 +18,10 @@ bool BinaryOperation::IsContainVariable(const Symbol& variable) {
   return left_argument_->IsContainVariable(variable) || right_argument_->IsContainVariable(variable);
 }
 
+bool BinaryOperation::IsA(constants::Expressions node_type) {
+  return node_type == constants::Expressions::BINARY_OPERATION || GetType() == node_type;
+}
+
 std::unique_ptr<TreeNode> BinaryOperation::Substitute(
     const std::unordered_map<Symbol, std::unique_ptr<TreeNode>, SymbolHash>& variable_to_value) {
   if (auto new_left = left_argument_->Substitute(variable_to_value)) {

@@ -17,14 +17,15 @@ class BinaryOperation : public TreeNode {
   }
 
   bool IsContainVariable(const Symbol& variable) override;
+  bool IsA(constants::Expressions node_type) override;
+
   virtual std::unique_ptr<TreeNode> ReleaseLeftArgument();
   virtual std::unique_ptr<TreeNode> ReleaseRightArgument();
   std::unique_ptr<TreeNode> Substitute(
       const std::unordered_map<Symbol, std::unique_ptr<TreeNode>, SymbolHash>& variable_to_value) override;
-  virtual ~BinaryOperation() = default;
 
  protected:
-  virtual std::optional<Number> GetNumber(const std::unique_ptr<TreeNode>& result) const;
+  [[nodiscard]] virtual std::optional<Number> GetNumber(const std::unique_ptr<TreeNode>& result) const;
 
  protected:
   std::unique_ptr<TreeNode> left_argument_;

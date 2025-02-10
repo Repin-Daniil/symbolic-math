@@ -54,6 +54,10 @@ bool NumberNode::IsContainVariable(const Symbol& variable) {
   return false;
 }
 
+bool NumberNode::IsA(constants::Expressions node_type) {
+  return node_type == constants::Expressions::OPERAND || GetType() == node_type;
+}
+
 std::unique_ptr<TreeNode> NumberNode::Clone() {
   return std::make_unique<NumberNode>(value_);
 }

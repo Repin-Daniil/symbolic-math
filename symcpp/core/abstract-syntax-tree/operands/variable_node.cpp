@@ -1,8 +1,10 @@
 #include "variable_node.h"
 
-#include <string>
 #include <memory>
+#include <string>
 #include <unordered_map>
+
+#include "core/abstract-syntax-tree/operations/binary_operation.h"
 
 namespace symcpp::math {
 
@@ -28,6 +30,10 @@ std::string Variable::GetRPN() {
 
 constants::Expressions Variable::GetType() {
   return constants::Expressions::VARIABLE;
+}
+
+bool Variable::IsA(constants::Expressions node_type) {
+  return node_type == constants::Expressions::OPERAND || GetType() == node_type;
 }
 
 std::unique_ptr<TreeNode> Variable::Simplify() {

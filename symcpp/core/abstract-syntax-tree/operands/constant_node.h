@@ -17,6 +17,7 @@ class Constant final : public TreeNode {
 
   bool IsContainVariable(const Symbol& variable) override;
   constants::Expressions GetType() override;
+  bool IsA(constants::Expressions node_type) override;
 
   std::string GetLatex(int previous_priority) override;
   std::string GetInfix(int previous_priority) override;
