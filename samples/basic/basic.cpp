@@ -1,12 +1,9 @@
-#include <iostream>
-#include <thread>
-
+#include <array>
 #include "symcpp.h"
 #include "utils/logger/log.hpp"
 
 using namespace symcpp;
 using namespace std::literals;
-
 
 int main() {
   {
