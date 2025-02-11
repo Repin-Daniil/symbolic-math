@@ -4,8 +4,8 @@
 #include <sstream>
 #include <thread>
 #include <vector>
-#include "symcpp/utils/logger/log.hpp"
-#include "symcpp/utils/logger/log.hpp"  //check include-guards
+#include "utils/log.hpp"
+#include "utils/log.hpp"  //check include-guards
 
 using namespace symcpp::utils::log;
 

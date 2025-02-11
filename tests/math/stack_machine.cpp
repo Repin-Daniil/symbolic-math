@@ -3,8 +3,8 @@
 
 #include "../catch.hpp"
 
-#include "symcpp/core/engine/stack_calc/calculator.h"
-#include "symcpp/core/engine/stack_calc/calculator.h"  // check include guards
+#include "core/engine/stack_calc/calculator.h"
+#include "core/engine/stack_calc/calculator.h"  // check include guards
 
 TEST_CASE("3", "RPN") {
   symcpp::math::Calculator calc;

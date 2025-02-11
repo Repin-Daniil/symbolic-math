@@ -3,76 +3,47 @@ project(Math)
 
 set(CMAKE_CXX_STANDARD 20)
 
-include_directories(.)
-
 add_library(SYMCPP STATIC
-        symcpp/symcpp.h
+        src/expression.cpp
+        src/symbol.cpp
+        src/number.cpp
 
-        symcpp/constants_storage.h
+        src/core/abstract-syntax-tree/operations/unary_operation.cpp
+        src/core/abstract-syntax-tree/operations/binary_operation.cpp
 
-        symcpp/expression.h
-        symcpp/expression.cpp
-        symcpp/symbol.h
-        symcpp/symbol.cpp
-        symcpp/number.h
-        symcpp/number.cpp
+        src/core/abstract-syntax-tree/operands/number_node.cpp
+        src/core/abstract-syntax-tree/operands/variable_node.cpp
+        src/core/abstract-syntax-tree/operands/constant_node.cpp
 
-        symcpp/core/abstract-syntax-tree/node.h
-        symcpp/core/abstract-syntax-tree/operations/unary_operation.h
-        symcpp/core/abstract-syntax-tree/operations/unary_operation.cpp
-        symcpp/core/abstract-syntax-tree/operations/binary_operation.h
-        symcpp/core/abstract-syntax-tree/operations/binary_operation.cpp
+        src/core/abstract-syntax-tree/operations/binary/addition.cpp
+        src/core/abstract-syntax-tree/operations/binary/multiplication.cpp
+        src/core/abstract-syntax-tree/operations/binary/subtraction.cpp
+        src/core/abstract-syntax-tree/operations/binary/division.cpp
+        src/core/abstract-syntax-tree/operations/binary/exponentiation.cpp
 
-        symcpp/core/abstract-syntax-tree/operands/number_node.h
-        symcpp/core/abstract-syntax-tree/operands/number_node.cpp
-        symcpp/core/abstract-syntax-tree/operands/variable_node.h
-        symcpp/core/abstract-syntax-tree/operands/variable_node.cpp
-        symcpp/core/abstract-syntax-tree/operands/constant_node.h
-        symcpp/core/abstract-syntax-tree/operands/constant_node.cpp
+        src/core/abstract-syntax-tree/operations/unary/logarithm.cpp
+        src/core/abstract-syntax-tree/operations/unary/cos.cpp
+        src/core/abstract-syntax-tree/operations/unary/sin.cpp
+        src/core/abstract-syntax-tree/operations/unary/sqrt.cpp
+        src/core/abstract-syntax-tree/operations/unary/tangent.cpp
+        src/core/abstract-syntax-tree/operations/unary/unary_minus.cpp
 
-        symcpp/core/abstract-syntax-tree/operations/binary/addition.h
-        symcpp/core/abstract-syntax-tree/operations/binary/addition.cpp
-        symcpp/core/abstract-syntax-tree/operations/binary/multiplication.h
-        symcpp/core/abstract-syntax-tree/operations/binary/multiplication.cpp
-        symcpp/core/abstract-syntax-tree/operations/binary/subtraction.h
-        symcpp/core/abstract-syntax-tree/operations/binary/subtraction.cpp
-        symcpp/core/abstract-syntax-tree/operations/binary/division.h
-        symcpp/core/abstract-syntax-tree/operations/binary/division.cpp
-        symcpp/core/abstract-syntax-tree/operations/binary/exponentiation.h
-        symcpp/core/abstract-syntax-tree/operations/binary/exponentiation.cpp
-
-        symcpp/core/abstract-syntax-tree/operations/unary/logarithm.h
-        symcpp/core/abstract-syntax-tree/operations/unary/logarithm.cpp
-        symcpp/core/abstract-syntax-tree/operations/unary/cos.h
-        symcpp/core/abstract-syntax-tree/operations/unary/cos.cpp
-        symcpp/core/abstract-syntax-tree/operations/unary/sin.h
-        symcpp/core/abstract-syntax-tree/operations/unary/sin.cpp
-        symcpp/core/abstract-syntax-tree/operations/unary/sqrt.h
-        symcpp/core/abstract-syntax-tree/operations/unary/sqrt.cpp
-        symcpp/core/abstract-syntax-tree/operations/unary/tangent.h
-        symcpp/core/abstract-syntax-tree/operations/unary/tangent.cpp
-        symcpp/core/abstract-syntax-tree/operations/unary/unary_minus.h
-        symcpp/core/abstract-syntax-tree/operations/unary/unary_minus.cpp
-
-        symcpp/utils/converter/converter.h
-        symcpp/utils/converter/converter.cpp
-
-        symcpp/utils/helper/helper.h
-        symcpp/utils/helper/helper.cpp
-
-        symcpp/utils/parser/ast_builder.h
-        symcpp/utils/parser/ast_builder.cpp
-
-        symcpp/core/engine/stack_calc/calculator.h
-        symcpp/core/engine/stack_calc/calculator.cpp
-        symcpp/utils/logger/log.hpp
-        symcpp/utils/logger/log.cpp
+        src/utils/converter/converter.cpp
+        src/utils/helper/helper.cpp
+        src/utils/parser/ast_builder.cpp
+        src/core/engine/stack_calc/calculator.cpp
+        src/utils/logger/log.cpp
 )
 
-add_executable(simple samples/simple/simple.cpp)
-add_executable(basic samples/basic/basic.cpp)
-add_executable(tangent_builder samples/tangent_builder/tangent_builder.cpp)
-add_executable(interactive_calc samples/interactive/interactive.cpp)
+target_include_directories(SYMCPP PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+#FIXME remove public src
+
+
+add_executable(simple samples/simple.cpp)
+add_executable(basic samples/basic.cpp)
+add_executable(tangent_builder samples/tangent_builder.cpp)
+add_executable(interactive_calc samples/interactive.cpp)
+
 
 target_link_libraries(simple PRIVATE SYMCPP)
 target_link_libraries(basic PRIVATE SYMCPP)
@@ -93,6 +64,15 @@ add_executable(math_test tests/math/basic_test.cpp tests/catch.hpp)
 #        tests/api/symbol_test.cpp
 #tests/api/expression_test.cpp
 #        tests/api/number_test.cpp tests/catch.hpp)
+
+add_library(SYMCPP_TEST INTERFACE)
+target_include_directories(SYMCPP_TEST INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_link_libraries(SYMCPP_TEST INTERFACE SYMCPP)
+
+target_link_libraries(rpn_test PRIVATE SYMCPP_TEST)
+target_link_libraries(converter_test PRIVATE SYMCPP_TEST)
+target_link_libraries(logger_test PRIVATE SYMCPP_TEST)
+target_link_libraries(math_test PRIVATE SYMCPP_TEST)
 
 target_link_libraries(rpn_test PRIVATE SYMCPP)
 target_link_libraries(converter_test PRIVATE SYMCPP)

@@ -1,8 +1,8 @@
 #define CATCH_CONFIG_MAIN
 #include "../catch.hpp"
 
-#include "symcpp/utils/converter/converter.h"
-#include "symcpp/utils/converter/converter.h"  // check include guards
+#include "utils/converter/converter.h"
+#include "utils/converter/converter.h"  // check include guards
 
 using symcpp::utils::Converter;
 
