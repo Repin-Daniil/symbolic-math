@@ -1,5 +1,5 @@
 #include <iostream>
-#include "symcpp.h"
+#include "symcpp/symcpp.h"
 
 /**
  * @brief Example. Tangent builder
