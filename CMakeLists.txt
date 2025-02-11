@@ -3,7 +3,7 @@ project(Math)
 
 set(CMAKE_CXX_STANDARD 20)
 
-include_directories(symcpp)
+include_directories(.)
 
 add_library(SYMCPP STATIC
         symcpp/symcpp.h

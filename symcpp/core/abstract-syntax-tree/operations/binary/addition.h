@@ -8,11 +8,11 @@
 #include <utility>
 
 #include "subtraction.h"
-#include "core/abstract-syntax-tree/operands/number_node.h"
-#include "core/abstract-syntax-tree/operations/binary_operation.h"
-#include "core/abstract-syntax-tree/operations/unary_operation.h"
-#include "constants_storage.h"
-#include "utils/helper/helper.h"
+#include "symcpp/constants_storage.h"
+#include "symcpp/core/abstract-syntax-tree/operands/number_node.h"
+#include "symcpp/core/abstract-syntax-tree/operations/binary_operation.h"
+#include "symcpp/core/abstract-syntax-tree/operations/unary_operation.h"
+#include "symcpp/utils/helper/helper.h"
 
 namespace symcpp::math {
 

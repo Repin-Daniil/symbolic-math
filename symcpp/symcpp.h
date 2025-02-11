@@ -3,8 +3,8 @@
 #include <numbers>
 
 #include "expression.h"
-#include "number.h"
-#include "symbol.h"
+#include "symcpp/number.h"
+#include "symcpp/symbol.h"
 
 namespace symcpp {
 

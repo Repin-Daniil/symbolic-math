@@ -7,9 +7,9 @@
 #include <variant>
 
 #include "number_node.h"
-#include "core/abstract-syntax-tree/node.h"
-#include "constants_storage.h"
-#include "symbol.h"
+#include "symcpp/core/abstract-syntax-tree/node.h"
+#include "symcpp/constants_storage.h"
+#include "symcpp/symbol.h"
 
 namespace symcpp::math {
 

@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <string>
 #include <valarray>
-#include "constants_storage.h"
+#include "symcpp/constants_storage.h"
 
 namespace symcpp {
 

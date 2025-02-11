@@ -8,8 +8,8 @@
 #include <utility>
 
 #include "cos.h"
-#include "core/abstract-syntax-tree/operations/binary/multiplication.h"
-#include "core/abstract-syntax-tree/operations/unary_operation.h"
+#include "symcpp/core/abstract-syntax-tree/operations/binary/multiplication.h"
+#include "symcpp/core/abstract-syntax-tree/operations/unary_operation.h"
 
 namespace symcpp::math {
 

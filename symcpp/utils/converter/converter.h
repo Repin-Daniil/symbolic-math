@@ -6,7 +6,7 @@
 #include <string>
 #include <string_view>
 
-#include "utils/helper/helper.h"
+#include "symcpp/utils/helper/helper.h"
 
 namespace symcpp::utils {
 

@@ -7,10 +7,10 @@
 #include <string>
 #include <unordered_map>
 
-#include "core/abstract-syntax-tree/node.h"
-#include "constants_storage.h"
-#include "number.h"
-#include "symbol.h"
+#include "symcpp/core/abstract-syntax-tree/node.h"
+#include "symcpp/constants_storage.h"
+#include "symcpp/number.h"
+#include "symcpp/symbol.h"
 
 namespace symcpp::math {
 

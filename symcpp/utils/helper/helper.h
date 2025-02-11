@@ -6,8 +6,8 @@
 #include <string>
 #include <string_view>
 
-#include "constants_storage.h"
-#include "number.h"
+#include "symcpp/constants_storage.h"
+#include "symcpp/number.h"
 
 namespace symcpp::utils {
 

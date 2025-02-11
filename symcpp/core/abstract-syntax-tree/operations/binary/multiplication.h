@@ -7,9 +7,9 @@
 #include <utility>
 
 #include "addition.h"
-#include "core/abstract-syntax-tree/operands/number_node.h"
-#include "core/abstract-syntax-tree/operations/binary_operation.h"
-#include "utils/helper/helper.h"
+#include "symcpp/core/abstract-syntax-tree/operands/number_node.h"
+#include "symcpp/core/abstract-syntax-tree/operations/binary_operation.h"
+#include "symcpp/utils/helper/helper.h"
 
 namespace symcpp::math {
 

@@ -5,8 +5,8 @@
 #include <unordered_map>
 #include <utility>
 
-#include "core/abstract-syntax-tree/node.h"
-#include "core/abstract-syntax-tree/operands/number_node.h"
+#include "symcpp/core/abstract-syntax-tree/node.h"
+#include "symcpp/core/abstract-syntax-tree/operands/number_node.h"
 
 namespace symcpp::math {
 

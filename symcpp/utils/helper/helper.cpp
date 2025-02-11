@@ -1,7 +1,7 @@
 #include "helper.h"
 
 #include <limits>
-#include "number.h"
+#include "symcpp/number.h"
 
 namespace symcpp::utils {
 

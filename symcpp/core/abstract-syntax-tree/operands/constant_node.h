@@ -4,9 +4,9 @@
 #include <string>
 #include <unordered_map>
 
-#include "core/abstract-syntax-tree/node.h"
-#include "constants_storage.h"
-#include "symbol.h"
+#include "symcpp/constants_storage.h"
+#include "symcpp/core/abstract-syntax-tree/node.h"
+#include "symcpp/symbol.h"
 
 namespace symcpp::math {
 

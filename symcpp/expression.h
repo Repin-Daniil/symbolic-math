@@ -8,9 +8,9 @@
 #include <utility>
 #include <vector>
 
-#include "core/abstract-syntax-tree/ast.h"
-#include "core/abstract-syntax-tree/operands/constant_node.h"
-#include "utils/converter/converter.h"
+#include "symcpp/core/abstract-syntax-tree/ast.h"
+#include "symcpp/core/abstract-syntax-tree/operands/constant_node.h"
+#include "symcpp/utils/converter/converter.h"
 
 namespace symcpp {
 

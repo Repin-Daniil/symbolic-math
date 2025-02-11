@@ -4,7 +4,7 @@
 #include <string>
 #include <unordered_map>
 
-#include "core/abstract-syntax-tree/operations/binary_operation.h"
+#include "symcpp/core/abstract-syntax-tree/operations/binary_operation.h"
 
 namespace symcpp::math {
 

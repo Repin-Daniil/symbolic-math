@@ -13,9 +13,9 @@
 #include <utility>
 #include <vector>
 
-#include "core/abstract-syntax-tree/ast.h"
-#include "constants_storage.h"
-#include "utils/helper/helper.h"
+#include "symcpp/core/abstract-syntax-tree/ast.h"
+#include "symcpp/constants_storage.h"
+#include "symcpp/utils/helper/helper.h"
 
 namespace symcpp::utils {
 

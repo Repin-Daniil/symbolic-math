@@ -7,10 +7,10 @@
 #include <unordered_map>
 #include <utility>
 
-#include "core/abstract-syntax-tree/operands/number_node.h"
-#include "core/abstract-syntax-tree/operations/binary/division.h"
-#include "core/abstract-syntax-tree/operations/binary/multiplication.h"
-#include "core/abstract-syntax-tree/operations/unary_operation.h"
+#include "symcpp/core/abstract-syntax-tree/operands/number_node.h"
+#include "symcpp/core/abstract-syntax-tree/operations/binary/division.h"
+#include "symcpp/core/abstract-syntax-tree/operations/binary/multiplication.h"
+#include "symcpp/core/abstract-syntax-tree/operations/unary_operation.h"
 
 namespace symcpp::math {
 

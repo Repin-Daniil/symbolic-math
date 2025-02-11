@@ -4,8 +4,8 @@
 #include <ostream>
 #include <string>
 #include <utility>
-#include "number.h"
-#include "utils/logger/log.hpp"
+#include "symcpp/number.h"
+#include "symcpp/utils/logger/log.hpp"
 
 namespace symcpp {
 

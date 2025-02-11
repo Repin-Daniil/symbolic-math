@@ -6,7 +6,7 @@
 #include <utility>
 #include <vector>
 
-#include "utils/parser/ast_builder.h"
+#include "symcpp/utils/parser/ast_builder.h"
 
 namespace symcpp {
 

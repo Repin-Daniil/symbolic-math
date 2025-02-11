@@ -4,8 +4,8 @@
 #include <string>
 #include <utility>
 
-#include "core/abstract-syntax-tree/operations/unary/logarithm.h"
-#include "symcpp.h"
+#include "symcpp/core/abstract-syntax-tree/operations/unary/logarithm.h"
+#include "symcpp/symcpp.h"
 
 namespace symcpp::math {
 

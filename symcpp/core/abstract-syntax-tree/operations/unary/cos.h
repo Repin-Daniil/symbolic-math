@@ -8,8 +8,8 @@
 #include <utility>
 
 #include "sin.h"
-#include "core/abstract-syntax-tree/operations/binary/multiplication.h"
-#include "core/abstract-syntax-tree/operations/unary_operation.h"
+#include "symcpp/core/abstract-syntax-tree/operations/binary/multiplication.h"
+#include "symcpp/core/abstract-syntax-tree/operations/unary_operation.h"
 #include "unary_minus.h"
 
 namespace symcpp::math {

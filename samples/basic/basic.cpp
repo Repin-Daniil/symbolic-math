@@ -1,6 +1,6 @@
 #include <array>
-#include "symcpp.h"
-#include "utils/logger/log.hpp"
+#include "symcpp/symcpp.h"
+#include "symcpp/utils/logger/log.hpp"
 
 using namespace symcpp;
 using namespace std::literals;

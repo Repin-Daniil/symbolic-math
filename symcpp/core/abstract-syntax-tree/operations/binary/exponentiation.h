@@ -9,7 +9,7 @@
 
 #include "addition.h"
 
-#include "core/abstract-syntax-tree/operations/binary_operation.h"
+#include "symcpp/core/abstract-syntax-tree/operations/binary_operation.h"
 
 namespace symcpp::math {
 

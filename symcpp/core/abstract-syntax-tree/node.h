@@ -5,9 +5,9 @@
 #include <string>
 #include <unordered_map>
 
-#include "constants_storage.h"
-#include "number.h"
-#include "symbol.h"
+#include "symcpp/constants_storage.h"
+#include "symcpp/number.h"
+#include "symcpp/symbol.h"
 
 namespace symcpp::math {
 

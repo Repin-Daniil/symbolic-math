@@ -6,8 +6,8 @@
 #include <unordered_map>
 #include <utility>
 
-#include "core/abstract-syntax-tree/operations/binary/division.h"
-#include "core/abstract-syntax-tree/operations/unary_operation.h"
+#include "symcpp/core/abstract-syntax-tree/operations/binary/division.h"
+#include "symcpp/core/abstract-syntax-tree/operations/unary_operation.h"
 
 namespace symcpp::math {
 
