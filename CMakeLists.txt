@@ -40,13 +40,11 @@ target_include_directories(SYMCPP PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include PUB
 
 
 add_executable(simple samples/simple.cpp)
-add_executable(basic samples/basic.cpp)
 add_executable(tangent_builder samples/tangent_builder.cpp)
 add_executable(interactive_calc samples/interactive.cpp)
 
 
 target_link_libraries(simple PRIVATE SYMCPP)
-target_link_libraries(basic PRIVATE SYMCPP)
 target_link_libraries(tangent_builder PRIVATE SYMCPP)
 target_link_libraries(interactive_calc PRIVATE SYMCPP)
 

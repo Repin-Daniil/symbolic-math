@@ -9,8 +9,8 @@
 
 #include "constants_storage.h"
 #include "core/abstract-syntax-tree/node.h"
-#include "number.h"
-#include "symbol.h"
+#include <symcpp/number.h>
+#include <symcpp/symbol.h>
 
 namespace symcpp::math {
 

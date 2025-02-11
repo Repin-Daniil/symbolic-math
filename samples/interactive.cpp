@@ -1,5 +1,5 @@
+#include <symcpp/symcpp.h>
 #include <iostream>
-#include <symcpp.h>
 
 /**
  * @brief Example of interactive calculations

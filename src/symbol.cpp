@@ -1,4 +1,4 @@
-#include "symbol.h"
+#include <symcpp/symbol.h>
 
 #include <memory>
 #include <string>

@@ -6,7 +6,7 @@
 
 #include "constants_storage.h"
 #include "core/abstract-syntax-tree/node.h"
-#include "symbol.h"
+#include <symcpp/symbol.h>
 
 namespace symcpp::math {
 

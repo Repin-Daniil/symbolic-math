@@ -1,9 +1,9 @@
-#include "number.h"
+#include <symcpp/number.h>
 
 #include <algorithm>
 #include <string>
 
-#include "expression.h"
+#include <symcpp/expression.h>
 
 namespace symcpp {
 
