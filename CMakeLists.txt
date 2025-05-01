@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22)
+   cmake_minimum_required(VERSION 3.22)
 project(Math)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -52,7 +52,8 @@ target_link_libraries(interactive_calc PRIVATE SYMCPP)
 enable_testing()
 
 add_executable(rpn_test tests/math/stack_machine.cpp tests/catch.hpp)
-add_executable(converter_test tests/utils/converter_test.cpp tests/catch.hpp)
+add_executable(converter_test tests/utils/converter_test.cpp tests/catch.hpp
+)
 add_executable(logger_test tests/utils/logger_test.cpp tests/catch.hpp)
 
 #add_executable(derivative_test tests/math/derivative.cpp tests/catch.hpp)

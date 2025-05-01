@@ -1,4 +1,6 @@
 #include <symcpp/symcpp.h>
+
+#include <complex>
 #include <iostream>
 
 /**
@@ -7,37 +9,49 @@
 int main() {
   using namespace symcpp;
 
+  utils::log::SetLogTimeEnabled(false);
+  utils::log::SetLogLocationEnabled(false);
+  utils::log::SetThreadSyncEnabled(false);
+
   Symbol x('x'), y('y');
   Number num = 17;
 
-  Expression exp("x + ln(y^2)", {x, y});
-  std::cout << "exp = " << exp << std::endl;
+  Notebook in;
+  in[0] = Expression("x + ln(y^2)", {x, y});
 
-  exp = Pow(x, 2) * 13 + Sin(pi * y);
-  std::cout << "exp = " << exp << std::endl;
+  LOG_INFO() << "in[0] = " << in[0];
+
+  in[1] = Pow(x, 2) * 13 + Sin(pi * y);
+  LOG_INFO() << "in[1] = " << in[1];
+
   x = 3;
-  std::cout << "exp = " << exp << std::endl;
-  y = num / 2;
-  std::cout << "exp = " << exp << std::endl;
 
-  Number result = exp;
-  std::cout << "result = " << result << std::endl;
+  LOG_INFO() << "in[1] = " << in[1];
+
+  y = num / 2;
+
+  LOG_INFO() << "in[1] = " << in[1];
+
+  Number result = in[1];
+  LOG_INFO() << "result = " << result;
 
   x.Reset();
-  std::cout << "exp = " << exp << std::endl;
-  std::cout << "exp = " << Infix(exp) << std::endl;
+  LOG_INFO() << 'x reset';
+  LOG_INFO() << "in[1] = " << in[1];
+  LOG_INFO() << "in[1] = " << Infix(in[1]);
   y.Reset();
-  std::cout << "exp = " << exp << std::endl;
+  LOG_INFO() << 'y reset';
+  LOG_INFO() << "in[1] = " << in[1];
 
-  auto derivative_of_func_x = Diff(exp, x);
-  std::cout << "f`x(x,y) = " << derivative_of_func_x << std::endl;
+  auto d_x = Diff(in[1], x);
+  LOG_INFO() << "f`x(x,y) = " << d_x;
 
-  auto derivative_of_func_y = Diff(exp, y);
-  std::cout << "f`y(x,y) = " << derivative_of_func_y << std::endl;
+  auto d_y = Diff(in[1], y);
+  LOG_INFO() << "f`y(x,y) = " << d_y;
 
-  Number result_2 = Evaluate(Log(exp), {{x, 14}, {y, 17}});
-  std::cout << "result_2 = " << result_2 << std::endl;
+  Number result_2 = Evaluate(Log(in[1]), {{x, 14}, {y, 17}});
+  LOG_INFO() << "result_2 = " << result_2;
 
-  std::cout << "RPN = " << RPN(exp + Log(Pow(x, y))) << std::endl;
-  std::cout << "LaTeX = " << Latex(exp + Log(Pow(x, y))) << std::endl;
+  LOG_INFO() << "RPN = " << RPN(in[1] + Log(Pow(x, y)));
+  LOG_INFO() << "LaTeX = " << Latex(in[1] + Log(Pow(x, y)));
 }

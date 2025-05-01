@@ -13,8 +13,8 @@ int main() {
   auto func = 12 * Sin(Log(x) * x) - Pow(x, Tan(x));
   std::cout << "f(x) = " << func << std::endl;
 
-  auto derivative = Diff(func, x);
-  std::cout << "f`(x) = " << derivative << std::endl;
+  auto d_x = Diff(func, x);
+  std::cout << "f`(x) = " << d_x << std::endl;
 
   while (true) {
     int input;
@@ -26,7 +26,7 @@ int main() {
     auto y = Evaluate(func);
     std::cout << "f(" << x << ") = " << y << std::endl;
 
-    auto k = Evaluate(derivative);
+    auto k = Evaluate(d_x);
     auto b = Evaluate(y - k * x);
 
     auto tangent = k * x + b;

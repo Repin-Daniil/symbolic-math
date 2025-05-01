@@ -1,4 +1,4 @@
-#include "calculator.h"
+ #include "calculator.h"
 
 #include <stack>
 #include <string>

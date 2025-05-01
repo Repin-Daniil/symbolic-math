@@ -11,4 +11,6 @@ namespace symcpp {
 const Symbol pi("pi", std::numbers::pi);
 const Symbol e("e", std::numbers::e);
 
+using Notebook = std::array<Expression, 25>;
+
 }  // namespace symcpp
